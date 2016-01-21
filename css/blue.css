@@ -63,8 +63,8 @@ label.label-radio input[type="checkbox"]:checked ~ .item-inner, label.label-radi
 /* HOME BG AND PAGES HEADER BG */
 /*===============================================*/	
 .homepage{
-/*background: url(../images/bg.jpg) no-repeat center center;*/
-background-color: #6699ff;
+background: url(../images/bg.jpg) no-repeat center center;
+/*background-color: #6699ff;*/
 background-attachment:fixed;
 -webkit-background-size: 100%; 
 -moz-background-size: 100%;
