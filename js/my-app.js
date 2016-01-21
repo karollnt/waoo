@@ -5,7 +5,8 @@ var myApp = new Framework7({
 	swipeBackPage: false,
 	swipeBackPageThreshold: 1,
 	pushState: false,
-    template7Pages: true
+    template7Pages: true,
+	cache: false
 });
 
 //backend server address
@@ -23,10 +24,18 @@ var mainView = myApp.addView('.view-main', {
 
 
 jQuery(document).ready(function() {
-"use strict"; 
+	"use strict";
 	var loggedin = window.localStorage.getItem("nickname");
 	if(!loggedin){
 		myApp.popup(".popup-login");//formulario de login
+		$("#loginimg").prop("src","images/icons/blue/user.png");
+		$("#loginsp").html("Iniciar sesi&oacute;n");
+		//$("#loginimg").parent().addClass("open-popup");
+	}
+	else{
+		$("#loginimg").prop("src","images/icons/blue/logout.png");
+		$("#loginsp").html("Cerrar sesi&oacute;n");
+		//$("#loginimg").parent().removeClass("open-popup");
 	}
 	
 	$('#LoginForm').on('submit', function(e) { //use on if jQuery 1.7+
@@ -44,11 +53,6 @@ jQuery(document).ready(function() {
 		register2();
 		return false;
     });
-	
-	//pendiente, no funciona asi :/
-	/*$("#fregistro .close_loginpopup_button a").click(function(e){
-		myApp.loginScreen(".popup-login");
-	});*/
 	
 	$(".logo").animate({'top': '20px'},'slow',"easeInOutCirc");
 	$(".cartitems").delay(1000).animate({'width': '30px', 'height': '30px', 'top':'10px', 'right':'10px', 'opacity':1},1000,"easeOutBounce");
