@@ -21,7 +21,11 @@ var mainView = myApp.addView('.view-main', {
     dynamicNavbar: false
 });
 
-
+function cargaPagina(url){
+	var loggedin = window.localStorage.getItem("nickname");
+	if(!loggedin) myApp.popup(".popup-login");
+	else mainView.router.loadPage(url);
+}
 
 jQuery(document).ready(function() {
 	"use strict";
