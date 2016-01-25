@@ -35,11 +35,14 @@ jQuery(document).ready(function() {
 		$("#loginimg").prop("src","images/icons/blue/user.png");
 		$("#loginsp").html("Iniciar sesi&oacute;n");
 		//$("#loginimg").parent().addClass("open-popup");
+		$("#loginimg").parent().bind('click',function(){myApp.popup(".popup-login");});
 	}
 	else{
 		$("#loginimg").prop("src","images/icons/blue/logout.png");
 		$("#loginsp").html("Cerrar sesi&oacute;n");
 		//$("#loginimg").parent().removeClass("open-popup");
+		$("#loginimg").parent().unbind('click');
+		$("#loginimg").parent().bind('click',function(){logout();});
 	}
 	
 	$('#LoginForm').on('submit', function(e) { //use on if jQuery 1.7+

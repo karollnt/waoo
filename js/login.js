@@ -33,7 +33,6 @@ function logout(){
 	$("#loginsp").html("Iniciar sesi&oacute;n");
 	myApp.popup(".popup-login");
 	$("#loginimg").parent().bind('click',function(){myApp.popup(".popup-login");});
-	console.log(window.localStorage.getItem("nickname"));
 }
 
 function register(){
