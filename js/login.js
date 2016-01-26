@@ -72,3 +72,24 @@ function verificarLog(){
 	if(loggedin) return true;
 	else return false;
 }
+
+function cargarBancoSelect(id){
+	$("#"+id).html('');
+	$.ajax({
+		type: "post",
+		url: "http://"+waooserver+"/waoobackend/bancos/listaBancos",
+		dataType: "json",
+		data: "",
+		success: function(resp) {
+			if(resp.error) $("#"+id).append("<option value='0'>"+resp.error+"</option>");
+			else{
+				$.each(resp.bancos,function(i,v){
+					$("#"+id).append("<option value='"+v.id+"'>"+v.nombre+"</option>");
+				});
+			}
+		},
+		error: function(e) {
+			alert('Error: ' + e.message);
+		}
+	});
+}
