@@ -10,22 +10,22 @@
 				<h2 class="page_title">Registrar solicitud</h2>
 				<div class="page_content"> 
 					<div class="contactform">
-						<form>
+						<form id="creasolicitud">
 							<div class="form_row">
 								<label>T&iacute;tulo:</label>
 								<input type="text" name="titulo" value="" class="form_input"/>
 							</div>
 							<div class="form_row">
 								<label>Materia:</label>
-								<select id="materia" name="materia" class="form_select"></select>
+								<select id="materia" name="idmateria" class="form_select"><option>z</option></select>
 							</div>
 							<div class="form_row">
 								<label>Detalles del trabajo:</label>
-								<textarea name="message" class="form_textarea" rows="" cols=""></textarea>
+								<textarea name="descripcion" class="form_textarea" rows="" cols=""></textarea>
 							</div>
 							<div class="form_row">
 								<label>Archivo:</label>
-								<input type="file" name="archivo"/>
+								<input type="file" name="archivo" class="form_input"/>
 							</div>
 							<input type="submit" name="submit" class="form_submit" id="submit" value="Enviar solicitud" />
 						</form>

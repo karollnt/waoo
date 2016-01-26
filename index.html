@@ -119,7 +119,7 @@
 							   <nav class="main-nav">
 								<ul>
 								  <li><a href="#" data-popup=".popup-login" class="open-popup"><img id="loginimg" src="images/icons/blue/user.png" alt="" title="" /><span id='loginsp'>Iniciar sesi&oacute;n</span></a></li>
-								  <li><a href="#" onclick="cargaPagina('data/crearsolicitud.html');"><img src="images/icons/blue/user.png" alt="" title="" /><span>Crear solicitud</span></a></li>
+								  <li><a href="#" onclick="cargaPagina('data/crearsolicitud.html',2);"><img src="images/icons/blue/user.png" alt="" title="" /><span>Crear solicitud</span></a></li>
 								  <li><a href="#" onclick="cargaPagina('data/solicitudes.html');"><img src="images/icons/blue/shop.png" alt="" title="" /><span>Mis solicitudes</span></a></li>
 								  <li><a href="#" onclick="cargaPagina('data/configuracion.html');"><img src="images/icons/blue/settings.png" alt="" title="" /><span>Configuraci&oacute;n</span></a></li>
 								  <li><a href="#" data-panel="left" class="open-panel"><img src="images/icons/blue/cart.png" alt="" title="" /><span>Notificaciones</span><div class="cartitems">3</div></a></li>
@@ -213,31 +213,43 @@
 		<div class="popup popup-signup2">
 			<div class="content-block-login">
 				<h4>Reg&iacute;strate</h4>
-				<div class="loginform">
+				<div class="loginform contactform">
 					<form id="RegisterForm2" method="post">
 						<div class="form_row">
-							<div class="form_row_icon"><img src="images/icons/white/user.png" alt="" title="" /></div>
+							<div class="form_row_icon"><img src="images/icons/blue/user.png" alt="" title="" /></div>
 							<input type="text" name="nickname" value="" class="form_input required" placeholder="nickname" />
 						</div>
 						<div class="form_row">
-							<div class="form_row_icon"><img src="images/icons/white/contact.png" alt="" title="" /></div>
+							<div class="form_row_icon"><img src="images/icons/blue/contact.png" alt="" title="" /></div>
 							<input type="text" name="email" value="" class="form_input required" placeholder="email" />
 						</div>
 						<div class="form_row">
-							<div class="form_row_icon"><img src="images/icons/white/lock.png" alt="" title="" /></div>
+							<div class="form_row_icon"><img src="images/icons/blue/lock.png" alt="" title="" /></div>
 							<input type="password" name="clave" value="" class="form_input required" placeholder="password" />
 						</div>
 						<div class="form_row">
-							<div class="form_row_icon"><img src="images/icons/white/user.png" alt="" title="" /></div>
+							<div class="form_row_icon"><img src="images/icons/blue/user.png" alt="" title="" /></div>
 							<input type="text" name="nombre" value="" class="form_input required" placeholder="nombre(s)" />
 						</div>
 						<div class="form_row">
-							<div class="form_row_icon"><img src="images/icons/white/user.png" alt="" title="" /></div>
+							<div class="form_row_icon"><img src="images/icons/blue/user.png" alt="" title="" /></div>
 							<input type="text" name="apellido" value="" class="form_input required" placeholder="apellido(s)" />
 						</div>
 						<div class="form_row">
-							<div class="form_row_icon"><img src="images/icons/white/mobile.png" alt="" title="" /></div>
-							<input type="text" name="celular" value="" class="form_input" placeholder="celular(opcional)" />
+							<div class="form_row_icon"><img src="images/icons/blue/mobile.png" alt="" title="" /></div>
+							<input type="text" name="celular" value="" class="form_input" placeholder="celular" />
+						</div>
+						<div class="form_row">
+							<div class="form_row_icon"><img src="images/icons/blue/mobile.png" alt="" title="" /></div>
+							<input type="text" name="celular" value="" class="form_input" placeholder="celular" />
+						</div>
+						<div class="form_row">
+							<div class="form_row_icon"><img src="images/icons/blue/shop.png" alt="" title="" /></div>
+							<select id="banco" name="idbanco" class="form_select"></select>
+						</div>
+						<div class="form_row">
+							<div class="form_row_icon">&nbsp;</div>
+							<input type="text" name="numerocuenta" value="" class="form_input" placeholder="N&uacute;mero de cuenta (Donde recibiras tus pagos)" />
 						</div>
 						<input type="submit" name="submit" class="form_submit" id="submit" value="Registrarse" />
 					</form>
@@ -315,5 +327,6 @@
 		<script type="text/javascript" src="js/jquery.swipebox.js"></script>
 		<script type="text/javascript" src="js/email.js"></script>
 		<script type="text/javascript" src="js/login.js"></script>
+		<script type="text/javascript" src="js/solicitudes.js"></script>
 	</body>
 </html>

@@ -21,10 +21,13 @@ var mainView = myApp.addView('.view-main', {
     dynamicNavbar: false
 });
 
-function cargaPagina(url){
+function cargaPagina(url,num){
 	var loggedin = window.localStorage.getItem("nickname");
 	if(!loggedin) myApp.popup(".popup-login");
-	else mainView.router.loadPage(url);
+	else{
+		mainView.router.loadPage(url);
+		if(num==2) setTimeout(function(){cargarMateriaSelect("materia");},1000);
+	}
 }
 
 jQuery(document).ready(function() {
@@ -50,16 +53,23 @@ jQuery(document).ready(function() {
 		login();
 		return false;
     });
-	$('#RegisterForm').on('submit', function(e) { //use on if jQuery 1.7+
-        e.preventDefault();  //prevent form from submitting
+	$('#RegisterForm').on('submit', function(e) {
+        e.preventDefault();
 		register();
 		return false;
     });
-	$('#RegisterForm2').on('submit', function(e) { //use on if jQuery 1.7+
-        e.preventDefault();  //prevent form from submitting
+	$('#RegisterForm2').on('submit', function(e) {
+        e.preventDefault();
 		register2();
 		return false;
     });
+	$('#creasolicitud').on('submit', function(e) {
+        e.preventDefault();
+		creasolicitud();
+		return false;
+    });
+	
+	cargarBancoSelect("banco");
 	
 	$(".logo").animate({'top': '20px'},'slow',"easeInOutCirc");
 	$(".cartitems").delay(1000).animate({'width': '30px', 'height': '30px', 'top':'10px', 'right':'10px', 'opacity':1},1000,"easeOutBounce");
