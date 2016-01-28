@@ -25,9 +25,43 @@ function cargaPagina(url,num){
 	var loggedin = window.localStorage.getItem("nickname");
 	if(!loggedin) myApp.popup(".popup-login");
 	else{
-		mainView.router.loadPage(url);
-		if(num==2) setTimeout(function(){cargarMateriaSelect("materia");},1000);
+		mainView.router.loadPage(url+"?"+(Math.floor((Math.random() * 1000) + 1)));
+		if(num==2){
+			setTimeout(function(){
+				cargarMateriaSelect("materia");
+				$('#creasolicitud').on('submit', function(e) {
+					e.preventDefault();
+					creasolicitud();
+					return false;
+				});
+				cargaJQFU();
+			},1000);
+		}
 	}
+}
+
+function cargaJQFU(){
+	$('#fileupload').fileupload({
+        url: "http://"+waooserver+"/waoobackend/uploads",
+        dataType: 'json',
+        add: function (e, data) {
+            data.context = $('<p/>').text('Cargando...').appendTo(document.body);
+            data.submit();
+        },
+		done: function (e, data) {
+            $.each(data.result.files, function (index, file) {
+                $('<p/>').text(file.name).appendTo('#files');
+            });
+        },
+        progressall: function (e, data) {
+            var progress = parseInt(data.loaded / data.total * 100, 10);
+            $('#progress .progress-bar').css(
+                'width',
+                progress + '%'
+            );
+        }
+    }).prop('disabled', !$.support.fileInput)
+	.parent().addClass($.support.fileInput ? undefined : 'disabled');
 }
 
 jQuery(document).ready(function() {
@@ -61,11 +95,6 @@ jQuery(document).ready(function() {
 	$('#RegisterForm2').on('submit', function(e) {
         e.preventDefault();
 		register2();
-		return false;
-    });
-	$('#creasolicitud').on('submit', function(e) {
-        e.preventDefault();
-		creasolicitud();
 		return false;
     });
 	

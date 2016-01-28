@@ -1,6 +1,7 @@
 function creasolicitud(){
 	var n = window.localStorage.getItem("nickname");
 	var datos = $("#creasolicitud").serialize()+"&nickname="+n;
+	alert(datos);
 	$.ajax({
 		type: "post",
 		url: "http://"+waooserver+"/waoobackend/solicitudes/crearSolicitud",
