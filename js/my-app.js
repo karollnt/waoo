@@ -42,7 +42,7 @@ function cargaPagina(url,num){
 
 function cargaJQFU(){
 	$('#fileupload').fileupload({
-        url: "http://"+waooserver+"/waoobackend/uploads",
+        url: "http://"+waooserver+"/waoobackend/upload/do_upload",
         dataType: 'json',
         add: function (e, data) {
             data.context = $('<p/>').text('Cargando...').appendTo(document.body);
