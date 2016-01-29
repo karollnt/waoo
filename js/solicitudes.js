@@ -4,7 +4,7 @@ function creasolicitud(){
 	alert(datos);
 	$.ajax({
 		type: "post",
-		url: "http://"+waooserver+"/waoobackend/solicitudes/crearSolicitud",
+		url: waooserver+"/solicitudes/crearSolicitud",
 		dataType: "json",
 		data: datos,
 		success: function(resp) {
@@ -20,7 +20,7 @@ function cargarMateriaSelect(id){
 	$("#"+id).html('');
 	$.ajax({
 		type: "post",
-		url: "http://"+waooserver+"/waoobackend/materias/listarMaterias",
+		url: waooserver+"/materias/listarMaterias",
 		dataType: "json",
 		data: "",
 		success: function(resp) {

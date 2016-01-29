@@ -10,7 +10,7 @@ var myApp = new Framework7({
 });
 
 //backend server address
-var waooserver = "192.168.120.142";
+var waooserver = "http://192.168.120.142/waoobackend";
 
 // Export selectors engine
 var $$ = Dom7;
@@ -41,27 +41,26 @@ function cargaPagina(url,num){
 }
 
 function cargaJQFU(){
-	$('#fileupload').fileupload({
-        url: "http://"+waooserver+"/waoobackend/upload/do_upload",
-        dataType: 'json',
-        add: function (e, data) {
-            data.context = $('<p/>').text('Cargando...').appendTo(document.body);
-            data.submit();
-        },
-		done: function (e, data) {
-            $.each(data.result.files, function (index, file) {
-                $('<p/>').text(file.name).appendTo('#files');
-            });
-        },
-        progressall: function (e, data) {
-            var progress = parseInt(data.loaded / data.total * 100, 10);
-            $('#progress .progress-bar').css(
-                'width',
-                progress + '%'
-            );
-        }
-    }).prop('disabled', !$.support.fileInput)
-	.parent().addClass($.support.fileInput ? undefined : 'disabled');
+	$('#fileupload').fileupload({url:waooserver+"/upload/do_upload"});
+	$(document).ready(function () {
+		//$('#fileupload form').prop('action')
+		$.getJSON(waooserver+"/upload/do_upload", function (files) {
+			var fu = $('#fileupload').data('fileupload');
+			fu._adjustMaxNumberOfFiles(-files.length);
+			fu._renderDownload(files);
+			fu.appendTo($('#fileupload .files'))
+				.fadeIn(function () {
+					// Fix for IE7 and lower:
+					$(this).show();
+				});
+		});
+    });
+	/*$('#fileupload .files a:not([target^=_blank])').live('click', function (e) {
+        e.preventDefault();
+        $('<iframe style="display:none;"></iframe>')
+            .prop('src', this.href)
+            .appendTo('body');
+    });*/
 }
 
 jQuery(document).ready(function() {

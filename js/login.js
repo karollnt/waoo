@@ -4,7 +4,7 @@ function login(){
 	var datos = $("#LoginForm").serialize();
 	$.ajax({
 		type: "post",
-		url: "http://"+waooserver+"/waoobackend/sesiones/login",
+		url: waooserver+"/sesiones/login",
 		dataType: "json",
 		data: datos,
 		success: function(resp) {
@@ -39,7 +39,7 @@ function register(){
 	var datos = $("#RegisterForm").serialize();
 	$.ajax({
 		type: "post",
-		url: "http://"+waooserver+"/waoobackend/usuarios/crearUsuario",
+		url: waooserver+"/usuarios/crearUsuario",
 		dataType: "json",
 		data: datos,
 		success: function(resp) {
@@ -55,7 +55,7 @@ function register2(){
 	var datos = $("#RegisterForm2").serialize();
 	$.ajax({
 		type: "post",
-		url: "http://"+waooserver+"/waoobackend/usuarios/crearUsuario",
+		url: waooserver+"/usuarios/crearUsuario",
 		dataType: "json",
 		data: datos,
 		success: function(resp) {
@@ -77,7 +77,7 @@ function cargarBancoSelect(id){
 	$("#"+id).html('');
 	$.ajax({
 		type: "post",
-		url: "http://"+waooserver+"/waoobackend/bancos/listaBancos",
+		url: waooserver+"/bancos/listaBancos",
 		dataType: "json",
 		data: "",
 		success: function(resp) {
