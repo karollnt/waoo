@@ -10,7 +10,6 @@ var myApp = new Framework7({
 });
 
 //backend server address
-var waooserver = "http://192.168.120.142/waoobackend";
 
 // Export selectors engine
 var $$ = Dom7;
@@ -54,13 +53,13 @@ function cargaJQFU(){
 					$(this).show();
 				});
 		});
+		$('#fileupload .files a:not([target^=_blank])').on('click', function (e) {
+			e.preventDefault();
+			$('<iframe style="display:none;"></iframe>')
+				.prop('src', this.href)
+				.appendTo('body');
+		});
     });
-	/*$('#fileupload .files a:not([target^=_blank])').live('click', function (e) {
-        e.preventDefault();
-        $('<iframe style="display:none;"></iframe>')
-            .prop('src', this.href)
-            .appendTo('body');
-    });*/
 }
 
 jQuery(document).ready(function() {
