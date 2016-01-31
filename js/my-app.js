@@ -10,6 +10,7 @@ var myApp = new Framework7({
 });
 
 //backend server address
+var waooserver = "http://localhost/waoobackend";
 
 // Export selectors engine
 var $$ = Dom7;
@@ -33,31 +34,35 @@ function cargaPagina(url,num){
 					creasolicitud();
 					return false;
 				});
-				cargaJQFU();
+				//cargaJQFU();
 			},1000);
 		}
 	}
 }
 
 function cargaJQFU(){
-	$('#fileupload').fileupload({url:waooserver+"/upload/do_upload"});
+	//$('#fileupload').fileupload({url:waooserver+"/upload/do_upload"});
 	$(document).ready(function () {
-		//$('#fileupload form').prop('action')
-		$.getJSON(waooserver+"/upload/do_upload", function (files) {
-			var fu = $('#fileupload').data('fileupload');
-			fu._adjustMaxNumberOfFiles(-files.length);
-			fu._renderDownload(files);
-			fu.appendTo($('#fileupload .files'))
-				.fadeIn(function () {
-					// Fix for IE7 and lower:
-					$(this).show();
-				});
-		});
-		$('#fileupload .files a:not([target^=_blank])').on('click', function (e) {
+		$('#creasolicitud').submit(function(e) {
+			var n = window.localStorage.getItem("nickname");
+			var datos = $("#creasolicitud").serialize()+"&nickname="+n;
 			e.preventDefault();
-			$('<iframe style="display:none;"></iframe>')
-				.prop('src', this.href)
-				.appendTo('body');
+			$.ajaxFileUpload({
+				url: waooserver+"/solicitudes/crearSolicitud",
+				secureuri: false,
+				fileElementId: 'userfile',
+				dataType: 'json',
+				data: datos,
+				success	: function (data, status){
+					if(data.status != 'error'){
+						$('#files').html('<p>Reloading files...</p>');
+						refresh_files();
+						$('#title').val('');
+					}
+					alert(data.msg);
+				}
+			});
+			return false;
 		});
     });
 }

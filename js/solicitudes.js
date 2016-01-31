@@ -1,17 +1,17 @@
 function creasolicitud(){
 	var n = window.localStorage.getItem("nickname");
-	var datos = $("#creasolicitud").serialize()+"&nickname="+n;
-	alert(datos);
+	$("#nck").val(n);
+	var formData = new FormData( $("#creasolicitud")[0] );
 	$.ajax({
-		type: "post",
-		url: waooserver+"/solicitudes/crearSolicitud",
-		dataType: "json",
-		data: datos,
-		success: function(resp) {
-			alert(resp.msg);
-		},
-		error: function(e) {
-			alert('Error: ' + e.message);
+		url : waooserver+"/solicitudes/crearSolicitud",
+		type : 'POST',
+		data : formData,
+		async : false,
+		cache : false,
+		contentType : false,
+		processData : false,
+		success : function(data) {
+			alert(data.msg);
 		}
 	});
 }

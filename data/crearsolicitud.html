@@ -11,7 +11,7 @@
 				<div class="page_content"> 
 					<div class="contactform">
 						<div id="fileupload">
-							<form id="creasolicitud" method="POST" enctype="multipart/form-data">
+							<form id="creasolicitud" method="post" enctype="multipart/form-data">
 								<div class="form_row">
 									<label>T&iacute;tulo:</label>
 									<input type="text" name="titulo" value="" class="form_input"/>
@@ -24,18 +24,16 @@
 									<label>Detalles del trabajo:</label>
 									<textarea name="descripcion" class="form_textarea" rows="" cols=""></textarea>
 								</div>
-								<div class="fileupload-buttonbar">
+								<div class="form_row">
 									<label class="fileinput-button" id="fileinput" >
 										<span id='despuesd'>Adjuntar archivo</span>
-										<input id="fileinput2" type="file" name="files[]" >
 									</label>
+									<input type="file" name="uploadfile">
 								</div>
+								<input id="nck" type="hidden" name="nickname">
 								<input type="submit" name="submit" class="form_submit" id="submit" value="Enviar solicitud" />
 							</form>
-							<div class="fileupload-content">
-								<table class="files" id="filep"></table>
-								<div class="fileupload-progressbar"></div>
-							</div>
+							<div class = "upload-image-messages"></div>
 						</div>
 					</div>
 				</div>
