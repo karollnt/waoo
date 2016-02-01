@@ -37,6 +37,11 @@ function cargaPagina(url,num){
 				//cargaJQFU();
 			},1000);
 		}
+		else if(num==3){
+			setTimeout(function(){
+				cargaSolicitudesUsuario(loggedin);
+			},1000);
+		}
 	}
 }
 
@@ -102,6 +107,7 @@ jQuery(document).ready(function() {
     });
 	
 	cargarBancoSelect("banco");
+	listaChecksMateria("matsreg");
 	
 	$(".logo").animate({'top': '20px'},'slow',"easeInOutCirc");
 	$(".cartitems").delay(1000).animate({'width': '30px', 'height': '30px', 'top':'10px', 'right':'10px', 'opacity':1},1000,"easeOutBounce");

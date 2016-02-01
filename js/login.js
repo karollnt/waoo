@@ -44,6 +44,7 @@ function register(){
 		data: datos,
 		success: function(resp) {
 			alert(resp.msg);
+			$("#RegisterForm")[0].reset();
 		},
 		error: function(e) {
 			alert('Error: ' + e.message);
@@ -60,6 +61,7 @@ function register2(){
 		data: datos,
 		success: function(resp) {
 			alert(resp.msg);
+			$("#RegisterForm2")[0].reset();
 		},
 		error: function(e) {
 			alert('Error: ' + e.message);
@@ -90,6 +92,47 @@ function cargarBancoSelect(id){
 		},
 		error: function(e) {
 			alert('Error: ' + e.message);
+		}
+	});
+}
+
+function listaChecksMateria(id){
+	$("#"+id).html('Buscando');
+	$.ajax({
+		type: "post",
+		url: waooserver+"/materias/listarMaterias",
+		dataType: "json",
+		data: "",
+		success: function(resp) {
+			if(resp.error) $("#"+id).html("<div class='alert alert-danger'>"+resp.error+"</div>");
+			else{
+				$("#"+id).html("<table id='tmatsreg' class='table table-condensed'><caption><b>Materias en las que participar&aacute;s</b></caption></table>");
+				var colrwn = "";
+				var regs = resp.materias.length;
+				var regsf = 3;
+				$.each(resp.materias,function(i,v){
+					if(i==0 || i%regsf==0){
+						if(i>0) colrwn += "</tr>";
+						colrwn += "<tr>";
+					}
+					colrwn += "<td><label style='display:inline;'><input type='checkbox' id='mat_"+i+"' name='mat_"+i+"' value='"+v.id+"'> "+v.nombre+"</label></td>";
+					if(i>=(resp.materias.length-1)){
+						if(regs%regsf>0){
+							var fil = Math.round(regs/regsf);
+							var rest = (fil*regsf) - regs;
+							for(var i1=0;i1<rest;i1++){
+								colrwn += "<td></td>";
+							}
+						}
+						colrwn += "</tr>";
+					}
+				});
+				$("#cantmatsreg").val(regs);
+				$("#tmatsreg").append(colrwn);
+			}
+		},
+		error: function(e) {
+			$("#"+id).html("<div class='alert alert-danger'>"+e.message+"</div>");
 		}
 	});
 }

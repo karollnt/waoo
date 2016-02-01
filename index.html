@@ -15,7 +15,7 @@
 		<link type="text/css" rel="stylesheet" href="css/animations.css" />
 		<link type="text/css" rel="stylesheet" href="css/jquery.fileupload.css" />
 		<link type="text/css" rel="stylesheet" href="css/jquery.fileupload-ui.css" />
-		<link type="text/css" rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+		<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css">
 		<link href='http://fonts.googleapis.com/css?family=Roboto:400,300,900' rel='stylesheet' type='text/css'>
 	</head>
 	<body id="mobile_wrap">
@@ -123,7 +123,7 @@
 								<ul>
 								  <li><a href="#" data-popup=".popup-login" class="open-popup"><img id="loginimg" src="images/icons/blue/user.png" alt="" title="" /><span id='loginsp'>Iniciar sesi&oacute;n</span></a></li>
 								  <li><a href="#" onclick="cargaPagina('data/crearsolicitud.html',2);"><img src="images/icons/blue/user.png" alt="" title="" /><span>Crear solicitud</span></a></li>
-								  <li><a href="#" onclick="cargaPagina('data/solicitudes.html');"><img src="images/icons/blue/shop.png" alt="" title="" /><span>Mis solicitudes</span></a></li>
+								  <li><a href="#" onclick="cargaPagina('data/solicitudes.html',3);"><img src="images/icons/blue/shop.png" alt="" title="" /><span>Mis solicitudes</span></a></li>
 								  <li><a href="#" onclick="cargaPagina('data/configuracion.html');"><img src="images/icons/blue/settings.png" alt="" title="" /><span>Configuraci&oacute;n</span></a></li>
 								  <li><a href="#" data-panel="left" class="open-panel"><img src="images/icons/blue/cart.png" alt="" title="" /><span>Notificaciones</span><div class="cartitems">3</div></a></li>
 								  <li><a href="#" onclick="cargaPagina('data/comprasaldo.html');"><img src="images/icons/blue/blog.png" alt="" title="" /><span>Cargar saldo</span></a></li>
@@ -254,6 +254,11 @@
 							<div class="form_row_icon">&nbsp;</div>
 							<input type="text" name="numerocuenta" value="" class="form_input" placeholder="N&uacute;mero de cuenta (Donde recibiras tus pagos)" />
 						</div>
+						<div id="matsreg" class="form_row table-responsive">
+							
+						</div>
+						<input type="hidden" id="cantmatsreg" name="cantmatsreg" value="0">
+						<input type="hidden" id="tipou" name="tipo" value="2">
 						<input type="submit" name="submit" class="form_submit" id="submit" value="Registrarse" />
 					</form>
 					<!--<div class="signup_social">
