@@ -17,6 +17,7 @@ function login(){
 				window.localStorage.setItem("nickname",nck);
 				$("#loginimg").parent().unbind('click');
 				$("#loginimg").parent().bind('click',function(){logout();});
+				cambiaIconosAsesor(nck);
 			}
 			else alert(resp.msg);
 		},
@@ -73,6 +74,34 @@ function verificarLog(){
 	var loggedin = window.localStorage.getItem("nickname");
 	if(loggedin) return true;
 	else return false;
+}
+
+function cambiaIconosAsesor(nickname){
+	if(nickname){
+		$.ajax({
+			type: "post",
+			url: waooserver+"/usuarios/tipoUsuario",
+			dataType: "json",
+			data: {nickname:nickname},
+			success: function(resp) {
+				if(resp.error) alert('Error: ' + resp.error);
+				else{
+					if(resp.tipo==2){
+						$("#crsolspn").html("Solicitudes libres");
+					}
+					else if(resp.tipo==1){
+						$("#crsolspn").html("Crear solicitud");
+					}
+				}
+			},
+			error: function(e) {
+				alert('Error: ' + e.message);
+			}
+		});
+	}
+	else{
+		verifcarga();
+	}
 }
 
 function cargarBancoSelect(id){

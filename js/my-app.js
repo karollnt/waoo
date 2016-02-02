@@ -26,16 +26,40 @@ function cargaPagina(url,num){
 	if(!loggedin) myApp.popup(".popup-login");
 	else{
 		mainView.router.loadPage(url+"?"+(Math.floor((Math.random() * 1000) + 1)));
-		if(num==2){
+		if(num==0){
 			setTimeout(function(){
-				cargarMateriaSelect("materia");
-				$('#creasolicitud').on('submit', function(e) {
-					e.preventDefault();
-					creasolicitud();
-					return false;
-				});
-				//cargaJQFU();
+				verifcarga();
 			},1000);
+		}
+		else if(num==2){
+			$.ajax({
+				type: "post",
+				url: waooserver+"/usuarios/tipoUsuario",
+				dataType: "json",
+				data: {nickname:loggedin},
+				success: function(resp) {
+					if(resp.error) alert('Error: ' + resp.error);
+					else{
+						if(resp.tipo==2){
+							listarSolicitudesSinAsignarDiv("dirpc");
+						}
+						else if(resp.tipo==1){
+							setTimeout(function(){
+								cargarMateriaSelect("materia");
+								$('#creasolicitud').on('submit', function(e) {
+									e.preventDefault();
+									creasolicitud();
+									return false;
+								});
+								//cargaJQFU();
+							},1000);
+						}
+					}
+				},
+				error: function(e) {
+					alert('Error: ' + e.message);
+				}
+			});
 		}
 		else if(num==3){
 			setTimeout(function(){
@@ -72,8 +96,7 @@ function cargaJQFU(){
     });
 }
 
-jQuery(document).ready(function() {
-	"use strict";
+function verifcarga(){
 	var loggedin = window.localStorage.getItem("nickname");
 	if(!loggedin){
 		myApp.popup(".popup-login");//formulario de login
@@ -88,8 +111,13 @@ jQuery(document).ready(function() {
 		//$("#loginimg").parent().removeClass("open-popup");
 		$("#loginimg").parent().unbind('click');
 		$("#loginimg").parent().bind('click',function(){logout();});
+		cambiaIconosAsesor(loggedin);
 	}
-	
+}
+
+jQuery(document).ready(function() {
+	"use strict";
+	verifcarga();
 	$('#LoginForm').on('submit', function(e) { //use on if jQuery 1.7+
         e.preventDefault();  //prevent form from submitting
 		login();
