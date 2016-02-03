@@ -140,7 +140,7 @@ function listarSolicitudesSinAsignarDiv(id){
 								+"<td>"+(v.descripcion==''?'':(v.descripcion.substring(0,20))+"...")+"</td>"
 								+"<td>"+v.fecharegistro+"</td>"
 								+"<td>"
-									+"<img style='margin:0;cursor:pointer;' src='images/icons/blue/plus.png' onclick='verDetalleSolicitud("+v.id+",\"detsols_"+el[0]+"\");'>"
+									+"<img style='margin:0;cursor:pointer;' src='images/icons/blue/plus.png' onclick='verDetalleSolicitud("+v.id+",\"detsols_"+el[0]+"\",1);'>"
 								+"</td>"
 							+"</tr>");
 						});
@@ -159,9 +159,10 @@ function listarSolicitudesCreadasMatDiv(id){
 	
 }
 
-function verDetalleSolicitud(id,iddiv){
+function verDetalleSolicitud(id,iddiv,oferta){
 	$("#"+iddiv).html('');
 	$("#"+iddiv).show();
+	oferta = typeof oferta !== 'undefined' ? oferta : 0;
 	$.ajax({
 		type: "post",
 		url: waooserver+"/solicitudes/detallesSolicitud",
@@ -174,13 +175,22 @@ function verDetalleSolicitud(id,iddiv){
 				$("#"+iddiv).html("<button type='button' class='close' aria-label='close' onclick='$(\"#"+iddiv+"\").hide();'>&times;</button>");
 				$.each(json,function(i2,v){
 					var tbl = "<table class='table table-condensed'>"
+						+"<caption><b>Detalles solicitud</b></caption>"
 						+"<tr>"+"<th>T&iacute;tulo</th>"+"<td>"+v.titulo+"</td>"+"</tr>"
 						+"<tr>"+"<th>Fecha creado</th>"+"<td>"+v.fecharegistro+"</td>"+"</tr>"
 						+"<tr>"+"<th>Materia</th>"+"<td>"+v.materia+"</td>"+"</tr>"
 						+"<tr>"+"<th>Usuario</th>"+"<td>"+v.usuario+"</td>"+"</tr>"
 						+"<tr>"+"<th>Descripcion</th>"+"<td>"+v.descripcion+"</td>"+"</tr>"
+						+"<tr>"
+							+"<td colspan='2'>"
+								+"<div id='listfiles'></div>"
+								+(oferta==0 ? 
+									"":"<input id='voferta' type='number' class='form-control' placeholder='¿Cu&aacute;nto cobrar&iacute;as por hacer este trabajo? (solo n&uacute;meros)'>"
+									+"<button type='button' class='btn btn-default btn-lg btn-block' onclick='ofertar("+v.id+");'>Hacer oferta</button>")
+							+"</td></tr>"
 					+"</table>";
 					$("#"+iddiv).append(tbl);
+					listarArchivosSolicitud(v.id,"listfiles");
 				});
 			}
 		},
@@ -188,4 +198,47 @@ function verDetalleSolicitud(id,iddiv){
 			$("#"+iddiv).html("<div class='alert alert-danger'>"+e.message+"</div>");
 		}
 	});
+}
+
+function listarArchivosSolicitud(id,iddiv){
+	$.ajax({
+		type: "post",
+		url: waooserver+"/solicitudes/listaArchivosTrabajo",
+		dataType: "json",
+		data: {idtrabajo:id},
+		success: function(resp) {
+			if(resp.error) $("#"+iddiv).html("<div class='alert alert-danger'>"+resp.error+"</div>");
+			else{
+				if(resp.msg==""){
+					$("#"+iddiv).html(resp.msg);
+				}
+				else{
+					$("#"+iddiv).html("<table class='table table-condensed'><caption><b>Archivos solicitud</b></caption></table>");
+					var json = JSON.parse('['+resp.msg+']');
+					$.each(json,function(i2,v){
+						$("#"+iddiv+" table").append(
+							"<tr>"
+								+"<td style='vertical-align:bottom !important;'>"
+									+"Archivo "+i2+" por "+v.usuario+" ("+v.tipoarchivo+") "
+									+"<img style='display:inline !important; cursor:pointer;' src='images/icons/blue/plus.png' onclick='verArchivoSolicitud("+v.id+");'>"
+								+"</td>"
+							+"</tr>");
+					});
+				}
+				
+			}
+		},
+		error: function(e) {
+			$("#"+iddiv).html("<div class='alert alert-danger'>"+e.message+"</div>");
+		}
+	});
+}
+
+function verArchivoSolicitud(id){
+	var rfpg = window.open(waooserver+"/solicitudes/verArchivoSolicitud/"+id,"_system","location=yes");
+}
+
+function ofertar(id){
+	var valor = $.trim($("#voferta").val());
+	var n = window.localStorage.getItem("nickname");
 }
