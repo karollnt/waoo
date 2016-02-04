@@ -186,7 +186,7 @@ function verDetalleSolicitud(id,iddiv,oferta){
 								+"<div id='listfiles'></div>"
 								+(oferta==0 ? 
 									"":"<input id='voferta' type='number' class='form-control' placeholder='¿Cu&aacute;nto cobrar&iacute;as por hacer este trabajo? (solo n&uacute;meros)'>"
-									+"<button type='button' class='btn btn-default btn-lg btn-block' onclick='ofertar("+v.id+");'>Hacer oferta</button>")
+									+"<button type='button' class='btn btn-default btn-lg btn-block' onclick='ofertar("+v.id+",this);'>Hacer oferta</button>")
 							+"</td></tr>"
 					+"</table>";
 					$("#"+iddiv).append(tbl);
@@ -214,16 +214,22 @@ function listarArchivosSolicitud(id,iddiv){
 				}
 				else{
 					$("#"+iddiv).html("<table class='table table-condensed'><caption><b>Archivos solicitud</b></caption></table>");
-					var json = JSON.parse('['+resp.msg+']');
-					$.each(json,function(i2,v){
-						$("#"+iddiv+" table").append(
-							"<tr>"
-								+"<td style='vertical-align:bottom !important;'>"
-									+"Archivo "+i2+" por "+v.usuario+" ("+v.tipoarchivo+") "
-									+"<img style='display:inline !important; cursor:pointer;' src='images/icons/blue/plus.png' onclick='verArchivoSolicitud("+v.id+");'>"
-								+"</td>"
-							+"</tr>");
-					});
+					if(resp.msg=="No hay resultados"){
+						$("#"+iddiv+" table").append("<tr><td>"+resp.msg+"</td></tr>");
+					}
+					else{
+						var json = JSON.parse('['+resp.msg+']');
+						$.each(json,function(i2,v){
+							$("#"+iddiv+" table").append(
+								"<tr>"
+									+"<td style='vertical-align:bottom !important;'>"
+										+"Archivo "+i2+" por "+v.usuario+" ("+v.tipoarchivo+") "
+										+"<img style='display:inline !important; cursor:pointer;' src='images/icons/blue/plus.png' onclick='verArchivoSolicitud("+v.id+");'>"
+									+"</td>"
+								+"</tr>");
+						});
+					}
+					
 				}
 				
 			}
@@ -238,7 +244,20 @@ function verArchivoSolicitud(id){
 	var rfpg = window.open(waooserver+"/solicitudes/verArchivoSolicitud/"+id,"_system","location=yes");
 }
 
-function ofertar(id){
+function ofertar(id,elem){
 	var valor = $.trim($("#voferta").val());
 	var n = window.localStorage.getItem("nickname");
+	$(elem).closest("div").hide();
+	$.ajax({
+		type : 'post',
+		url : waooserver+"/solicitudes/enviarPrecioTrabajo",
+		dataType: "json",
+		data : {nickname:n,idtrabajo:id,valor:valor},
+		success : function(data) {
+			alert(data.msg);
+		},
+		error: function(e) {
+			alert(e.message);
+		}
+	});
 }
