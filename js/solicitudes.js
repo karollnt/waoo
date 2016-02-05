@@ -156,7 +156,45 @@ function listarSolicitudesSinAsignarDiv(id){
 }
 
 function listarSolicitudesCreadasMatDiv(id){
-	
+	$("#"+id).html('');
+	var n = window.localStorage.getItem("nickname");
+	$.ajax({
+		type: "post",
+		url: waooserver+"/solicitudes/solicitudesCreadasUsuario",
+		dataType: "json",
+		data: {nickname:n},
+		success: function(resp) {
+			if(resp.error) $("#"+id).html("<div class='alert alert-danger'>"+resp.error+"</div>");
+			else{
+				if(resp.msg=="[No hay solicitudes]"){
+					$("#"+id).html("<div class='alert'>"+(resp.msg)+"</div>");
+				}
+				else{
+					$("#"+id).html("<div class='alert table-responsive'>"
+						+"<table id='tblmat_"+id+"' class='table table-condensed'>"
+							+"<tr><th>T&iacute;tulo</th><th>Descripci&oacute;n</th><th>Fecha creado</th><th>Estado</th><th>&nbsp;</th></tr>"
+						+"</table>"
+						+"<div id='detsols_"+id+"' class='alert alert-dismissable'></div>"
+					+"</div>");
+					var json = JSON.parse(resp.msg);
+					$.each(json,function(i2,v){
+						$("#tblmat_"+id).append("<tr>"
+							+"<td>"+v.titulo+"</td>"
+							+"<td>"+(v.descripcion==''?'':(v.descripcion.substring(0,20))+"...")+"</td>"
+							+"<td>"+v.fecharegistro+"</td>"
+							+"<td>"+v.estado+"</td>"
+							+"<td>"
+								+"<img style='margin:0;cursor:pointer;' src='images/icons/blue/plus.png' onclick='verDetalleSolicitud("+v.id+",\"detsols_"+id+"\");'>"
+							+"</td>"
+						+"</tr>");
+					});
+				}
+			}
+		},
+		error: function(e) {
+			$("#"+id).html("<div class='alert alert-danger'>"+e.message+"</div>");
+		}
+	});
 }
 
 function verDetalleSolicitud(id,iddiv,oferta){
@@ -184,13 +222,20 @@ function verDetalleSolicitud(id,iddiv,oferta){
 						+"<tr>"
 							+"<td colspan='2'>"
 								+"<div id='listfiles'></div>"
+							+"</td>"
+						+"</tr>"
+						+"<tr>"
+							+"<td colspan='2'>"
 								+(oferta==0 ? 
-									"":"<input id='voferta' type='number' class='form-control' placeholder='¿Cu&aacute;nto cobrar&iacute;as por hacer este trabajo? (solo n&uacute;meros)'>"
+									""
+									:"<input id='voferta' type='number' class='form-control' placeholder='¿Cu&aacute;nto cobrar&iacute;as por hacer este trabajo? (solo n&uacute;meros)'>"
 									+"<button type='button' class='btn btn-default btn-lg btn-block' onclick='ofertar("+v.id+",this);'>Hacer oferta</button>")
-							+"</td></tr>"
+							+"</td>"
+						+"</tr>"
 					+"</table>";
 					$("#"+iddiv).append(tbl);
 					listarArchivosSolicitud(v.id,"listfiles");
+					if(oferta==0) verOfertas(v.id,"ofertas");
 				});
 			}
 		},
@@ -258,6 +303,38 @@ function ofertar(id,elem){
 		},
 		error: function(e) {
 			alert(e.message);
+		}
+	});
+}
+
+function verOfertas(id,iddiv){
+	$.ajax({
+		type : 'post',
+		url : waooserver+"/solicitudes/ofertasParaTrabajo",
+		dataType: "json",
+		data : {idtrabajo:id},
+		success : function(resp) {
+			if(resp.error) $("#"+iddiv).html("<div class='alert alert-danger'>"+resp.error+"</div>");
+			else{
+				$("#"+iddiv).html("<table class='table table-condensed'><caption><b>Ofertas recibidas</b></caption></table>");
+				if(resp.msg=="No hay ofertas"){
+					$("#"+iddiv+" table").append("<tr><td>"+resp.msg+"</td></tr>");
+				}
+				else{
+					var json = JSON.parse('['+resp.msg+']');
+					$.each(json,function(i2,v){
+						$("#"+iddiv+" table").append("<tr>"
+							+"<td><img src='images/icons/blue/love.png'></td>"
+							+"<td>"+v.asistente+"</td>"
+							+"<td>"+v.valor+"</td>"
+							+"<td><a href='#' class='open-panel'>Aceptar</a></td>"
+						+"</tr>");
+					});
+				}
+			}
+		},
+		error: function(e) {
+			$("#"+iddiv).html(e.message);
 		}
 	});
 }

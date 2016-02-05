@@ -120,7 +120,7 @@ function cargarBancoSelect(id){
 			}
 		},
 		error: function(e) {
-			alert('Error: ' + e.message);
+			alert('Error al conectar: ' + e.message);
 		}
 	});
 }
@@ -161,7 +161,7 @@ function listaChecksMateria(id){
 			}
 		},
 		error: function(e) {
-			$("#"+id).html("<div class='alert alert-danger'>"+e.message+"</div>");
+			$("#"+id).html("<div class='alert alert-danger'>Error al conectar: "+e.message+"</div>");
 		}
 	});
 }
