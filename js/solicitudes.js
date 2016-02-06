@@ -131,7 +131,7 @@ function listarSolicitudesSinAsignarDiv(id){
 							+"<table id='tblmat_"+i+"' class='table table-condensed'>"
 								+"<tr><th>T&iacute;tulo</th><th>Descripci&oacute;n</th><th>Fecha creado</th><th>&nbsp;</th></tr>"
 							+"</table>"
-							+"<div id='detsols_"+el[0]+"' class='alert alert-dismissable'></div>"
+							+"<div id='detsols_"+el[0]+"' class='alert'></div>"
 						+"</div>");
 						var json = JSON.parse(el[1]);
 						$.each(json,function(i2,v){
@@ -174,7 +174,7 @@ function listarSolicitudesCreadasMatDiv(id){
 						+"<table id='tblmat_"+id+"' class='table table-condensed'>"
 							+"<tr><th>T&iacute;tulo</th><th>Descripci&oacute;n</th><th>Fecha creado</th><th>Estado</th><th>&nbsp;</th></tr>"
 						+"</table>"
-						+"<div id='detsols_"+id+"' class='alert alert-dismissable'></div>"
+						+"<div id='detsols_"+id+"' class='alert'></div>"
 					+"</div>");
 					var json = JSON.parse(resp.msg);
 					$.each(json,function(i2,v){
@@ -328,7 +328,6 @@ function verOfertas(id,iddiv){
 							+"<div class='shop_item_details'>"
 								+"<h4 style='position:initial !important;'><a href='#'>"+v.asistente+"</a></h4>"
 								+"<div class='shop_item_price'>$ "+v.valor+"</div>"
-								
 							+"</div>"
 							+"<a id='addtocart' style='cursor:pointer;'>ACEPTAR</a>"
 						+"</li>");

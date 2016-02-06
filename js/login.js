@@ -18,6 +18,7 @@ function login(){
 				$("#loginimg").parent().unbind('click');
 				$("#loginimg").parent().bind('click',function(){logout();});
 				cambiaIconosAsesor(nck);
+				tareanotificaciones = setInterval(function(){contarNotificacionesSinLeer();},60000);
 			}
 			else alert(resp.msg);
 		},
@@ -34,6 +35,8 @@ function logout(){
 	$("#loginsp").html("Iniciar sesi&oacute;n");
 	myApp.popup(".popup-login");
 	$("#loginimg").parent().bind('click',function(){myApp.popup(".popup-login");});
+	clearInterval(tareanotificaciones);
+	tareanotificaciones = null;
 }
 
 function register(){
@@ -162,6 +165,25 @@ function listaChecksMateria(id){
 		},
 		error: function(e) {
 			$("#"+id).html("<div class='alert alert-danger'>Error al conectar: "+e.message+"</div>");
+		}
+	});
+}
+
+function contarNotificacionesSinLeer(){
+	var nickname = window.localStorage.getItem("nickname");
+	$.ajax({
+		type: "post",
+		url: waooserver+"/usuarios/notificacionesNoLeidasCant",
+		dataType: "json",
+		data: {nickname:nickname},
+		success: function(resp) {
+			if(resp.error) alert('Error: ' + resp.error);
+			else{
+				$("#notifcounter").html(resp.msg);
+			}
+		},
+		error: function(e) {
+			alert('Error al conectar: ' + e.message);
 		}
 	});
 }

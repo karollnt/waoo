@@ -25,7 +25,7 @@ function cargaPagina(url,num){
 	var loggedin = window.localStorage.getItem("nickname");
 	if(!loggedin) myApp.popup(".popup-login");
 	else{
-		mainView.router.loadPage(url);//+"?"+(Math.floor((Math.random() * 1000) + 1)));
+		mainView.router.loadPage(url+"?"+(Math.floor((Math.random() * 1000) + 1)));
 		if(num==0){
 			setTimeout(function(){
 				verifcarga();
