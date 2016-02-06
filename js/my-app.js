@@ -11,6 +11,8 @@ var myApp = new Framework7({
 
 //backend server address
 var waooserver = "http://localhost/waoobackend";
+//para notificaciones
+var tareanotificaciones = null;
 
 // Export selectors engine
 var $$ = Dom7;
@@ -66,34 +68,12 @@ function cargaPagina(url,num){
 				cargaSolicitudesUsuario(loggedin);
 			},1000);
 		}
+		else if(num==5){
+			setTimeout(function(){
+				listarNotificacionesSinLeer();
+			},1000);
+		}
 	}
-}
-
-function cargaJQFU(){
-	//$('#fileupload').fileupload({url:waooserver+"/upload/do_upload"});
-	$(document).ready(function () {
-		$('#creasolicitud').submit(function(e) {
-			var n = window.localStorage.getItem("nickname");
-			var datos = $("#creasolicitud").serialize()+"&nickname="+n;
-			e.preventDefault();
-			$.ajaxFileUpload({
-				url: waooserver+"/solicitudes/crearSolicitud",
-				secureuri: false,
-				fileElementId: 'userfile',
-				dataType: 'json',
-				data: datos,
-				success	: function (data, status){
-					if(data.status != 'error'){
-						$('#files').html('<p>Reloading files...</p>');
-						refresh_files();
-						$('#title').val('');
-					}
-					alert(data.msg);
-				}
-			});
-			return false;
-		});
-    });
 }
 
 function verifcarga(){
@@ -104,6 +84,8 @@ function verifcarga(){
 		$("#loginsp").html("Iniciar sesi&oacute;n");
 		//$("#loginimg").parent().addClass("open-popup");
 		$("#loginimg").parent().bind('click',function(){myApp.popup(".popup-login");});
+		clearInterval(tareanotificaciones);
+		tareanotificaciones = null;
 	}
 	else{
 		$("#loginimg").prop("src","images/icons/blue/logout.png");
@@ -112,6 +94,10 @@ function verifcarga(){
 		$("#loginimg").parent().unbind('click');
 		$("#loginimg").parent().bind('click',function(){logout();});
 		cambiaIconosAsesor(loggedin);
+		if(tareanotificaciones==null){
+			contarNotificacionesSinLeer();
+			tareanotificaciones = setInterval(function(){contarNotificacionesSinLeer();},60000);
+		}
 	}
 }
 

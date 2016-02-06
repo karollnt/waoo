@@ -1,5 +1,4 @@
 //remember to use var 'waooserver' for getting server ip
-var tareanotificaciones = null;
 function login(){
 	var datos = $("#LoginForm").serialize();
 	$.ajax({
@@ -184,6 +183,62 @@ function contarNotificacionesSinLeer(){
 		},
 		error: function(e) {
 			alert('Error al conectar: ' + e.message);
+		}
+	});
+}
+
+function listarNotificacionesSinLeer(){
+	var nickname = window.localStorage.getItem("nickname");
+	var iddiv = "listanotificaciones";
+	$("#"+iddiv).html("");
+	$.ajax({
+		type: "post",
+		url: waooserver+"/usuarios/notificacionesNoLeidas",
+		dataType: "json",
+		data: {nickname:nickname},
+		success: function(resp) {
+			if(resp.error) alert('Error: ' + resp.error);
+			else{
+				$("#"+iddiv).html("<ul class='posts'></ul>");
+				if(resp.msg=="No se encontraron resultados"){
+					$("#"+iddiv).html("<div class='alert alert-danger'>"+resp.msg+"</div>");
+				}
+				var json = JSON.parse('['+resp.msg+']');
+				$.each(json,function(i2,v){
+					var spl1 = (v.fecha).split(" ");
+					var spl2 = spl1[0].split("-");
+					$("#"+iddiv+" ul").append("<li>"
+						+"<div class='post_entry' style='position:initial !important;'>"
+							+"<div class='post_date' style='position:initial !important;'>"
+								+"<span class='day'>"+spl2[2]+"<span>"
+								+"<span class='month'>"+spl2[0]+"-"+spl2[1]+"<span>"
+							+"</div>"
+							+"<div class='post_title' style='position:initial !important;'>"
+								+"<h2>"+v.mensaje+"</h2>"
+								+"<button class='btn btn-primary btn-block' onclick='marcarLeida("+v.id+","+v.idtrabajo+");'>Ver ofertas</button>"
+							+"</div>"
+						+"</div>"
+					+"</li>");
+				});
+			}
+		},
+		error: function(e) {
+			$("#"+iddiv).html("Error al conectar: "+e.message);
+		}
+	});
+}
+
+function marcarLeida(id,idtrabajo){
+	$.ajax({
+		type : 'post',
+		url : waooserver+"/usuarios/marcarLeida",
+		dataType: "json",
+		data : {id:id},
+		success : function(data) {
+			ventanaOfertas(idtrabajo);
+		},
+		error: function(e) {
+			alert("Error al conectar: "+e.message);
 		}
 	});
 }
