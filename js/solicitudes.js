@@ -227,15 +227,14 @@ function verDetalleSolicitud(id,iddiv,oferta){
 						+"<tr>"
 							+"<td colspan='2'>"
 								+(oferta==0 ? 
-									""
+									"<button type='button' class='btn btn-primary btn-lg btn-block' onclick='ventanaOfertas("+v.id+");'>Ver ofertas</button>"
 									:"<input id='voferta' type='number' class='form-control' placeholder='¿Cu&aacute;nto cobrar&iacute;as por hacer este trabajo? (solo n&uacute;meros)'>"
-									+"<button type='button' class='btn btn-default btn-lg btn-block' onclick='ofertar("+v.id+",this);'>Hacer oferta</button>")
+									+"<button type='button' class='btn btn-primary btn-lg btn-block' onclick='ofertar("+v.id+",this);'>Hacer oferta</button>")
 							+"</td>"
 						+"</tr>"
 					+"</table>";
 					$("#"+iddiv).append(tbl);
 					listarArchivosSolicitud(v.id,"listfiles");
-					if(oferta==0) verOfertas(v.id,"ofertas");
 				});
 			}
 		},
@@ -308,6 +307,7 @@ function ofertar(id,elem){
 }
 
 function verOfertas(id,iddiv){
+	$("#"+iddiv).html("");
 	$.ajax({
 		type : 'post',
 		url : waooserver+"/solicitudes/ofertasParaTrabajo",
@@ -316,19 +316,22 @@ function verOfertas(id,iddiv){
 		success : function(resp) {
 			if(resp.error) $("#"+iddiv).html("<div class='alert alert-danger'>"+resp.error+"</div>");
 			else{
-				$("#"+iddiv).html("<table class='table table-condensed'><caption><b>Ofertas recibidas</b></caption></table>");
+				$("#"+iddiv).html("<ul class='shop_items'></ul>");
 				if(resp.msg=="No hay ofertas"){
-					$("#"+iddiv+" table").append("<tr><td>"+resp.msg+"</td></tr>");
+					$("#"+iddiv).html("<div class='alert alert-danger'>"+resp.msg+"</div>");
 				}
 				else{
 					var json = JSON.parse('['+resp.msg+']');
 					$.each(json,function(i2,v){
-						$("#"+iddiv+" table").append("<tr>"
-							+"<td><img src='images/icons/blue/love.png'></td>"
-							+"<td>"+v.asistente+"</td>"
-							+"<td>"+v.valor+"</td>"
-							+"<td><a href='#' class='open-panel'>Aceptar</a></td>"
-						+"</tr>");
+						$("#"+iddiv+" ul").append("<li>"
+							+"<div class='shop_thumb' style='position:initial !important;'><img src='images/shop_thumb1.jpg'></div>"
+							+"<div class='shop_item_details'>"
+								+"<h4 style='position:initial !important;'><a href='#'>"+v.asistente+"</a></h4>"
+								+"<div class='shop_item_price'>$ "+v.valor+"</div>"
+								
+							+"</div>"
+							+"<a id='addtocart' style='cursor:pointer;'>ACEPTAR</a>"
+						+"</li>");
 					});
 				}
 			}
@@ -337,4 +340,11 @@ function verOfertas(id,iddiv){
 			$("#"+iddiv).html(e.message);
 		}
 	});
+}
+
+function ventanaOfertas(id){
+	cargaPagina("data/ofertas.html?id="+id+"&"+(Math.floor((Math.random() * 1000) + 1)));
+	setTimeout(function(){
+		verOfertas(id,"listaofertas");
+	},1000);
 }
