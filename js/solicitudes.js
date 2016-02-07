@@ -326,11 +326,12 @@ function verOfertas(id,iddiv){
 						$("#"+iddiv+" ul").append("<li>"
 							+"<div class='shop_thumb' style='position:initial !important;'><img src='images/shop_thumb1.jpg'></div>"
 							+"<div class='shop_item_details'>"
-								+"<h4 style='position:initial !important;'><a href='#'>"+v.asistente+"</a></h4>"
+								+"<h4 style='position:initial !important;'><a href='#'>"+v.asistente+"</a> <span class='stars'>"+v.calificacion+"</span></h4>"
 								+"<div class='shop_item_price'>$ "+v.valor+"</div>"
 							+"</div>"
 							+"<a id='addtocart' style='cursor:pointer;'>ACEPTAR</a>"
 						+"</li>");
+						$('.stars').stars();
 					});
 				}
 			}
