@@ -1,0 +1,22 @@
+<div class="pages">
+	<div data-page="blog" class="page no-toolbar no-navbar">
+		<div class="page-content">		
+			<div class="navbarpages">
+				<div class="navbar_left"><a href="#" onclick="cargaPagina('index.html',0);"><img src="images/icons/blue/menu.png" alt="" title="" /></a></div>
+				<div class="navbar_center"><h2><a href="#" onclick="cargaPagina('index.html',0);">waoo</a></h2></div>
+				<div class="navbar_right"><a href="#" data-panel="right" class="open-panel"><img src="images/icons/blue/user.png" alt="" title="" /></a></div>
+			</div>
+			<div id="pages_maincontent">
+				<h2 class="page_title">Ver solucion</h2>
+				<div class="page_content"> 
+					<div id="solucionfiles" class="blog-posts"></div>
+					Notas: <br>
+					<textarea id="solucionnotas" readonly></textarea>
+					<br><br>
+					<input type="hidden" id="idtrabajo" name="idtrabajo" value="0">
+					<button type='button' class='btn btn-primary btn-lg btn-block' onclick="aceptarSolucion($('#idtrabajo').val(),this);">Aceptar soluci&oacute;n</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

@@ -231,7 +231,10 @@ function verDetalleSolicitud(id,iddiv,oferta){
 									:(v.idestado==1 ?
 										"<input id='voferta' type='number' class='form-control' placeholder='¿Cu&aacute;nto cobrar&iacute;as por hacer este trabajo? (solo n&uacute;meros)'>"
 										+"<button type='button' class='btn btn-primary btn-lg btn-block' onclick='ofertar("+v.id+",this);'>Hacer oferta</button>"
-										:"<button type='button' class='btn btn-primary btn-lg btn-block' onclick='abrirSolucion("+v.id+",this);'>Enviar soluci&oacute;n</button>"
+										:(v.idestado==2?
+											"<button type='button' class='btn btn-primary btn-lg btn-block' onclick='abrirSolucion("+v.id+",this);'>Enviar soluci&oacute;n</button>"
+											:"<button type='button' class='btn btn-primary btn-lg btn-block' onclick='verSolucion("+v.id+",this);'>Ver soluci&oacute;n</button>"
+										)
 									)
 								)
 							+"</td>"
@@ -271,7 +274,7 @@ function listarArchivosSolicitud(id,iddiv){
 							$("#"+iddiv+" table").append(
 								"<tr>"
 									+"<td style='vertical-align:bottom !important;'>"
-										+"Archivo "+i2+" por "+v.usuario+" ("+v.tipoarchivo+") "
+										+"Archivo "+(i2+1)+" por "+v.usuario+" ("+v.tipoarchivo+") "
 										+"<img style='display:inline !important; cursor:pointer;' src='images/icons/blue/plus.png' onclick='verArchivoSolicitud("+v.id+");'>"
 									+"</td>"
 								+"</tr>");
@@ -347,7 +350,7 @@ function verOfertas(id,iddiv){
 }
 
 function ventanaOfertas(id){
-	cargaPagina("data/ofertas.html?id="+id+"&"+(Math.floor((Math.random() * 1000) + 1)));
+	cargaPagina("data/ofertas.html?id="+id);
 	setTimeout(function(){
 		verOfertas(id,"listaofertas");
 	},1000);
@@ -357,7 +360,7 @@ function abrirSolucion(id){
 	cargaPagina("data/formsolucion.html?id="+id+"&"+(Math.floor((Math.random() * 1000) + 1)));
 	setTimeout(function(){
 		verOfertas(id,"listaofertas");
-		$('#creasolicitud').on('submit', function(e) {
+		$('#formsolucion').on('submit', function(e) {
 			e.preventDefault();
 			enviarSolucion();
 			return false;
@@ -366,5 +369,69 @@ function abrirSolucion(id){
 }
 
 function enviarSolucion(){
-	
+	var n = window.localStorage.getItem("nickname");
+	$("#nickasistente").val(n);
+	var formData = new FormData( $("#formsolucion")[0] );
+	$.ajax({
+		url : waooserver+"/solicitudes/enviarSolucion",
+		type : 'POST',
+		data : formData,
+		async : false,
+		cache : false,
+		contentType : false,
+		processData : false,
+		success : function(data) {
+			alert(data.msg);
+		}
+	});
+}
+
+function verSolucion(id){
+	cargaPagina("data/versolucion.html?id="+id+"&"+(Math.floor((Math.random() * 1000) + 1)));
+	var iddiv = "solucionfiles";
+	setTimeout(function(){
+		$.ajax({
+			type : 'post',
+			url : waooserver+"/solicitudes/verSolucion",
+			dataType: "json",
+			data : {idtrabajo:id},
+			success : function(resp) {
+				if(resp.error) $("#"+iddiv).html("<div class='alert alert-danger'>"+resp.error+"</div>");
+				else{
+					if(resp.msg=="No hay ofertas"){
+					$("#"+iddiv).html("<div class='alert alert-danger'>"+resp.msg+"</div>");
+				}
+				else{
+					$("#solucionfiles").html();
+					$("#solucionnotas").val("");
+					$("#idtrabajo").val(0);
+					var json = JSON.parse('['+resp.msg+']');
+					$.each(json,function(i2,v){
+						$("#solucionfiles").append(+"Archivo "+(i2+1)+" por "+v.usuario+" ("+v.tipoarchivo+") "
+							+"<img style='display:inline !important; cursor:pointer;' src='images/icons/blue/plus.png' onclick='verArchivoSolicitud("+v.id+");'>");
+						$("#solucionnotas").val(v.notas);
+						$("#idtrabajo").val(id);
+					});
+				}
+			},
+			error: function(e) {
+				$("#"+iddiv).html(e.message);
+			}
+		});
+	},1000);
+}
+
+function aceptarSolucion(id){
+	$.ajax({
+		type : 'post',
+		url : waooserver+"/solicitudes/aceptarSolucion",
+		dataType: "json",
+		data : {idtrabajo:id},
+		success : function(resp) {
+			alert(resp.msg);
+		},
+		error: function(e) {
+			alert(e.message);
+		}
+	});
 }
