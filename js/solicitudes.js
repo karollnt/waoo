@@ -93,7 +93,7 @@ function listarSolicitudesAsignadasMatDiv(id){
 								+"<td>"+v.fecharegistro+"</td>"
 								+"<td>"+v.estado+"</td>"
 								+"<td>"
-									+"<img style='margin:0;cursor:pointer;' src='images/icons/blue/plus.png' onclick='verDetalleSolicitud("+v.id+",\"detsols_"+el[0]+"\");'>"
+									+"<img style='margin:0;cursor:pointer;' src='images/icons/blue/plus.png' onclick='verDetalleSolicitud("+v.id+",\"detsols_"+el[0]+"\",1);'>"
 								+"</td>"
 							+"</tr>");
 						});
@@ -228,8 +228,12 @@ function verDetalleSolicitud(id,iddiv,oferta){
 							+"<td colspan='2'>"
 								+(oferta==0 ? 
 									"<button type='button' class='btn btn-primary btn-lg btn-block' onclick='ventanaOfertas("+v.id+");'>Ver ofertas</button>"
-									:"<input id='voferta' type='number' class='form-control' placeholder='¿Cu&aacute;nto cobrar&iacute;as por hacer este trabajo? (solo n&uacute;meros)'>"
-									+"<button type='button' class='btn btn-primary btn-lg btn-block' onclick='ofertar("+v.id+",this);'>Hacer oferta</button>")
+									:(v.idestado==1 ?
+										"<input id='voferta' type='number' class='form-control' placeholder='¿Cu&aacute;nto cobrar&iacute;as por hacer este trabajo? (solo n&uacute;meros)'>"
+										+"<button type='button' class='btn btn-primary btn-lg btn-block' onclick='ofertar("+v.id+",this);'>Hacer oferta</button>"
+										:"<button type='button' class='btn btn-primary btn-lg btn-block' onclick='abrirSolucion("+v.id+",this);'>Enviar soluci&oacute;n</button>"
+									)
+								)
 							+"</td>"
 						+"</tr>"
 					+"</table>";
@@ -347,4 +351,20 @@ function ventanaOfertas(id){
 	setTimeout(function(){
 		verOfertas(id,"listaofertas");
 	},1000);
+}
+
+function abrirSolucion(id){
+	cargaPagina("data/formsolucion.html?id="+id+"&"+(Math.floor((Math.random() * 1000) + 1)));
+	setTimeout(function(){
+		verOfertas(id,"listaofertas");
+		$('#creasolicitud').on('submit', function(e) {
+			e.preventDefault();
+			enviarSolucion();
+			return false;
+		});
+	},1000);
+}
+
+function enviarSolucion(){
+	
 }
