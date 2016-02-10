@@ -84,7 +84,7 @@ function verifcarga(){
 		$("#loginsp").html("Iniciar sesi&oacute;n");
 		//$("#loginimg").parent().addClass("open-popup");
 		$("#loginimg").parent().bind('click',function(){myApp.popup(".popup-login");});
-		clearInterval(tareanotificaciones);
+		if(tareanotificaciones!=null) clearInterval(tareanotificaciones);
 		tareanotificaciones = null;
 	}
 	else{

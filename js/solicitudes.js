@@ -172,7 +172,7 @@ function listarSolicitudesCreadasMatDiv(id){
 				else{
 					$("#"+id).html("<div class='alert table-responsive'>"
 						+"<table id='tblmat_"+id+"' class='table table-condensed'>"
-							+"<tr><th>T&iacute;tulo</th><th>Descripci&oacute;n</th><th>Fecha creado</th><th>Estado</th><th>&nbsp;</th></tr>"
+							+"<tr><th>T&iacute;tulo</th><th>Fecha creado</th><th>Estado</th></tr>"
 						+"</table>"
 						+"<div id='detsols_"+id+"' class='alert'></div>"
 					+"</div>");
@@ -180,11 +180,10 @@ function listarSolicitudesCreadasMatDiv(id){
 					$.each(json,function(i2,v){
 						$("#tblmat_"+id).append("<tr>"
 							+"<td>"+v.titulo+"</td>"
-							+"<td>"+(v.descripcion==''?'':(v.descripcion.substring(0,20))+"...")+"</td>"
 							+"<td>"+v.fecharegistro+"</td>"
-							+"<td>"+v.estado+"</td>"
-							+"<td>"
-								+"<img style='margin:0;cursor:pointer;' src='images/icons/blue/plus.png' onclick='verDetalleSolicitud("+v.id+",\"detsols_"+id+"\");'>"
+							+"<td style='vertical-align: bottom;'>"
+								+v.estado
+								+"<img style='margin:0;cursor:pointer;display:inline;' src='images/icons/blue/plus.png' onclick='verDetalleSolicitud("+v.id+",\"detsols_"+id+"\");'>"
 							+"</td>"
 						+"</tr>");
 					});
@@ -399,19 +398,20 @@ function verSolucion(id){
 				if(resp.error) $("#"+iddiv).html("<div class='alert alert-danger'>"+resp.error+"</div>");
 				else{
 					if(resp.msg=="No hay ofertas"){
-					$("#"+iddiv).html("<div class='alert alert-danger'>"+resp.msg+"</div>");
-				}
-				else{
-					$("#solucionfiles").html();
-					$("#solucionnotas").val("");
-					$("#idtrabajo").val(0);
-					var json = JSON.parse('['+resp.msg+']');
-					$.each(json,function(i2,v){
-						$("#solucionfiles").append(+"Archivo "+(i2+1)+" por "+v.usuario+" ("+v.tipoarchivo+") "
-							+"<img style='display:inline !important; cursor:pointer;' src='images/icons/blue/plus.png' onclick='verArchivoSolicitud("+v.id+");'>");
-						$("#solucionnotas").val(v.notas);
-						$("#idtrabajo").val(id);
-					});
+						$("#"+iddiv).html("<div class='alert alert-danger'>"+resp.msg+"</div>");
+					}
+					else{
+						$("#solucionfiles").html();
+						$("#solucionnotas").val("");
+						$("#idtrabajo").val(0);
+						var json = JSON.parse('['+resp.msg+']');
+						$.each(json,function(i2,v){
+							$("#solucionfiles").append(+"Archivo "+(i2+1)+" por "+v.usuario+" ("+v.tipoarchivo+") "
+								+"<img style='display:inline !important; cursor:pointer;' src='images/icons/blue/plus.png' onclick='verArchivoSolicitud("+v.id+");'>");
+							$("#solucionnotas").val(v.notas);
+							$("#idtrabajo").val(id);
+						});
+					}
 				}
 			},
 			error: function(e) {
@@ -422,6 +422,7 @@ function verSolucion(id){
 }
 
 function aceptarSolucion(id){
+	var califica = $("#calificacion option:selected").val();
 	$.ajax({
 		type : 'post',
 		url : waooserver+"/solicitudes/aceptarSolucion",
