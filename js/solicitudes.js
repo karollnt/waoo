@@ -335,7 +335,7 @@ function verOfertas(id,iddiv){
 								+"<h4 style='position:initial !important;'><a href='#'>"+v.asistente+"</a> <span class='stars'>"+v.calificacion+"</span></h4>"
 								+"<div class='shop_item_price'>$ "+v.valor+"</div>"
 							+"</div>"
-							+"<a id='addtocart' style='cursor:pointer;'>ACEPTAR</a>"
+							+"<a id='addtocart' style='cursor:pointer;' onclick='aceptarOferta("+v.id+");'>ACEPTAR</a>"
 						+"</li>");
 						$('.stars').stars();
 					});
@@ -435,4 +435,8 @@ function aceptarSolucion(id){
 			alert(e.message);
 		}
 	});
+}
+
+function aceptarOferta(id){
+	
 }
