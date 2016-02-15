@@ -179,8 +179,8 @@ input[type=file]:focus {
 }
 
 #attach_btn.btn {
-	border-radius: 0px;
-	width: 10%;
+	/*border-radius: 0px;
+	width: 10%;*/
 }
 
 #message_text {
@@ -196,8 +196,8 @@ input[type=file]:focus {
 }
 
 #send_btn.btn {
-	border-radius: 0px;
-	width: 10%
+	/*border-radius: 0px;
+	width: 10%*/
 }
 
 #all_occupants{

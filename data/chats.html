@@ -1,0 +1,54 @@
+<div class="pages">
+	<div data-page="shop" class="page no-toolbar no-navbar">
+		<div class="page-content">
+			<div class="navbarpages">
+				<div class="navbar_left"><a href="#" onclick="cargaPagina('index.html',0);"><img src="images/icons/blue/menu.png" alt="" title="" /></a></div>
+				<div class="navbar_center"><h2><a href="#" onclick="cargaPagina('index.html',0);">waoo</a></h2></div>
+				<div class="navbar_right"><a href="#" data-panel="right" class="open-panel"><img src="images/icons/blue/user.png" alt="" title="" /></a></div>
+			</div>
+			<div id="pages_maincontent">
+				<!--<h2 class="page_title">Chats</h2>-->
+				<div class="page_content">
+					<div id="chat_section" class="container" style="width: 110%;">
+						<div id="main_block" style="margin-top:0;">
+							<div class="panel" style="display: block !important; position:relative; width: 100%;">
+								<div class="panel-body">
+									<div class="row">
+										<!--<div class="col-md-4">
+											<div class="list-header">
+												<h4 class="list-header-title">Historia</h4>
+											</div>
+											<div class="list-group pre-scrollable nice-scroll" id="dialogs-list">
+												
+											</div>
+										</div>-->
+										<div id="mcs_container" class="col-md-8 nice-scroll">
+											<div class="customScrollBox">
+												<div class="container del-style">
+													<div class="content list-group pre-scrollable nice-scroll" id="messages-list">
+														<!-- list of chat messages will be here -->
+													</div>
+												</div>
+											</div>
+											<div><img src="images/ajax-loader.gif" class="load-msg"></div>
+											<form class="form-inline" role="form" method="POST" action="" onsubmit="return submit_handler(this)">
+												<div class="form-group">
+													<input id="load-img" type="file">
+													<input type="text" class="form-control" id="message_text" placeholder="Escribe tu mensaje" style="width:85.5%;">
+													<button type="button" id="attach_btn" class="btn btn-default" onclick="">Adjunto</button>
+													<br>
+													<button type="submit" id="send_btn" class="btn btn-primary btn-lg btn-block" style="border-radius: 4px;" onclick="clickSendMessage();">Enviar</button>
+												</div>
+												<img src="images/ajax-loader.gif" id="progress">
+											</form>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

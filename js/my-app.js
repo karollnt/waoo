@@ -73,6 +73,11 @@ function cargaPagina(url,num){
 				listarNotificacionesSinLeer();
 			},1000);
 		}
+		else if(num==6){
+			setTimeout(function(){
+				retrieveChatDialogs();
+			},1000);
+		}
 	}
 }
 
