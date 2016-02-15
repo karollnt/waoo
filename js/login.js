@@ -17,7 +17,9 @@ function login(){
 				$("#loginimg").parent().unbind('click');
 				$("#loginimg").parent().bind('click',function(){logout();});
 				cambiaIconosAsesor(nck);
+				contarNotificacionesSinLeer();
 				tareanotificaciones = setInterval(function(){contarNotificacionesSinLeer();},60000);
+				loginQuickblox(nck);
 			}
 			else alert(resp.msg);
 		},
@@ -25,7 +27,6 @@ function login(){
 			alert('Error: ' + e.message);
 		}
 	});
-	//maybe crossDomain true
 }
 
 function logout(){
@@ -36,6 +37,7 @@ function logout(){
 	$("#loginimg").parent().bind('click',function(){myApp.popup(".popup-login");});
 	clearInterval(tareanotificaciones);
 	tareanotificaciones = null;
+	logoutQuickblox();
 }
 
 function register(){

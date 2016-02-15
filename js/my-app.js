@@ -13,10 +13,6 @@ var myApp = new Framework7({
 var waooserver = "http://localhost/waoobackend";
 //para notificaciones
 var tareanotificaciones = null;
-//para chat
-QB.createSession(function(err,result){
-	console.log('Session create callback', err, result);
-});
 
 // Export selectors engine
 var $$ = Dom7;

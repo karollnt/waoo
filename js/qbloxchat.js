@@ -1,8 +1,87 @@
-function verificarQuickblox(u){
-	var params = { 'login': u, 'password': "12345"};
+var QBApp = {
+	appId: 28287,
+	authKey: 'XydaWcf8OO9xhGT',
+	authSecret: 'JZfqTspCvELAmnW'
+};
+
+var usrpwds = 'w4o0p15s_';
+
+var config = {
+	chatProtocol: {
+		active: 2
+	},
+	debug: {
+		mode: 1,
+		file: null
+	}
+};
+
+$(document).ready(function(){
+	QB.init(QBApp.appId, QBApp.authKey, QBApp.authSecret, config);
+	var sId = readCookie('sessionId');
+	if(sId) tokenSession(sId,QBApp.appId);
+	QB.createSession(function(err,result){
+		console.log('Session create callback', err, result);
+	});
+	
+	$("html").niceScroll({cursorcolor:"#02B923", cursorwidth:"7", zindex:"99999"});
+	$(".nice-scroll").niceScroll({cursorcolor:"#02B923", cursorwidth:"7", zindex:"99999"});
+	
+});
+
+function tokenSession(sestoken,appid){
+	$('#reg').hide();
+	$('#cses').show();
+	//$('#loginform')[0].reset();
+	QB.init(sestoken,appid);
+	retrieveChatDialogs();
+	setupAllListeners();
+	setupMsgScrollHandler();
+	$("#chat_section").show();
+}
+
+function writeCookie(name,value,days) {
+    var date, expires;
+    if(days){
+        date = new Date();
+        date.setTime(date.getTime()+(days*24*60*60*1000));
+        expires = "; expires=" + date.toGMTString();
+    }
+	else{
+        expires = "";
+    }
+    document.cookie = name + "=" + value + expires + "; path=/";
+}
+
+function readCookie(name) {
+    var i, c, ca, nameEQ = name + "=";
+    ca = document.cookie.split(';');
+    for(i=0;i < ca.length;i++){
+        c = ca[i];
+        while(c.charAt(0)==' '){
+            c = c.substring(1,c.length);
+        }
+        if(c.indexOf(nameEQ) == 0) {
+            return c.substring(nameEQ.length,c.length);
+        }
+    }
+    return '';
+}
+
+function loginQuickblox(u){
+	var params = { 'login': u, 'password': usrpwds};
 	QB.login(params, function(err, user){
 		if(user){
-			// success
+			var usiir = {
+				id:user.id,
+				name: user.full_name,
+				login: user.login,
+				pass: usrpwds
+			};
+			currentUser = usiir;
+			writeCookie('sessionId', user.token, 1);
+			connectToChat(usiir);
+			$("#chat_section").show();
 		}
 		else{
 			registroQuickblox(u);
@@ -10,52 +89,43 @@ function verificarQuickblox(u){
 	});
 }
 
-function loginQuickblox(u){
-	var user = { 'login': u, 'password': "12345"};
-	QB.createSession({login: user.login, password: user.pass}, function(err, res) {
-		if(res){
-			QB.chat.connect({userId: user.id, password: '12345'}, function(err, roster) {
-				if(err) console.log(err);
-			});
-		}
-		else{
-			console.log(err);
-		}
-	});
-	/*QB.login(params, function(err, user){
-		if(user){
-			QB.chat.connect({userId: user.id, password: '12345'}, function(err, roster) {
-				console.log(err);
-			});
-		}
-		else{
-			// error
-		}
-	});*/
-}
-
 function logoutQuickblox(){
 	QB.chat.disconnect();
-	/*QB.logout(function(err, result){
+	QB.logout(function(err, result){
 		if(result){
 			// success
 		}
 		else{
-			// error
+			console.log(JSON.stringify(err));
 		}
-	});*/
+	});
 }
 
 function registroQuickblox(u){
-	var params = { 'login': u, 'password': "12345"};
+	var params = { 'login': u, 'password': usrpwds};
 	QB.users.create(params, function(err, user){
 		if(user){
-			// success
+			loginQuickblox(u);
 		}
 		else{
-			// error
+			console.log(JSON.stringify(err));
 		}
 	});
+}
+
+function connectToChat(user){
+	retrieveChatDialogs();
+	setupAllListeners();
+}
+
+function setupAllListeners(){
+	QB.chat.onDisconnectedListener    = onDisconnectedListener;
+	QB.chat.onReconnectListener       = onReconnectListener;
+	QB.chat.onMessageListener         = onMessage;
+	QB.chat.onSystemMessageListener   = onSystemMessageListener;
+	QB.chat.onDeliveredStatusListener = onDeliveredStatusListener;
+	QB.chat.onReadStatusListener      = onReadStatusListener;
+	setupIsTypingHandler();
 }
 
 function crearChatPrivado(uid,uid2){
