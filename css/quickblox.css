@@ -145,8 +145,8 @@ input[type=file]#load-img {
 }
 
 .col-md-8 .list-group.pre-scrollable {
-	max-height: 449px;
-	height: 449px;
+	max-height: 22em;
+	height: 22em;
 	border: 1px solid #DDD;
 	overflow-x: hidden;
 }
