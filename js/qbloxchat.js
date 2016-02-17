@@ -5,6 +5,7 @@ var QBApp = {
 };
 
 var usrpwds = 'w4o0p15s_';
+var assistantID = 6729114;
 
 var config = {
 	chatProtocol: {
@@ -17,7 +18,7 @@ var config = {
 	on: {
     	sessionExpired: function(){
 			var cns = confirm("Sesion en chat ha terminado, desea reconectar?");
-			if(cns) conexion();
+			if(cns) conexionChat();
 			else logoutQuickblox();
 		}
   	}
@@ -27,18 +28,26 @@ $(document).ready(function(){
 	conexionChat();
 	$("html").niceScroll({cursorcolor:"#02B923", cursorwidth:"7", zindex:"99999"});
 	$(".nice-scroll").niceScroll({cursorcolor:"#02B923", cursorwidth:"7", zindex:"99999"});
-
 });
 
 function verificaIcono(){
+	var miclic = function(){alert(7);};
 	if($.trim($("#message_text").val()) != ""){
 		$("#attach_img").hide();
 		$("#send_img").show();
+		miclic = function(){
+			alert("h1");//clickSendMessage();
+		};
 	}
 	else{
 		$("#attach_img").show();
 		$("#send_img").hide();
+		miclic = function(){
+			alert("h2");//clickSendAttachments($('#load-img')[0]);
+		};
 	}
+	$("#send_btn").off("click");
+	$("#send_btn").on("click",miclic);
 }
 
 function conexionChat(){
