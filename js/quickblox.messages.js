@@ -64,7 +64,7 @@ function onReadStatusListener(messageId) {
 function retrieveChatMessages(dialog, beforeDateSent){
 	// Load messages history
 	$(".load-msg").show(0);
-	var params = 
+	var params =
 	{chat_dialog_id: dialog._id,
 	sort_desc: 'date_sent',
 	limit: 10};
@@ -130,6 +130,7 @@ function clickSendMessage() {
 		return;
 	}
 	$('#message_text').val('').focus();
+	verificaIcono();
 	sendMessage(currentText, null);
 }
 

@@ -17,57 +17,49 @@ var config = {
 	},
 	on: {
     	sessionExpired: function(){
-			var cns = confirm("Sesion en chat ha terminado, desea reconectar?");
+			/*var cns = confirm("Sesion en chat ha terminado, desea reconectar?");
 			if(cns) conexionChat();
-			else logoutQuickblox();
+			else logoutQuickblox();*/
 		}
   	}
 };
 
 $(document).ready(function(){
-	conexionChat();
 	$("html").niceScroll({cursorcolor:"#02B923", cursorwidth:"7", zindex:"99999"});
 	$(".nice-scroll").niceScroll({cursorcolor:"#02B923", cursorwidth:"7", zindex:"99999"});
 });
 
 function verificaIcono(){
-	var miclic = function(){alert(7);};
 	var btsrc = "";
+	if($.trim($("#message_text").val()) != "") btsrc = "images/chat.png";
+	else btsrc = "images/attach.png";
+	$("#send_btn").prop("src",btsrc);
+}
+
+function verificaClic(){
 	if($.trim($("#message_text").val()) != ""){
-		btsrc = "images/chat.png";
-		miclic = function(){
-			alert("h1");//clickSendMessage();
-		};
+		clickSendMessage();
 	}
 	else{
-		btsrc = "images/attach.png";
-		miclic = function(){
-			alert("h2");//clickSendAttachments($('#load-img')[0]);
-		};
+		clickSendAttachments($('#load-img')[0]);
 	}
-	$("#send_btn").prop("src",btsrc);
-	$("#send_btn").off("click");
-	$("#send_btn").on("click",miclic);
 }
 
 function conexionChat(){
 	var u = window.localStorage.getItem("nickname");
 	if(u!=null){
 		QB.init(QBApp.appId, QBApp.authKey, QBApp.authSecret, config);
-		var sId = readCookie('sessionId');
+		/*var sId = readCookie('sessionId');
 		if(sId) tokenSession(sId,QBApp.appId);
-		loginQuickblox(u);
+		else */loginQuickblox(u);
 	}
 }
 
 function tokenSession(sestoken,appid){
-	$('#reg').hide();
-	$('#cses').show();
 	QB.init(sestoken,appid);
 	retrieveChatDialogs();
 	setupAllListeners();
 	setupMsgScrollHandler();
-	$("#chat_section").show();
 }
 
 function writeCookie(name,value,days) {
@@ -113,7 +105,6 @@ function loginQuickblox(u){
 				currentUser = usiir;
 				writeCookie('sessionId', user.token, 1);
 				connectToChat(usiir);
-				$("#chat_section").show();
 			}
 			else{
 				registroQuickblox(u);
@@ -150,6 +141,7 @@ function registroQuickblox(u){
 function connectToChat(user){
 	retrieveChatDialogs();
 	setupAllListeners();
+	setupMsgScrollHandler();
 }
 
 function setupAllListeners(){

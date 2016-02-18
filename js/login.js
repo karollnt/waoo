@@ -19,7 +19,7 @@ function login(){
 				cambiaIconosAsesor(nck);
 				contarNotificacionesSinLeer();
 				tareanotificaciones = setInterval(function(){contarNotificacionesSinLeer();},60000);
-				loginQuickblox(nck);
+				conexionChat();
 			}
 			else alert(resp.msg);
 		},
