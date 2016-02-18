@@ -32,20 +32,20 @@ $(document).ready(function(){
 
 function verificaIcono(){
 	var miclic = function(){alert(7);};
+	var btsrc = "";
 	if($.trim($("#message_text").val()) != ""){
-		$("#attach_img").hide();
-		$("#send_img").show();
+		btsrc = "images/chat.png";
 		miclic = function(){
 			alert("h1");//clickSendMessage();
 		};
 	}
 	else{
-		$("#attach_img").show();
-		$("#send_img").hide();
+		btsrc = "images/attach.png";
 		miclic = function(){
 			alert("h2");//clickSendAttachments($('#load-img')[0]);
 		};
 	}
+	$("#send_btn").prop("src",btsrc);
 	$("#send_btn").off("click");
 	$("#send_btn").on("click",miclic);
 }

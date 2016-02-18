@@ -26,10 +26,7 @@
 												<div class="form-group">
 													<input id="load-img" type="file">
 													<input type="text" class="form-control" id="message_text" placeholder="Escribe tu mensaje" style="float:left;" onkeyup="verificaIcono();"/>
-													<button type="submit" id="send_btn" style="background:transparent;border:0 none;float:right;">
-														<img src="images/attach.png" id="attach_img" onclick="verificaIcono();" width="32" style="cursor:pointer;"/>
-														<img src="images/chat.png" id="send_img" onclick="verificaIcono();" width="32" style="cursor:pointer;display:none;"/>
-													</button>
+													<input type="image" id="send_btn" style="background:transparent;border:0 none;float:right;" src="images/attach.png" id="attach_img" onclick="verificaIcono();" width="32" style="cursor:pointer;"/>
 													<div class="clear"></div>
 												</div>
 												<img src="images/ajax-loader.gif" id="progress">
