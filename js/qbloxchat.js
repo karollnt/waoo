@@ -7,23 +7,6 @@ var QBApp = {
 var usrpwds = 'w4o0p15s_';
 var assistantID = 6729114;
 
-var config = {
-	chatProtocol: {
-		active: 2
-	},
-	debug: {
-		mode: 1,
-		file: null
-	},
-	on: {
-    	sessionExpired: function(){
-			/*var cns = confirm("Sesion en chat ha terminado, desea reconectar?");
-			if(cns) conexionChat();
-			else logoutQuickblox();*/
-		}
-  	}
-};
-
 $(document).ready(function(){
 	$("html").niceScroll({cursorcolor:"#02B923", cursorwidth:"7", zindex:"99999"});
 	$(".nice-scroll").niceScroll({cursorcolor:"#02B923", cursorwidth:"7", zindex:"99999"});
@@ -48,6 +31,15 @@ function verificaClic(){
 function conexionChat(){
 	var u = window.localStorage.getItem("nickname");
 	if(u!=null){
+		var config = {
+			chatProtocol: {
+				active: 2
+			},
+			debug: {
+				mode: 1,
+				file: null
+			}
+		};
 		QB.init(QBApp.appId, QBApp.authKey, QBApp.authSecret, config);
 		/*var sId = readCookie('sessionId');
 		if(sId) tokenSession(sId,QBApp.appId);
@@ -104,7 +96,7 @@ function loginQuickblox(u){
 				};
 				currentUser = usiir;
 				writeCookie('sessionId', user.token, 1);
-				connectToChat(usiir);
+				connectToChat(usiir.id);
 			}
 			else{
 				registroQuickblox(u);
@@ -139,9 +131,10 @@ function registroQuickblox(u){
 }
 
 function connectToChat(user){
-	retrieveChatDialogs();
+	crearChatPrivado(user,assistantID);
+	/*retrieveChatDialogs();
 	setupAllListeners();
-	setupMsgScrollHandler();
+	setupMsgScrollHandler();*/
 }
 
 function setupAllListeners(){
@@ -157,7 +150,7 @@ function setupAllListeners(){
 function crearChatPrivado(uid,uid2){
 	var params = {
 		type: 3,
-		occupants_ids: [uid,uid2],
+		occupants_ids: [uid2],
 		name: "Oferta aceptada"
 	};
 	QB.chat.dialog.create(params, function(err, createdDialog) {
@@ -165,7 +158,9 @@ function crearChatPrivado(uid,uid2){
 			console.log(err);
 		}
 		else{
-			notifyOccupants(createdDialog.occupants_ids, createdDialog._id);
+			//notifyOccupants(createdDialog.occupants_ids, createdDialog._id);
+			retrieveChatMessages(createdDialog,null);
+			retrieveUsers();
 		}
 	});
 }

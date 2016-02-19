@@ -121,7 +121,7 @@ function retrieveChatMessages(dialog, beforeDateSent){
           }
 
           var messageHtml = buildMessageHTML(messageText, messageSenderLogin, messageDateSent, messageAttachmentFileId, messageId);
-
+          //console.log("msj: "+messageHtml);
           $('#messages-list').prepend(messageHtml);
 
 
