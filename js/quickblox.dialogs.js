@@ -32,6 +32,9 @@ function retrieveChatDialogs() {
 
       if(resDialogs.items.length === 0){
 
+        // hide login form
+        $("#loginForm").modal("hide");
+
         // setup attachments button handler
         //
         $("#load-img").change(function(){
@@ -74,6 +77,9 @@ function retrieveChatDialogs() {
         //  and trigger the 1st dialog
         //
         triggerDialog(resDialogs.items[0]._id);
+
+        // hide login form
+        $("#loginForm").modal("hide");
 
         // setup attachments button handler
         //
