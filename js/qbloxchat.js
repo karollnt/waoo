@@ -159,8 +159,9 @@ function crearChatPrivado(uid,uid2){
 		}
 		else{
 			//notifyOccupants(createdDialog.occupants_ids, createdDialog._id);
-			retrieveChatMessages(createdDialog,null);
-			retrieveUsers();
+			retrieveUsersForDialogUpdate(function(){
+				retrieveChatMessages(createdDialog,null);
+			});
 		}
 	});
 }

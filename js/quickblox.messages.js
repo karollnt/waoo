@@ -106,35 +106,43 @@ function retrieveChatMessages(dialog, beforeDateSent){
           var messageText = item.message;
           var messageSenderId = item.sender_id;
           var messageDateSent = new Date(item.date_sent*1000);
-          var messageSenderLogin = getUserLoginById(messageSenderId);
+          //var messageSenderLogin = getUserLoginById(messageSenderId);
+          var messageSenderLogin = "ND";
+          QB.users.get(messageSenderId,function(err, result){
+              if (result) {
+                  messageSenderLogin = result.login;
+                  $("#usrnck").html(messageSenderLogin);
+              }
+              // send read status
+              if (item.read_ids.indexOf(currentUser.id) === -1) {
+                sendReadStatus(messageSenderId, messageId, currentDialog._id);
+              }
 
-          // send read status
-          if (item.read_ids.indexOf(currentUser.id) === -1) {
-            sendReadStatus(messageSenderId, messageId, currentDialog._id);
-          }
+              var messageAttachmentFileId = null;
+              if (item.hasOwnProperty("attachments")) {
+                if(item.attachments.length > 0) {
+                  messageAttachmentFileId = item.attachments[0].id;
+                }
+              }
 
-          var messageAttachmentFileId = null;
-          if (item.hasOwnProperty("attachments")) {
-            if(item.attachments.length > 0) {
-              messageAttachmentFileId = item.attachments[0].id;
-            }
-          }
-
-          var messageHtml = buildMessageHTML(messageText, messageSenderLogin, messageDateSent, messageAttachmentFileId, messageId);
-          //console.log("msj: "+messageHtml);
-          $('#messages-list').prepend(messageHtml);
+              var messageHtml = buildMessageHTML(messageText, messageSenderLogin, messageDateSent, messageAttachmentFileId, messageId);
+              //console.log("msj: "+messageHtml);
+              $('#messages-list').prepend(messageHtml);
 
 
-          // Show delivered statuses
-          if (item.read_ids.length > 1 && messageSenderId === currentUser.id) {
-            $('#delivered_'+messageId).fadeOut(100);
-            $('#read_'+messageId).fadeIn(200);
-          } else if (item.delivered_ids.length > 1 && messageSenderId === currentUser.id) {
-            $('#delivered_'+messageId).fadeIn(100);
-            $('#read_'+messageId).fadeOut(200);
-          }
+              // Show delivered statuses
+              if (item.read_ids.length > 1 && messageSenderId === currentUser.id) {
+                $('#delivered_'+messageId).fadeOut(100);
+                $('#read_'+messageId).fadeIn(200);
+              } else if (item.delivered_ids.length > 1 && messageSenderId === currentUser.id) {
+                $('#delivered_'+messageId).fadeIn(100);
+                $('#read_'+messageId).fadeOut(200);
+              }
 
-          if (i > 5) {$('#messages-list').scrollTop($('#messages-list').prop('scrollHeight'));}
+              if (i > 5) {$('#messages-list').scrollTop($('#messages-list').prop('scrollHeight'));}
+          });
+
+
         });
       }
     }else{
