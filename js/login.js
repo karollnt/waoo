@@ -48,6 +48,7 @@ function register(){
 		dataType: "json",
 		data: datos,
 		success: function(resp) {
+			registroQuickblox($("#RegisterForm input[name='nickname']").val());
 			alert(resp.msg);
 			$("#RegisterForm")[0].reset();
 		},
@@ -65,6 +66,7 @@ function register2(){
 		dataType: "json",
 		data: datos,
 		success: function(resp) {
+			registroQuickblox($("#RegisterForm2 input[name='nickname']").val());
 			alert(resp.msg);
 			$("#RegisterForm2")[0].reset();
 		},
@@ -237,8 +239,42 @@ function marcarLeida(id,idtrabajo){
 		url : waooserver+"/usuarios/marcarLeida",
 		dataType: "json",
 		data : {id:id},
-		success : function(data) {
+		success : function(resp) {
 			ventanaOfertas(idtrabajo);
+		},
+		error: function(e) {
+			alert("Error al conectar: "+e.message);
+		}
+	});
+}
+
+function actualizaIdQuick(id,nickname){
+	$.ajax({
+		type : 'post',
+		url : waooserver+"/usuarios/actualizaIdQuick",
+		dataType: "json",
+		data : {id:id,nickname:nickname},
+		success : function(resp) {
+
+		},
+		error: function(e) {
+			alert("Error al conectar: "+e.message);
+		}
+	});
+}
+
+function cargarDatosUsuario(){
+	var nickname = window.localStorage.getItem("nickname");
+	$.ajax({
+		type : 'post',
+		url : waooserver+"/usuarios/datosUsuario",
+		dataType: "json",
+		data : {nickname:nickname},
+		success : function(resp) {
+			var usr = resp.usuarios;
+			$.each(usr,function(i2,v){
+				console.log(JSON.stringify(v));
+			});
 		},
 		error: function(e) {
 			alert("Error al conectar: "+e.message);

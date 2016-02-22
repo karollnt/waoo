@@ -68,7 +68,12 @@ function cargaPagina(url,num){
 				cargaSolicitudesUsuario(loggedin);
 			},1000);
 		}
-		else if(num==5){
+		else if(num==4){
+			setTimeout(function(){
+				cargarDatosUsuario();
+			},1000);
+		}
+        else if(num==5){
 			setTimeout(function(){
 				listarNotificacionesSinLeer();
 			},1000);

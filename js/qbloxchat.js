@@ -122,6 +122,7 @@ function registroQuickblox(u){
 	var params = { 'login': u, 'password': usrpwds};
 	QB.users.create(params, function(err, user){
 		if(user){
+			actualizaIdQuick(user.id,u);
 			loginQuickblox(u);
 		}
 		else{

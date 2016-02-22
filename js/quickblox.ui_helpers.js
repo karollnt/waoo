@@ -1,16 +1,21 @@
 // build html for messages
 function buildMessageHTML(messageText, messageSenderId, messageDateSent, attachmentFileId, messageId, status){
-  var messageAttach;
-  if(attachmentFileId){
-      messageAttach = '<img src="http://api.quickblox.com/blobs/'+attachmentFileId+'/download.xml?token='+token+'" alt="attachment" class="attachments img-responsive" />';
-  }
-  var delivered = '<img class="icon-small" src="images/delivered.jpg" alt="" id="delivered_'+messageId+'">';
-  var read = '<img class="icon-small" src="images/read.jpg" alt="" id="read_'+messageId+'">';
+    var messageAttach;
+    if(attachmentFileId){
+        messageAttach = '<img src="http://api.quickblox.com/blobs/'+attachmentFileId+'/download.xml?token='+token+'" alt="attachment" class="attachments img-responsive" />';
+    }
+    var delivered = '<img class="icon-small" src="images/delivered.jpg" alt="" id="delivered_'+messageId+'">';
+    var read = '<img class="icon-small" src="images/read.jpg" alt="" id="read_'+messageId+'">';
 
-  var messageHtml = '<div class="list-group-item" id="'+messageId+'" onclick="clickToAddMsg('+"'"+messageId+"'"+')">'+'<time datetime="'+messageDateSent+
-                    '" class="pull-right">'+jQuery.timeago(messageDateSent)+'</time>'+'<h4 class="list-group-item-heading">'+messageSenderId+'</h4>'+
-                    '<p class="list-group-item-text">'+(messageAttach ? messageAttach : messageText)+'</p>'+delivered+read+'</div>';
-  return messageHtml;
+    var messageHtml = '<div class="list-group-item message-wrap" id="'+messageId+'" onclick="clickToAddMsg('+"'"+messageId+"'"+')">'+
+        /*'<time datetime="'+messageDateSent+'" class="pull-right">'+jQuery.timeago(messageDateSent)+'</time>'+*/
+        '<img class="avatar" src="images/default_avatar.gif" alt="avatar" />'+
+        '<header><h4>'+messageSenderId+'</h4></header>'+
+        '<section>'+(messageAttach ? messageAttach : messageText)+'</section>'+
+        /*delivered+read+*/
+        '<footer class="time">' + jQuery.timeago(messageDateSent) + '</footer>'
+    '</div>';
+    return messageHtml;
 }
 
 // build html for dialogs
