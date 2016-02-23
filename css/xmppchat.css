@@ -37,6 +37,7 @@
 }
 #chat .message-wrap {
     /*opacity:0;*/
+	background-color: rgba(243, 243, 243, 0.9);
     overflow:hidden;
     /*margin-bottom:7px;
     padding:5px;*/
