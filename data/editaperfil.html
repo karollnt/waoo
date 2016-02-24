@@ -1,0 +1,56 @@
+<div class="pages">
+    <div data-page="page" class="page no-toolbar no-navbar">
+        <div class="page-content">
+            <div class="navbarpages">
+                <div class="navbar_left"><a href="#" onclick="cargaPagina('index.html',0);"><img src="images/icons/blue/menu.png" alt="" title="" /></a></div>
+                <div class="navbar_center"><h2><a href="#" onclick="cargaPagina('index.html',0);">waoo</a></h2></div>
+                <div class="navbar_right"><a href="#" data-panel="right" class="open-panel"><img src="images/icons/blue/user.png" alt="" title="" /></a></div>
+            </div>
+            <div id="pages_maincontent">
+                <h2 class="page_title">Editar perfil</h2>
+                <div class="page_content">
+                    <div class="buttons-row">
+                        <a href="#tab1" class="tab-link button active">Datos Personales</a>
+                        <a href="#tab2" class="tab-link button">Cambiar clave</a>
+                        <a id="dtcnt" href="#tab3" class="tab-link button" style="display:none;">Datos contacto</a>
+                    </div>
+                    <div class="tabs-animated-wrap">
+                        <div class="tabs">
+                            <div id="tab1" class="tab active">
+                                <div class="contactform">
+                                    <form id="formsolucion" method="post" enctype="multipart/form-data">
+                                        <img id="profile-img" src="images/default_avatar.gif" alt="" title="" />
+                                        <input type="file" id="img-profile" name="img-profile" placeholder="Nueva imagen">
+                                        <div class="form_row">
+                                            <div class="form_row_icon"><img src="images/icons/blue/user.png" alt="" title="" /></div>
+                                            <input type="text" name="nombre" value="" class="form_input required" placeholder="nombre(s)" />
+                                        </div>
+                                        <div class="form_row">
+                                            <div class="form_row_icon"><img src="images/icons/blue/user.png" alt="" title="" /></div>
+                                            <input type="text" name="apellido" value="" class="form_input required" placeholder="apellido(s)" />
+                                        </div>
+                                        <input type="submit" name="submit" class="form_submit" id="submit" value="Actualizar datos" />
+                                    </form>
+                                </div>
+                            </div>
+                            <div id="tab2" class="tab">
+                                <input type="password" name="clave1" value="" class="form-control required" placeholder="Nueva clave" />
+                                <br>
+                                <input type="password" name="clave2" value="" class="form-control required" placeholder="Repita la nueva clave" />
+                                <br>
+                                <input type="button" class="btn btn-primary btn-block" value="Actualizar" onclick="cambiarClave();" />
+                            </div>
+                            <div id="tab3" class="tab">
+                                <select id="banct" class="form-control"></select>
+                                <br>
+                                <input type="text" id="numct" class="form-control" value="">
+                                <br>
+                                <input type="button" class="btn btn-primary btn-block" value="Actualizar" onclick="" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

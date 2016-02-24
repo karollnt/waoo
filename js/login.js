@@ -265,6 +265,8 @@ function actualizaIdQuick(id,nickname){
 
 function cargarDatosUsuario(){
 	var nickname = window.localStorage.getItem("nickname");
+	$("#dtcnt").hide();
+	cargarBancoSelect("banct");
 	$.ajax({
 		type : 'post',
 		url : waooserver+"/usuarios/datosUsuario",
@@ -273,11 +275,45 @@ function cargarDatosUsuario(){
 		success : function(resp) {
 			var usr = resp.usuarios;
 			$.each(usr,function(i2,v){
-				console.log(JSON.stringify(v));
+				$("#tab1 .contactform input[name='nombre']").val(v.nombre);
+				$("#tab1 .contactform input[name='apellido']").val(v.apellido);
+				if(v.tipo==2){
+					$("#dtcnt").show();
+					$("#numct").val(v.numerocuenta);
+					$("#banct").prop('selected', false).filter('[value="'+v.idbanco+'"]').prop('selected', true);
+				}
 			});
 		},
 		error: function(e) {
 			alert("Error al conectar: "+e.message);
 		}
 	});
+}
+
+function cambiarClave() {
+	var cl1 = $.trim($("#tab2 input[name='clave1']").val());
+	var cl2 = $.trim($("#tab2 input[name='clave2']").val());
+	if(cl1!="" && cl2!=""){
+		if(cl1==cl2){
+			var nickname = window.localStorage.getItem("nickname");
+			$.ajax({
+				type : 'post',
+				url : waooserver+"/usuarios/actualizaClave",
+				dataType: "json",
+				data : {nickname:nickname,clave:cl2},
+				success : function(resp) {
+					alert(resp.msg);
+				},
+				error: function(e) {
+					alert("Error al conectar: "+e.message);
+				}
+			});
+		}
+		else {
+			alert("Las claves no coinciden");
+		}
+	}
+	else {
+		alert("La clave no puede estar en blanco");
+	}
 }

@@ -81,8 +81,6 @@ function cargaPagina(url,num){
 		else if(num==6){
 			setTimeout(function(){
                 conexionChat();
-				//retrieveChatDialogs();
-                //crearChatPrivado(currentUser.id,assistantID);
 			},1200);
 		}
 	}
