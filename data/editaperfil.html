@@ -18,8 +18,8 @@
                         <div class="tabs">
                             <div id="tab1" class="tab active">
                                 <div class="contactform">
-                                    <form id="formsolucion" method="post" enctype="multipart/form-data">
-                                        <img id="profile-img" src="images/default_avatar.gif" alt="" title="" />
+                                    <form id="formupdate" method="post" enctype="multipart/form-data">
+                                        <img id="profile-img" src="images/default_avatar.gif" alt="" title="" width="120" />
                                         <input type="file" id="img-profile" name="img-profile" placeholder="Nueva imagen">
                                         <div class="form_row">
                                             <div class="form_row_icon"><img src="images/icons/blue/user.png" alt="" title="" /></div>
@@ -29,6 +29,7 @@
                                             <div class="form_row_icon"><img src="images/icons/blue/user.png" alt="" title="" /></div>
                                             <input type="text" name="apellido" value="" class="form_input required" placeholder="apellido(s)" />
                                         </div>
+                                        <input type="hidden" id="ncks" name="nck" value=""/>
                                         <input type="submit" name="submit" class="form_submit" id="submit" value="Actualizar datos" />
                                     </form>
                                 </div>
@@ -45,7 +46,7 @@
                                 <br>
                                 <input type="text" id="numct" class="form-control" value="">
                                 <br>
-                                <input type="button" class="btn btn-primary btn-block" value="Actualizar" onclick="" />
+                                <input type="button" class="btn btn-primary btn-block" value="Actualizar" onclick="actualizarCuenta();" />
                             </div>
                         </div>
                     </div>

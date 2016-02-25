@@ -267,6 +267,12 @@ function cargarDatosUsuario(){
 	var nickname = window.localStorage.getItem("nickname");
 	$("#dtcnt").hide();
 	cargarBancoSelect("banct");
+	$("#ncks").val(nickname);
+	$('#formupdate').on('submit', function(e) {
+		e.preventDefault();
+		modificarUsuario();
+		return false;
+	});
 	$.ajax({
 		type : 'post',
 		url : waooserver+"/usuarios/datosUsuario",
@@ -277,6 +283,7 @@ function cargarDatosUsuario(){
 			$.each(usr,function(i2,v){
 				$("#tab1 .contactform input[name='nombre']").val(v.nombre);
 				$("#tab1 .contactform input[name='apellido']").val(v.apellido);
+				verificaMuestraAvatar();
 				if(v.tipo==2){
 					$("#dtcnt").show();
 					$("#numct").val(v.numerocuenta);
@@ -316,4 +323,53 @@ function cambiarClave() {
 	else {
 		alert("La clave no puede estar en blanco");
 	}
+}
+
+function modificarUsuario() {
+	var formData = new FormData( $("#formupdate")[0] );
+	$.ajax({
+		type : 'post',
+		url : waooserver+"/usuarios/modificarUsuario",
+		dataType : "json",
+		data : formData,
+		async : false,
+		cache : false,
+		contentType : false,
+		processData : false,
+		success : function(resp) {
+			alert(resp.msg);
+			verificaMuestraAvatar();
+		},
+		error: function(e) {
+			alert("Error al conectar: "+e.message);
+		}
+	});
+}
+
+function verificaMuestraAvatar() {
+	var nickname = window.localStorage.getItem("nickname");
+	$.ajax({
+		type : 'post',
+		url : waooserver+"/usuarios/verificaAvatar",
+		dataType: "json",
+		data : {nickname:nickname},
+		success : function(resp) {
+			var idimg = resp.msg;
+			if(idimg*1==0){
+				$("#profile-img").prop("src","images/default_avatar.gif");
+			}
+			else{
+				$("#profile-img").prop("src",waooserver+"/usuarios/verAvatar/"+idimg);
+			}
+		},
+		error: function(e) {
+			alert("Error al conectar: "+e.message);
+		}
+	});
+}
+
+function actualizarCuenta() {
+	var idbanco = $("#banct option:selected").val();
+	var numerocuenta = $.trim($("#numct").val());
+	alert("En construccion");
 }
