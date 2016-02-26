@@ -96,6 +96,7 @@ function verifcarga(){
 		$("#loginimg").parent().bind('click',function(){myApp.popup(".popup-login");});
 		if(tareanotificaciones!=null) clearInterval(tareanotificaciones);
 		tareanotificaciones = null;
+        $("#snck").html(loggedin);
 	}
 	else{
 		$("#loginimg").prop("src","images/icons/blue/logout.png");
@@ -104,6 +105,7 @@ function verifcarga(){
 		$("#loginimg").parent().unbind('click');
 		$("#loginimg").parent().bind('click',function(){logout();});
 		cambiaIconosAsesor(loggedin);
+        $("#snck").html("-");
 		if(tareanotificaciones==null){
 			contarNotificacionesSinLeer();
 			tareanotificaciones = setInterval(function(){contarNotificacionesSinLeer();},60000);

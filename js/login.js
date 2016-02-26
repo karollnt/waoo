@@ -19,6 +19,7 @@ function login(){
 				cambiaIconosAsesor(nck);
 				contarNotificacionesSinLeer();
 				tareanotificaciones = setInterval(function(){contarNotificacionesSinLeer();},60000);
+				$("#snck").html(nck);
 				conexionChat();
 			}
 			else alert(resp.msg);
@@ -37,6 +38,7 @@ function logout(){
 	$("#loginimg").parent().bind('click',function(){myApp.popup(".popup-login");});
 	clearInterval(tareanotificaciones);
 	tareanotificaciones = null;
+	$("#snck").html("-");
 	logoutQuickblox();
 }
 
@@ -287,7 +289,7 @@ function cargarDatosUsuario(){
 				if(v.tipo==2){
 					$("#dtcnt").show();
 					$("#numct").val(v.numerocuenta);
-					$("#banct").prop('selected', false).filter('[value="'+v.idbanco+'"]').prop('selected', true);
+					$("#banct").val(v.idbanco);
 				}
 			});
 		},
@@ -359,7 +361,7 @@ function verificaMuestraAvatar() {
 				$("#profile-img").prop("src","images/default_avatar.gif");
 			}
 			else{
-				$("#profile-img").prop("src",waooserver+"/usuarios/verAvatar/"+idimg);
+				$("#profile-img").prop("src",waooserver+"/usuarios/verAvatar/"+idimg+"/"+((Math.random()*1000)/1000));
 			}
 		},
 		error: function(e) {
@@ -371,5 +373,17 @@ function verificaMuestraAvatar() {
 function actualizarCuenta() {
 	var idbanco = $("#banct option:selected").val();
 	var numerocuenta = $.trim($("#numct").val());
-	alert("En construccion");
+	var nickname = window.localStorage.getItem("nickname");
+	$.ajax({
+		type : 'post',
+		url : waooserver+"/usuarios/actualizarCuenta",
+		dataType: "json",
+		data : {nickname:nickname,numerocuenta:numerocuenta,idbanco:idbanco},
+		success : function(resp) {
+			alert(resp.msg);
+		},
+		error: function(e) {
+			alert("Error al conectar: "+e.message);
+		}
+	});
 }

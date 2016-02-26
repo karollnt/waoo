@@ -11,7 +11,8 @@ function creasolicitud(){
 		contentType : false,
 		processData : false,
 		success : function(resp) {
-			alert(resp.msg);
+			var json = JSON.parse(resp);
+			alert(json.msg);
 		}
 	});
 }
@@ -81,7 +82,7 @@ function listarSolicitudesAsignadasMatDiv(id){
 					else{
 						$("#"+id).append("<div class='alert table-responsive'>"
 							+"<table id='tblmat_"+i+"' class='table table-condensed'>"
-								+"<tr><th>T&iacute;tulo</th><th>Descripci&oacute;n</th><th>Fecha creado</th><th>Estado</th><th>&nbsp;</th></tr>"
+								+"<tr><th>T&iacute;tulo</th><th>Estado</th><th>&nbsp;</th></tr>"
 							+"</table>"
 							+"<div id='detsols_"+el[0]+"' class='alert alert-dismissable'></div>"
 						+"</div>");
@@ -89,8 +90,6 @@ function listarSolicitudesAsignadasMatDiv(id){
 						$.each(json,function(i2,v){
 							$("#tblmat_"+i).append("<tr>"
 								+"<td>"+v.titulo+"</td>"
-								+"<td>"+(v.descripcion==''?'':(v.descripcion.substring(0,20))+"...")+"</td>"
-								+"<td>"+v.fecharegistro+"</td>"
 								+"<td>"+v.estado+"</td>"
 								+"<td>"
 									+"<img style='margin:0;cursor:pointer;' src='images/icons/blue/plus.png' onclick='verDetalleSolicitud("+v.id+",\"detsols_"+el[0]+"\",1);'>"
@@ -129,7 +128,7 @@ function listarSolicitudesSinAsignarDiv(id){
 					else{
 						$("#"+id).append("<div class='alert table-responsive'>"
 							+"<table id='tblmat_"+i+"' class='table table-condensed'>"
-								+"<tr><th>T&iacute;tulo</th><th>Descripci&oacute;n</th><th>Fecha creado</th><th>&nbsp;</th></tr>"
+								+"<tr><th>T&iacute;tulo</th><th>&nbsp;</th></tr>"
 							+"</table>"
 							+"<div id='detsols_"+el[0]+"' class='alert'></div>"
 						+"</div>");
@@ -137,8 +136,6 @@ function listarSolicitudesSinAsignarDiv(id){
 						$.each(json,function(i2,v){
 							$("#tblmat_"+i).append("<tr>"
 								+"<td>"+v.titulo+"</td>"
-								+"<td>"+(v.descripcion==''?'':(v.descripcion.substring(0,20))+"...")+"</td>"
-								+"<td>"+v.fecharegistro+"</td>"
 								+"<td>"
 									+"<img style='margin:0;cursor:pointer;' src='images/icons/blue/plus.png' onclick='verDetalleSolicitud("+v.id+",\"detsols_"+el[0]+"\",1);'>"
 								+"</td>"
@@ -172,15 +169,14 @@ function listarSolicitudesCreadasMatDiv(id){
 				else{
 					$("#"+id).html("<div class='alert table-responsive'>"
 						+"<table id='tblmat_"+id+"' class='table table-condensed'>"
-							+"<tr><th>T&iacute;tulo</th><th>Fecha creado</th><th>Estado</th></tr>"
+							+"<tr><th>T&iacute;tulo</th><th>Estado</th></tr>"
 						+"</table>"
 						+"<div id='detsols_"+id+"' class='alert'></div>"
 					+"</div>");
 					var json = JSON.parse(resp.msg);
 					$.each(json,function(i2,v){
 						$("#tblmat_"+id).append("<tr>"
-							+"<td>"+v.titulo+"</td>"
-							+"<td>"+v.fecharegistro+"</td>"
+							+"<td>"+((v.titulo).substring(0,10)+"...")+"</td>"
 							+"<td style='vertical-align: bottom;'>"
 								+v.estado
 								+"<img style='margin:0;cursor:pointer;display:inline;' src='images/icons/blue/plus.png' onclick='verDetalleSolicitud("+v.id+",\"detsols_"+id+"\");'>"
@@ -225,7 +221,7 @@ function verDetalleSolicitud(id,iddiv,oferta){
 						+"</tr>"
 						+"<tr>"
 							+"<td colspan='2'>"
-								+(oferta==0 ? 
+								+(oferta==0 ?
 									"<button type='button' class='btn btn-primary btn-lg btn-block' onclick='ventanaOfertas("+v.id+");'>Ver ofertas</button>"
 									:(v.idestado==1 ?
 										"<input id='voferta' type='number' class='form-control' placeholder='¿Cu&aacute;nto cobrar&iacute;as por hacer este trabajo? (solo n&uacute;meros)'>"
@@ -279,9 +275,9 @@ function listarArchivosSolicitud(id,iddiv){
 								+"</tr>");
 						});
 					}
-					
+
 				}
-				
+
 			}
 		},
 		error: function(e) {
@@ -438,5 +434,5 @@ function aceptarSolucion(id){
 }
 
 function aceptarOferta(id){
-	
+
 }
