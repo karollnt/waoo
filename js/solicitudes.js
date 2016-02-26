@@ -10,8 +10,8 @@ function creasolicitud(){
 		cache : false,
 		contentType : false,
 		processData : false,
-		success : function(data) {
-			alert(data.msg);
+		success : function(resp) {
+			alert(resp.msg);
 		}
 	});
 }
