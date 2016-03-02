@@ -152,7 +152,15 @@ function listaChecksMateria(id){
 						if(i>0) colrwn += "</tr>";
 						colrwn += "<tr>";
 					}
-					colrwn += "<td><label style='display:inline;'><input type='checkbox' id='mat_"+i+"' name='mat_"+i+"' value='"+v.id+"'> "+v.nombre+"</label></td>";
+					colrwn += "<td><label class='label-checkbox item-content' style='display:inline;'>"
+						+"<input type='checkbox' id='mat_"+i+"' name='mat_"+i+"' value='"+v.id+"'> "
+						+"<div class='item-media'>"
+							+"<i class='icon icon-form-checkbox'></i>"
+						+"</div>"
+						+"<div class='item-inner'>"
+                              +"<div class='item-title'> "+v.nombre+"</div>"
+						+"</div>"
+					+"</label></td>";
 					if(i>=(resp.materias.length-1)){
 						if(regs%regsf>0){
 							var fil = Math.round(regs/regsf);
