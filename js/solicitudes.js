@@ -246,6 +246,11 @@ function verDetalleSolicitud(id,iddiv,oferta){
 	});
 }
 
+function verModalSolicitud(id,oferta){
+	$("#detalleoferta").show();
+	verDetalleSolicitud(id,'detalleoferta-cnt',oferta);
+}
+
 function listarArchivosSolicitud(id,iddiv){
 	$.ajax({
 		type: "post",

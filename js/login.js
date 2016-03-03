@@ -228,9 +228,13 @@ function listarNotificacionesSinLeer(){
 								+"<span class='day'>"+spl2[2]+"<span>"
 							+"</div>"
 							+"<div class='post_title' style='position:initial !important;'>"
-								+"<h2>"+v.titulo+"</h2>"
+								+"<h2>"
+									+v.titulo
+								+"</h2>"
 								+""+v.mensaje+"<br><br>"
-								+"<button class='btn btn-primary btn-block' onclick='marcarLeida("+v.id+","+v.idtrabajo+");'>Ver ofertas</button>"
+								+(v.tipo==1?
+									"<button class='btn btn-primary btn-block' onclick='marcarLeida("+v.id+","+v.idtrabajo+");'>Ver ofertas</button>"
+									:"<button class='btn btn-primary btn-block' onclick='verModalSolicitud("+v.id+",1);'>Ver detalles</button>")
 							+"</div>"
 						+"</div>"
 					+"</li>");
@@ -244,7 +248,8 @@ function listarNotificacionesSinLeer(){
 }
 
 function marcarLeida(id,idtrabajo){
-	$.ajax({
+	ventanaOfertas(idtrabajo);
+	/*$.ajax({
 		type : 'post',
 		url : waooserver+"/usuarios/marcarLeida",
 		dataType: "json",
@@ -255,7 +260,7 @@ function marcarLeida(id,idtrabajo){
 		error: function(e) {
 			alert("Error al conectar: "+e.message);
 		}
-	});
+	});*/
 }
 
 function actualizaIdQuick(id,nickname){
