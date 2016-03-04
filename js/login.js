@@ -229,12 +229,12 @@ function listarNotificacionesSinLeer(){
 							+"</div>"
 							+"<div class='post_title' style='position:initial !important;'>"
 								+"<h2>"
-									+v.titulo
+									+((v.titulo).length>18?(v.titulo).substr(0,15)+"...":v.titulo)
 								+"</h2>"
 								+""+v.mensaje+"<br><br>"
 								+(v.tipo==1?
 									"<button class='btn btn-primary btn-block' onclick='marcarLeida("+v.id+","+v.idtrabajo+");'>Ver ofertas</button>"
-									:"<button class='btn btn-primary btn-block' onclick='verModalSolicitud("+v.id+",1);'>Ver detalles</button>")
+									:"<button class='btn btn-primary btn-block' onclick='verModalSolicitud("+v.idtrabajo+",1);'>Ver detalles</button>")
 							+"</div>"
 						+"</div>"
 					+"</li>");
