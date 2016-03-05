@@ -249,18 +249,6 @@ function listarNotificacionesSinLeer(){
 
 function marcarLeida(id,idtrabajo){
 	ventanaOfertas(idtrabajo);
-	/*$.ajax({
-		type : 'post',
-		url : waooserver+"/usuarios/marcarLeida",
-		dataType: "json",
-		data : {id:id},
-		success : function(resp) {
-			ventanaOfertas(idtrabajo);
-		},
-		error: function(e) {
-			alert("Error al conectar: "+e.message);
-		}
-	});*/
 }
 
 function actualizaIdQuick(id,nickname){

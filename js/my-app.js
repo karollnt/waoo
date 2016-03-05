@@ -80,7 +80,7 @@ function cargaPagina(url,num){
 		}
 		else if(num==6){
 			setTimeout(function(){
-                conexionChat();
+                //conexionChat();
 			},1200);
 		}
 	}

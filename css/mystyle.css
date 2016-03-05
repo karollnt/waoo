@@ -1,0 +1,30 @@
+.mimodal{
+	background-color:white;
+	border-radius:10px;
+	box-shadow: 0 0 4px black;
+	display:none;
+	left:16%;
+	position:absolute;
+	width:70%;
+	z-index:9;
+}
+.mimodal .modal-body{
+	overflow: auto;
+}
+.michat{
+	height: 100%;
+	min-height: 100%;
+	position: relative;
+	width: 100%;
+}
+.michat-header{
+	
+}
+.michat-body{
+	
+}
+.michat-footer{
+	bottom: 0;
+	left: 0;
+	position: absolute;
+}

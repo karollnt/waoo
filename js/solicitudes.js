@@ -89,7 +89,7 @@ function listarSolicitudesAsignadasMatDiv(id){
 						var json = JSON.parse(el[1]);
 						$.each(json,function(i2,v){
 							$("#tblmat_"+i).append("<tr>"
-								+"<td>"+v.titulo+"</td>"
+								+"<td>"+((v.titulo).substring(0,10)+"...")+"</td>"
 								+"<td>"+v.estado+"</td>"
 								+"<td>"
 									+"<img style='margin:0;cursor:pointer;' src='images/icons/blue/plus.png' onclick='verDetalleSolicitud("+v.id+",\"detsols_"+el[0]+"\",1);'>"
@@ -135,7 +135,7 @@ function listarSolicitudesSinAsignarDiv(id){
 						var json = JSON.parse(el[1]);
 						$.each(json,function(i2,v){
 							$("#tblmat_"+i).append("<tr>"
-								+"<td>"+v.titulo+"</td>"
+								+"<td>"+((v.titulo).substring(0,10)+"...")+"</td>"
 								+"<td>"
 									+"<img style='margin:0;cursor:pointer;' src='images/icons/blue/plus.png' onclick='verDetalleSolicitud("+v.id+",\"detsols_"+el[0]+"\",1);'>"
 								+"</td>"
@@ -246,6 +246,20 @@ function verDetalleSolicitud(id,iddiv,oferta){
 					$("#"+iddiv).append(tbl);
 					listarArchivosSolicitud(v.id,"listfiles");
 				});
+				if(oferta==1){
+					$.ajax({
+						type : 'post',
+						url : waooserver+"/usuarios/marcarLeida",
+						dataType: "json",
+						data : {id:id},
+						success : function(resp) {
+							//ventanaOfertas(idtrabajo);
+						},
+						error: function(e) {
+							alert("Error al conectar: "+e.message);
+						}
+					});
+				}
 			}
 		},
 		error: function(e) {
@@ -262,7 +276,7 @@ function verModalSolicitud(id,oferta){
 function alertDetail(txt){
 	$("#detalletext-cnt").html("");
 	$("#detalletext").show();
-	$("#detalletext-cnt").html("<button type='button' class='close' aria-label='close' onclick='$(\"#detalletext\").hide();'>&times;</button><br>"+txt);
+	$("#detalletext-cnt").html(txt);
 }
 
 function listarArchivosSolicitud(id,iddiv){
