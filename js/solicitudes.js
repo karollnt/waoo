@@ -211,7 +211,7 @@ function verDetalleSolicitud(id,iddiv,oferta){
 						+"<caption><b>Detalles solicitud</b></caption>"
 						+"<tr>"
 							+"<th>T&iacute;tulo</th>"
-							+"<td>"+((v.titulo).length>15?"<button class='btn' onclick='alert(\""+(v.titulo).replace(/'/g, "")+"\");'>Ver</button>":v.titulo)+"</td>"
+							+"<td>"+((v.titulo).length>15?"<button class='btn' onclick='alertDetail(\""+(v.titulo).replace(/'/g, "")+"\");'>Ver</button>":v.titulo)+"</td>"
 						+"</tr>"
 						+"<tr>"+"<th>Fecha creado</th>"+"<td>"+v.fecharegistro+"</td>"+"</tr>"
 						+"<tr>"+"<th>Materia</th>"+"<td>"+v.materia+"</td>"+"</tr>"
@@ -219,7 +219,7 @@ function verDetalleSolicitud(id,iddiv,oferta){
 						+"<tr>"
 							+"<th>Descripcion</th>"
 							+"<td>"
-								+((v.descripcion).length>15?"<button class='btn' onclick='alert(\""+(v.descripcion).replace(/'/g, "")+"\");'>Ver</button>":v.descripcion)
+								+((v.descripcion).length>15?"<button class='btn' onclick='alertDetail(\""+(v.descripcion).replace(/'/g, "")+"\");'>Ver</button>":v.descripcion)
 							+"</td>"
 						+"</tr>"
 						+"<tr>"
@@ -257,6 +257,12 @@ function verDetalleSolicitud(id,iddiv,oferta){
 function verModalSolicitud(id,oferta){
 	$("#detalleoferta").show();
 	verDetalleSolicitud(id,'detalleoferta-cnt',oferta);
+}
+
+function alertDetail(txt){
+	$("#detalletext-cnt").html("");
+	$("#detalletext").show();
+	$("#detalletext-cnt").html("<button type='button' class='close' aria-label='close' onclick='$(\"#detalletext\").hide();'>&times;</button><br>"+txt);
 }
 
 function listarArchivosSolicitud(id,iddiv){
