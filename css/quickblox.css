@@ -186,7 +186,7 @@ input[type=file]:focus {
 #message_text {
 	display: inline-block;
 	border-radius: 0px;
-	width: 78.7%;
+	width: 85% !important;
 	box-shadow: none;
 }
 

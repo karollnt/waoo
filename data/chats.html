@@ -7,16 +7,9 @@
 				<div class="navbar_right"><a href="#" data-panel="right" class="open-panel"><img src="images/icons/blue/user.png" alt="" title="" /></a></div>
 			</div>
 			<div id="pages_maincontent">
-				<div class="page_content">
-					<div id="chat" style="width:100%;">
-						<div class="scroller">
-							<div id="chat-title">
-								<img style="border-radius:1.8em;display:inline;width:35px;" src="images/default_avatar.gif" alt="avatar" />
-								<b><span id="usrnck">-</span></b>
-							</div>
-							<section id="messages-list" class="chat-content content list-group pre-scrollable nice-scroll"></section>
-						</div>
-						<footer class="chat-footer">
+				<div class="page_content" style="padding:0; width: 100%;">
+					<div id="chat" class="michat">
+						<div class="michat-footer">
 							<form class="form-inline" role="form" method="POST" action="" onsubmit="return submit_handler(this);">
 								<div class="send_message">
 									<input id="load-img" type="file">
@@ -26,7 +19,14 @@
 								</div>
 								<img src="images/ajax-loader.gif" id="progress">
 							</form>
-						</footer>
+						</div>
+						<div class="michat-content scroller">
+							<div id="chat-title" class="michat-header">
+								<img style="border-radius:1.8em;display:inline;width:35px;" src="images/default_avatar.gif" alt="avatar" />
+								<b><span id="usrnck">-</span></b>
+							</div>
+							<section id="messages-list" class="chat-content content list-group pre-scrollable nice-scroll michat-body"></section>
+						</div>
 					</div>
 				</div>
 			</div>
