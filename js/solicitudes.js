@@ -469,3 +469,10 @@ function aceptarSolucion(id){
 function aceptarOferta(id){
 
 }
+
+function agregarFilaArchivo(){
+	var cfiles = $("#cantfiles");
+	var cant = (cfiles.val()*1) + 1;
+	$(".uploadfiles").append('<input type="file" name="uploadfile'+cant+'">');
+	cfiles.val(cant);
+}

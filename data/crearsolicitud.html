@@ -34,11 +34,16 @@
 									<label class="fileinput-button" id="fileinput" >
 										<span id='despuesd'>Adjuntar archivo</span>
 									</label>
-									<input type="file" name="uploadfile">
+									<div class="uploadfiles">
+										<input type="hidden" id="cantfiles" name="cantfiles" value="1">
+										<input type="file" name="uploadfile1">
+									</div>
 									<br>
 									Tipos permitidos: gif | jpg | png | jpeg | bmp | pdf | doc | docx | xls | xlsx | txt | zip | rar
 									<br>
-									M&aacute;x 10MB (para im&aacute;genes 1024 &times; 768 px)
+									M&aacute;x 10MB
+									<br>
+									<button class="btn btn-primary" onclick="agregarFilaArchivo();">Agregar otro archivo</button>
 								</div>
 								<input id="nck" type="hidden" name="nickname">
 								<input type="submit" name="submit" class="form_submit" id="submit" value="Enviar solicitud" />
