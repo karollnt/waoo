@@ -7,11 +7,11 @@ function buildMessageHTML(messageText, messageSenderId, messageDateSent, attachm
     var delivered = '<img class="icon-small" src="images/delivered.jpg" alt="" id="delivered_'+messageId+'">';
     var read = '<img class="icon-small" src="images/read.jpg" alt="" id="read_'+messageId+'">';
 
-    var messageHtml = '<div class="list-group-item message-wrap" id="'+messageId+'" onclick="clickToAddMsg('+"'"+messageId+"'"+')">'+
+    var messageHtml = '<div class="list-group-item message-wrap msgbubble" id="'+messageId+'" onclick="clickToAddMsg('+"'"+messageId+"'"+')">'+
         /*'<time datetime="'+messageDateSent+'" class="pull-right">'+jQuery.timeago(messageDateSent)+'</time>'+*/
         '<img class="avatar" src="images/default_avatar.gif" alt="avatar" />'+
         '<header><h4>'+messageSenderId+'</h4></header>'+
-        '<section>'+(messageAttach ? messageAttach : messageText)+'</section>'+
+        '<section class="msgbubble_msg">'+(messageAttach ? messageAttach : messageText)+'</section>'+
         /*delivered+read+*/
         '<footer class="time">' + jQuery.timeago(messageDateSent) + '</footer>'
     '</div>';

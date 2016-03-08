@@ -1,11 +1,11 @@
 // Initialize your app
 var myApp = new Framework7({
-  animateNavBackIcon: true,
-  precompileTemplates: true,
+    animateNavBackIcon: true,
+    precompileTemplates: true,
 	swipeBackPage: false,
 	swipeBackPageThreshold: 1,
 	pushState: false,
-  template7Pages: true,
+    template7Pages: true,
 	cache: false
 });
 

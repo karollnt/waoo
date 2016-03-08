@@ -12,21 +12,21 @@
 	overflow: auto;
 }
 .michat{
-	
+
 }
 .michat:before{
 	height: 100%;
 }
 .michat-content:after{
-	clear: both; 
+	clear: both;
 	content: '';
 	display: block;
 }
 .michat-header{
-	
+
 }
 .michat-body{
-	
+
 }
 .michat-footer{
 	bottom: 0;
@@ -34,6 +34,13 @@
 	padding: 0.5em;
 	position: absolute;
 	width: 100%;
+}
+.msgbubble{
+	border-radius: 0.5em;
+	margin-bottom: 0.3em;
+}
+.msgbubble_msg{
+	margin-top: -0.5em;
 }
 @media screen and (max-width: 800px) {
 	.michat-body{
@@ -53,5 +60,10 @@
 @media screen and (max-width: 320px) {
 	.michat-body{
 		max-height: 320px;
+	}
+}
+@media screen and (max-height: 480px) {
+	.michat-body{
+		max-height: 340px;
 	}
 }
