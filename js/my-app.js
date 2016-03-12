@@ -73,14 +73,14 @@ function cargaPagina(url,num){
 				cargarDatosUsuario();
 			},1000);
 		}
-        else if(num==5){
+    else if(num==5){
 			setTimeout(function(){
 				listarNotificacionesSinLeer();
 			},1000);
 		}
 		else if(num==6){
 			setTimeout(function(){
-                conexionChat();
+        conexionChat();
 			},1200);
 		}
 	}

@@ -163,6 +163,7 @@ function crearChatPrivado(uid,uid2){
 			retrieveUsersForDialogUpdate(function(){
 				retrieveChatMessages(createdDialog,null);
 			});
+			console.log(currentDialog.occupants_ids);
 		}
 	});
 }
