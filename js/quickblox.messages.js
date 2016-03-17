@@ -223,7 +223,8 @@ function sendMessage(text, attachmentFileId) {
 // show messages in UI
 function showMessage(userId, msg, attachmentFileId) {
   // add a message to list
-  var userLogin = getUserLoginById(userId);
+  //var userLogin = getUserLoginById(userId);
+  var userLogin = window.localStorage.getItem("nickname");
   var messageHtml = buildMessageHTML(msg.body, userLogin, new Date(), attachmentFileId, msg.id);
 
   $('#messages-list').append(messageHtml);

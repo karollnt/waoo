@@ -84,7 +84,7 @@ function readCookie(name) {
 
 function loginQuickblox(u){
 	var params = { 'login': u, 'password': usrpwds};
-	QB.createSession(function(err,result){
+	QB.createSession(params,function(err,result){
 		console.log('Session create callback', err, result);
 		QB.login(params, function(err, user){
 			if(user){
@@ -96,7 +96,14 @@ function loginQuickblox(u){
 				};
 				currentUser = usiir;
 				writeCookie('sessionId', user.token, 1);
-				connectToChat(usiir.id);
+				QB.chat.connect({userId:user.id,password:usrpwds},function (err,roster) {
+					if (err) {
+						console.log(err);
+					}
+					else {
+						connectToChat(usiir.id);
+					}
+				});
 			}
 			else{
 				registroQuickblox(u);
