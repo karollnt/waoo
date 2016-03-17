@@ -96,7 +96,7 @@ function loginQuickblox(u){
 				};
 				currentUser = usiir;
 				writeCookie('sessionId', user.token, 1);
-				QB.chat.connect({userId:user.id,password:usrpwds},function (err,roster) {
+				QB.chat.connect({userId:user.id,password:usrpwds.token},function (err,roster) {
 					if (err) {
 						console.log(err);
 					}
