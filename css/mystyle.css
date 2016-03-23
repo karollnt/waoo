@@ -62,8 +62,18 @@
 		max-height: 320px;
 	}
 }
+@media screen and (max-height: 660px) {
+	.michat-body{
+		max-height: 425px;
+	}
+}
 @media screen and (max-height: 480px) {
 	.michat-body{
-		max-height: 340px;
+		max-height: 345px;
+	}
+}
+@media screen and (max-height: 420px) {
+	.michat-body{
+		max-height: 310px;
 	}
 }
