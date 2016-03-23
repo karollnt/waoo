@@ -320,7 +320,17 @@ function listarArchivosSolicitud(id,iddiv){
 }
 
 function verArchivoSolicitud(id){
-	var rfpg = window.open(waooserver+"/solicitudes/verArchivoSolicitud/"+id,"_system","location=yes");
+	$.ajax({
+		type : 'get',
+		url : waooserver+"/solicitudes/verArchivoSolicitud/"+id,
+		dataType: "json",
+		success : function(data) {
+			var rfpg = window.open(data.msg,"_system","location=yes");
+		},
+		error: function(e) {
+			alert(e.message);
+		}
+	});
 }
 
 function ofertar(id,elem){
