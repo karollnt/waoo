@@ -12,7 +12,8 @@ function creasolicitud(){
 		processData : false,
 		success : function(resp) {
 			var json = JSON.parse(resp);
-			alert(json.msg);
+			if(json.msg=='ok') cargaPagina('success.html');
+			else alert(json.msg);
 		}
 	});
 }
