@@ -134,6 +134,12 @@ jQuery(document).ready(function() {
 
 	cargarBancoSelect("banco");
 	listaChecksMateria("matsreg");
+    //lib raty
+    $.fn.raty.defaults.path = './images';
+    /*$('.raty').raty({
+        click: function(score, evt){alert(score);},
+        hints: ['malo','regular','bueno','muy bueno','excelente']
+    });*/
 
 	$(".logo").animate({'top': '20px'},'slow',"easeInOutCirc");
 	$(".cartitems").delay(1000).animate({'width': '30px', 'height': '30px', 'top':'10px', 'right':'10px', 'opacity':1},1000,"easeOutBounce");
