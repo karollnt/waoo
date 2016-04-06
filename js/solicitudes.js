@@ -451,6 +451,10 @@ function verSolucion(id){
 							$("#solucionnotas").val(v.notas);
 							$("#idtrabajo").val(id);
 						});
+						$('.raty').raty({
+							click: function(score, evt){$('#calificacion').val(score);},
+							hints: ['malo','regular','bueno','muy bueno','excelente']
+						});
 					}
 				}
 			},
