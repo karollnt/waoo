@@ -180,7 +180,7 @@ function listarSolicitudesCreadasMatDiv(id){
 							+"<td>"+((v.titulo).substring(0,10)+"...")+"</td>"
 							+"<td style='vertical-align: bottom;'>"
 								+v.estado
-								+"<img style='margin:0;cursor:pointer;display:inline;' src='images/icons/blue/plus.png' onclick='verDetalleSolicitud("+v.id+",\"detsols_"+id+"\");'>"
+								+"<img style='margin:0;cursor:pointer;display:inline;' src='images/icons/blue/plus.png' onclick='verDetalleSolicitud("+v.id+",\"detsols_"+id+"\""+(v.asistente!='nousr'?',1':'')+");'>"
 							+"</td>"
 						+"</tr>");
 					});
@@ -441,8 +441,8 @@ function verSolucion(id){
 						$("#"+iddiv).html("<div class='alert alert-danger'>"+resp.msg+"</div>");
 					}
 					else{
-						$("#solucionfiles").html();
-						$("#solucionnotas").val("");
+						$("#solucionfiles").html('');
+						$("#solucionnotas").val('');
 						$("#idtrabajo").val(0);
 						var json = JSON.parse('['+resp.msg+']');
 						$.each(json,function(i2,v){
@@ -451,16 +451,16 @@ function verSolucion(id){
 							$("#solucionnotas").val(v.notas);
 							$("#idtrabajo").val(id);
 						});
-						$('.raty').raty({
-							click: function(score, evt){$('#calificacion').val(score);},
-							hints: ['malo','regular','bueno','muy bueno','excelente']
-						});
 					}
 				}
 			},
 			error: function(e) {
 				$("#"+iddiv).html(e.message);
 			}
+		});
+		$('.raty').raty({
+			click: function(score, evt){$('#calificacion').val(score);},
+			hints: ['malo','regular','bueno','muy bueno','excelente']
 		});
 	},1000);
 }

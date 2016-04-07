@@ -44,3 +44,7 @@
 .star-half-png:before {
   content: "\f123";
 }
+
+.raty img{
+    display: inline-block !important;
+}
