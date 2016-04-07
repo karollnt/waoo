@@ -83,6 +83,8 @@ function cargaPagina(url,num){
                 conexionChat();
 			},1200);
 		}
+    else if(num==10){
+    }
 	}
 }
 
@@ -136,7 +138,7 @@ jQuery(document).ready(function() {
 	listaChecksMateria("matsreg");
     //lib raty
     $.fn.raty.defaults.path = './images';
-    
+
 	$(".logo").animate({'top': '20px'},'slow',"easeInOutCirc");
 	$(".cartitems").delay(1000).animate({'width': '30px', 'height': '30px', 'top':'10px', 'right':'10px', 'opacity':1},1000,"easeOutBounce");
 	$(".main-nav ul > li")

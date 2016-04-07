@@ -375,10 +375,10 @@ function verOfertas(id,iddiv){
 								+"<h4 style='position:initial !important;'><a href='#'>"+v.asistente+"</a> <span class='stars'>"+v.calificacion+"</span></h4>"
 								+"<div class='shop_item_price'>$ "+v.valor+"</div>"
 							+"</div>"
-							+"<a id='addtocart' style='cursor:pointer;' onclick='aceptarOferta("+v.id+");'>ACEPTAR</a>"
+							+"<a id='addtocart' style='cursor:pointer;' onclick='aceptarOferta("+v.id+","+v.valor+");'>ACEPTAR</a>"
 						+"</li>");
-						$('.stars').stars();
 					});
+					$('.stars').stars();
 				}
 			}
 		},
@@ -481,8 +481,45 @@ function aceptarSolucion(id){
 	});
 }
 
-function aceptarOferta(id){
+function aceptarOferta(id,valor){
+	cargaPagina('data/pasarelapago.html',10);
+	$.ajax({
+		type : 'post',
+		url : waooserver+"/solicitudes/datosPasarela",
+		dataType: "json",
+		data : "",
+		success : function(resp) {
+			$('#idoferta').val(id);
+			$('#valoroferta').val(valor);
+		},
+		error: function(e) {
+			alert(e.message);
+		}
+	});
+}
 
+//Colocar bien cuando se tenga, es de ejemplo
+function pingConexionPasarela() {
+	$.ajax({
+		type : 'post',
+		url : "urlpasarela",
+		dataType: "json",
+		data : {
+		   "test": false,
+		   "language": "en",
+		   "command": "PING",
+		   "merchant": {
+		      "apiLogin": "11959c415b33d0c",
+		      "apiKey": "6u39nqhq8ftd0hlvnjfs66eh8c"
+		   }
+		},
+		success : function(resp) {
+			alert(JSON.stringify(resp));
+		},
+		error: function(e) {
+			alert(e.error);
+		}
+	});
 }
 
 function agregarFilaArchivo(){
