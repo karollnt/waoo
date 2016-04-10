@@ -73,7 +73,7 @@ function cargaPagina(url,num){
 				cargarDatosUsuario();
 			},1000);
 		}
-        else if(num==5){
+    else if(num==5){
 			setTimeout(function(){
 				listarNotificacionesSinLeer();
 			},1000);
@@ -81,12 +81,13 @@ function cargaPagina(url,num){
 		else if(num==6){
 
 		}
-        else if(num==7){
-            misendbird.init();
-        }
-        else if(num==10){
+    else if(num==7){
+      misendbird.killTask();
+      misendbird.init(1);
+    }
+    else if(num==10){
 
-        }
+    }
 	}
 }
 

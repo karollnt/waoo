@@ -20,7 +20,6 @@ function login(){
 				contarNotificacionesSinLeer();
 				tareanotificaciones = setInterval(function(){contarNotificacionesSinLeer();},60000);
 				$("#snck").html(nck);
-				conexionChat();
 			}
 			else alert(resp.msg);
 		},

@@ -1,35 +1,26 @@
 <div class="pages">
-	<div data-page="shop" class="page no-toolbar no-navbar">
-		<div class="page-content">
-			<div class="navbarpages">
+    <div data-page="success" class="page no-toolbar no-navbar">
+        <div class="page-content">
+            <div class="navbarpages">
 				<div class="navbar_left"><a href="#" onclick="cargaPagina('index.html',0);"><img src="images/icons/blue/menu.png" alt="" title="" /></a></div>
 				<div class="navbar_center"><h2><a href="#" onclick="cargaPagina('index.html',0);">waoo</a></h2></div>
 				<div class="navbar_right"><a href="#" data-panel="right" class="open-panel"><img src="images/icons/blue/user.png" alt="" title="" /></a></div>
 			</div>
-			<div id="pages_maincontent">
-				<div class="page_content" style="padding:0; width: 100%;">
-					<div id="chat" class="michat">
-						<div class="michat-footer">
-							<form class="form-inline" role="form" method="POST" action="" onsubmit="return submit_handler(this);">
-								<div class="send_message">
-									<input id="load-img" type="file">
-									<input type="text" class="message_field" id="message_text" placeholder="Escribe tu mensaje" style="float:left;" onkeyup="verificaIcono();"/>
-									<input type="image" id="send_btn" style="background:transparent;border:0 none;float:right;" src="images/attach.png" id="attach_img" onclick="verificaClic();" width="32" style="cursor:pointer;"/>
-									<div class="clear"></div>
-								</div>
-								<img src="images/ajax-loader.gif" id="progress">
-							</form>
-						</div>
-						<div class="michat-content scroller">
-							<div id="chat-title" class="michat-header" style="display:none;">
-								<img style="border-radius:1.8em;display:inline;width:35px;" src="images/default_avatar.gif" alt="avatar" />
-								<b><span id="usrnck">-</span></b>
-							</div>
-							<section id="messages-list" class="chat-content content list-group pre-scrollable nice-scroll michat-body"></section>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+            <div id="pages_maincontent" class="divchat">
+                <div class="page_content whatschat chat_box_wrapper chat_box_small chat_box_active">
+                    <div class="chat_box touchscroll chat_box_colors_a"></div>
+                    <div class="chat_submit_box">
+                        <div class="row">
+                            <div class="col-xs-10 col-sm-11">
+                                <input type="text" placeholder="Escriba el mensaje" id="submit_message" name="submit_message" class="md-input form-control bgwhite">
+                            </div>
+                            <div class="col-xs-2 col-sm-1">
+                                <a href="#" onclick="misendbird.sendMsg();"><i class="fa fa-paper-plane"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
