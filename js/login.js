@@ -38,7 +38,6 @@ function logout(){
 	clearInterval(tareanotificaciones);
 	tareanotificaciones = null;
 	$("#snck").html("-");
-	logoutQuickblox();
 }
 
 function register(){
@@ -49,7 +48,6 @@ function register(){
 		dataType: "json",
 		data: datos,
 		success: function(resp) {
-			registroQuickblox($("#RegisterForm input[name='nickname']").val());
 			alert(resp.msg);
 			$("#RegisterForm")[0].reset();
 		},
@@ -67,7 +65,6 @@ function register2(){
 		dataType: "json",
 		data: datos,
 		success: function(resp) {
-			registroQuickblox($("#RegisterForm2 input[name='nickname']").val());
 			alert(resp.msg);
 			$("#RegisterForm2")[0].reset();
 		},
@@ -248,21 +245,6 @@ function listarNotificacionesSinLeer(){
 
 function marcarLeida(id,idtrabajo){
 	ventanaOfertas(idtrabajo);
-}
-
-function actualizaIdQuick(id,nickname){
-	$.ajax({
-		type : 'post',
-		url : waooserver+"/usuarios/actualizaIdQuick",
-		dataType: "json",
-		data : {id:id,nickname:nickname},
-		success : function(resp) {
-
-		},
-		error: function(e) {
-			alert("Error al conectar: "+e.message);
-		}
-	});
 }
 
 function cargarDatosUsuario(){

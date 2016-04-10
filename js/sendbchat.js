@@ -5,7 +5,9 @@ var misendbird = (function () {
     var assistantId = '';
     var supportUrl = '711cc.support_waoo';
     var bgtask = null;
+    var channelChat = '';
     var init = function (chan,asid) {
+        channelChat = chan;
         sendbird.init({
             "app_id": appId,
             "guest_id": userId,
@@ -27,7 +29,8 @@ var misendbird = (function () {
                 }
             },
             "errorFunc": function(status, error) {
-              console.log(status, error);
+                console.log(status, error);
+                putReconnectButton();
             }
         });
     };
@@ -78,7 +81,7 @@ var misendbird = (function () {
     };
     var sendMsg = function () {
         var msg = $('#submit_message').val();
-        sendbird.message(msg,entr);
+        sendbird.message(msg);
         $('#submit_message').val('');
         appendToChat(msg,userId);
     };
@@ -88,7 +91,7 @@ var misendbird = (function () {
         }, 800);
     };
     var getMessages = function () {
-        $('.chat_box').html("<img src='imgages/ajax-loader.gif'/>");
+        $('.chat_box').html("<img src='images/ajax-loader.gif'/>");
         sendbird.getMessageLoadMore({
             "limit": 20,
             "successFunc" : function(data) {
@@ -101,8 +104,12 @@ var misendbird = (function () {
             },
             "errorFunc": function(status, error) {
                 console.log(status, error);
+                putReconnectButton();
             }
         });
+    };
+    var putReconnectButton = function () {
+        $('.chat_box').html("<button type='button' onclick='misendbird.reconnect();'>Recargar</button>");
     };
     var appendToChat = function (msg,nck) {
         var loc = nck==userId?1:0;
@@ -131,6 +138,12 @@ var misendbird = (function () {
         clearInterval(bgtask);
         bgtask = null;
     };
+    var getChannel = function () {
+        return channelChat;
+    };
+    var reconnect = function () {
+        init(channelChat,assistantId);
+    };
     return{
         init: init,
         sendMsg: sendMsg,
@@ -139,6 +152,8 @@ var misendbird = (function () {
         privChat: privChat,
         joinSupport: joinSupport,
         reviewMessages: reviewMessages,
-        killTask: killTask
+        killTask: killTask,
+        getChannel: getChannel,
+        reconnect: reconnect
     };
 })();
