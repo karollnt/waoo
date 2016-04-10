@@ -79,12 +79,14 @@ function cargaPagina(url,num){
 			},1000);
 		}
 		else if(num==6){
-			setTimeout(function(){
-                conexionChat();
-			},1200);
+
 		}
-    else if(num==10){
-    }
+        else if(num==7){
+            misendbird.init();
+        }
+        else if(num==10){
+
+        }
 	}
 }
 
