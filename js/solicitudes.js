@@ -491,33 +491,11 @@ function aceptarOferta(id,valor){
 		success : function(resp) {
 			$('#idoferta').val(id);
 			$('#valoroferta').val(valor);
+			mipayu.setApiLogin(resp.apiLogin);
+			mipayu.setApiKey(resp.apiKey);
 		},
 		error: function(e) {
 			alert(e.message);
-		}
-	});
-}
-
-//Colocar bien cuando se tenga, es de ejemplo
-function pingConexionPasarela() {
-	$.ajax({
-		type : 'post',
-		url : "urlpasarela",
-		dataType: "json",
-		data : {
-		   "test": false,
-		   "language": "en",
-		   "command": "PING",
-		   "merchant": {
-		      "apiLogin": "11959c415b33d0c",
-		      "apiKey": "6u39nqhq8ftd0hlvnjfs66eh8c"
-		   }
-		},
-		success : function(resp) {
-			alert(JSON.stringify(resp));
-		},
-		error: function(e) {
-			alert(e.error);
 		}
 	});
 }
