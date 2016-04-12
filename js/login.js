@@ -20,6 +20,7 @@ function login(){
 				contarNotificacionesSinLeer();
 				tareanotificaciones = setInterval(function(){contarNotificacionesSinLeer();},60000);
 				$("#snck").html(nck);
+				colocarAvatar('.user_avatar img');
 			}
 			else alert(resp.msg);
 		},
@@ -344,6 +345,28 @@ function verificaMuestraAvatar() {
 			}
 			else{
 				$("#profile-img").prop("src",waooserver+"/usuarios/verAvatar/"+idimg+"/"+((Math.random()*1000)/1000));
+			}
+		},
+		error: function(e) {
+			alert("Error al conectar: "+e.message);
+		}
+	});
+}
+
+function colocarAvatar(div) {
+	var nickname = window.localStorage.getItem("nickname");
+	$.ajax({
+		type : 'post',
+		url : waooserver+"/usuarios/verificaAvatar",
+		dataType: "json",
+		data : {nickname:nickname},
+		success : function(resp) {
+			var idimg = resp.msg;
+			if(idimg*1==0){
+				$(div).prop("src","images/default_avatar.gif");
+			}
+			else{
+				$(div).prop("src",waooserver+"/usuarios/verAvatar/"+idimg+"/"+((Math.random()*1000)/1000));
 			}
 		},
 		error: function(e) {

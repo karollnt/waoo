@@ -6,6 +6,7 @@ var misendbird = (function () {
     var supportUrl = '711cc.support_waoo';
     var bgtask = null;
     var channelChat = '';
+    var userAvatarSrc = '';
     var init = function (chan,asid) {
         channelChat = chan;
         sendbird.init({
@@ -80,18 +81,21 @@ var misendbird = (function () {
         joinChannel(supportUrl);
     };
     var sendMsg = function () {
-        var msg = $('#submit_message').val();
-        sendbird.message(msg);
-        $('#submit_message').val('');
-        appendToChat(msg,userId);
+        var msg = $.trim($('#submit_message').val());
+        if(msg!=''){
+          sendbird.message(msg);
+          $('#submit_message').val('');
+          appendToChat(msg,userId);
+        }
     };
     var scrollContainer = function (div) {
         $(div).stop().animate({
-            scrollTop: $(this).height()
+            scrollTop: $(div).prop('scrollHeight')
         }, 800);
     };
     var getMessages = function () {
         $('.chat_box').html("<img src='images/ajax-loader.gif'/>");
+        getAvatar();
         sendbird.getMessageLoadMore({
             "limit": 20,
             "successFunc" : function(data) {
@@ -101,6 +105,7 @@ var misendbird = (function () {
                 $.each(moreMessage.reverse(), function(index, msg) {
                     appendToChat(msg.payload.message,msg.payload.user.guest_id);
                 });
+                scrollContainer('.whatschat');
             },
             "errorFunc": function(status, error) {
                 console.log(status, error);
@@ -111,14 +116,36 @@ var misendbird = (function () {
     var putReconnectButton = function () {
         $('.chat_box').html("<button type='button' onclick='misendbird.reconnect();'>Recargar</button>");
     };
+    var getAvatar = function () {
+      var nickname = window.localStorage.getItem("nickname");
+    	$.ajax({
+    		type : 'post',
+    		url : waooserver+"/usuarios/verificaAvatar",
+    		dataType: "json",
+    		data : {nickname:nickname},
+    		success : function(resp) {
+    			var idimg = resp.msg;
+    			if(idimg*1==0){
+    				userAvatarSrc = "images/default_avatar.gif";
+    			}
+    			else{
+    				userAvatarSrc = waooserver+"/usuarios/verAvatar/"+idimg+"/"+((Math.random()*1000)/1000);
+    			}
+    		},
+    		error: function(e) {
+    			alert("Error al conectar: "+e.message);
+    		}
+    	});
+    };
     var appendToChat = function (msg,nck) {
         var loc = nck==userId?1:0;
         var rnorm = (loc==1?' chat_message_right':'');
         nck = typeof nck === "undefined"?userId:nck;
+        var imgav = loc==1?userAvatarSrc:'images/default_avatar.gif';
         var html =
         "<div class='chat_message_wrapper"+rnorm+"'>"
             +"<div class='chat_user_avatar'>"
-                +"<a href='#'><img alt='avatar' src='images/default_avatar.gif' class='md-user-image'></a>"
+                +"<a href='#'><img alt='avatar' src='"+imgav+"' class='md-user-image'></a>"
             +"</div>"
             +"<ul class='chat_message'>"
                 +"<li>"
@@ -127,7 +154,6 @@ var misendbird = (function () {
             +"</ul>"
         +"</div>";
         $('.chat_box').append(html);
-        scrollContainer('.chat_box');
     };
     var reviewMessages = function () {
         bgtask = setInterval(function () {
