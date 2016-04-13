@@ -12,7 +12,7 @@ function creasolicitud(){
 		processData : false,
 		success : function(resp) {
 			var json = JSON.parse(resp);
-			if(json.msg=='ok') cargaPagina('success.html');
+			if(json.msg=='ok') cargaPagina('data/success.html');
 			else alert(json.msg);
 		}
 	});
