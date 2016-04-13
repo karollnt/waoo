@@ -17,6 +17,10 @@ var mipayu = (function () {
   	$.ajax({
   		type : 'get',
   		url : urlApi,
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8',
+        'Accept': 'application/json'
+      },
   		dataType: 'jsonp',
   		data: {
   		   'test': true,
