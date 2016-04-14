@@ -86,7 +86,16 @@ function cargaPagina(url,num){
       misendbird.init(1);
     }
     else if(num==10){
-
+      var s1 = mercpagoui.selectTipoId();
+      var s2 = mercpagoui.selectTipoPago();
+      setTimeout(function(){
+        $('.js-tipoId-td').html(s1);
+        $('.js-tipoPago').html(s2);
+        $('.js-cardNumber').off('keyup').on('keyup',function () {
+          mercpagoui.adivinarTipoTarjeta();
+        });
+      },1000);
+      console.log(s1);
     }
 	}
 }

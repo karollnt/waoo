@@ -482,22 +482,7 @@ function aceptarSolucion(id){
 }
 
 function aceptarOferta(id,valor){
-	cargaPagina('data/pasarelapago.html',10);
-	$.ajax({
-		type : 'post',
-		url : waooserver+"/solicitudes/datosPasarela",
-		dataType: "json",
-		data : "",
-		success : function(resp) {
-			$('#idoferta').val(id);
-			$('#valoroferta').val(valor);
-			mipayu.setApiLogin(resp.apiLogin);
-			mipayu.setApiKey(resp.apiKey);
-		},
-		error: function(e) {
-			alert(e.message);
-		}
-	});
+	cargaPagina('data/pasarela.html',10);
 }
 
 function agregarFilaArchivo(){
