@@ -23,7 +23,7 @@ var mipayu = (function () {
       },
   		dataType: 'jsonp',
   		data: {
-  		   'test': true,
+  		   'test': false,
   		   'language': 'es',
   		   'command': 'PING',
   		   'merchant': {'apiLogin': apiLogin,'apiKey': apiKey}
