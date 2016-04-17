@@ -95,7 +95,6 @@ function cargaPagina(url,num){
           mercpagoui.adivinarTipoTarjeta();
         });
       },1000);
-      console.log(s1);
     }
 	}
 }

@@ -14,8 +14,7 @@ var mercpago = (function () {
   		dataType: "json",
   		data : "",
   		success : function(resp) {
-  			//pubKey = resp.pubKey;
-  			pubKey = 'TEST-3206830a-fc33-4b26-8856-f8dc77c090ca';
+  			pubKey = resp.pubKey;
         accToken = resp.accToken;
         Mercadopago.setPublishableKey(pubKey);
         searchPaymentMethods();
@@ -80,7 +79,7 @@ var mercpagoui = (function () {
     var paymentMethods = mercpago.getPaymentMethods();
     var html = "<select class='js-tipoPago form-control'>";
     $.each(paymentMethods,function (ixd,obj) {
-      if(obj.status=='active') html += "<option value='"+obj.id+"'>"+obj.name+" ("+(typeTransl[obj.payment_type_id])+")</option>";
+      if(obj.status=='active') html += "<option value='"+obj.id+"' data-type='"+obj.payment_type_id+"'>"+obj.name+" ("+(typeTransl[obj.payment_type_id])+")</option>";
     });
     html += "</select>";
     return html;
@@ -100,17 +99,13 @@ var mercpagoui = (function () {
     });
   };
   var enviarPago = function () {
-    $.each($('.js-enviarPago input'),function (ixd,obj) {
-      if(obj.val()==''){
-        alert('No ha llenado todos los datos');
-        return 0;
-      }
-    });
     var $datos = $('.js-enviarPago');
     Mercadopago.createToken($datos,function (st,resp) {
       if(st!=200 && st!=201) alert('No ha llenado todos los datos');
       else {
-        guardaPago($('.js-idSolicitud').val(),resp.id);
+        vat tipopago = $('.js-tipoPago option:selected').val();
+        //guardaPago($('.js-idSolicitud').val(),resp.id);
+        console.log(resp);
       }
     });
   };
