@@ -77,7 +77,7 @@ var mercpagoui = (function () {
   };
   var selectTipoPago = function () {
     var paymentMethods = mercpago.getPaymentMethods();
-    var html = "<select class='js-tipoPago form-control'>";
+    var html = "<select class='js-miTipoPago form-control'>";
     $.each(paymentMethods,function (ixd,obj) {
       if(obj.status=='active') html += "<option value='"+obj.id+"' data-type='"+obj.payment_type_id+"'>"+obj.name+" ("+(typeTransl[obj.payment_type_id])+")</option>";
     });
@@ -95,15 +95,30 @@ var mercpagoui = (function () {
   var adivinarTipoTarjeta = function () {
     var bin = getBin();
     if(bin.length>5) Mercadopago.getPaymentMethod({"bin": bin}, function (st,resp) {
-      if(st==200) $('.js-tipoPago').val(resp[0].id);
+      if(st==200){
+        $('.js-miTipoPago').val(resp[0].id);
+      }
     });
+  };
+  var cuotasParaTarjeta = function () {
+    var bin = getBin();
+    var $sel = $('.js-cuotas');
+    if(bin.length>5){
+      $sel.html('');
+      Mercadopago.getInstallments({"bin": bin,"amount": 10000}, function (st,resp) {
+        var payerCosts = resp[0].payer_costs;
+        for (var i = 0; i < payerCosts.length; i++) {
+          $sel.append("<option value='"+payerCosts[i].installments+"'>"+(payerCosts[i].recommended_message || payerCosts[i].installments)+"</option>");
+        }
+      });
+    }
   };
   var enviarPago = function () {
     var $datos = $('.js-enviarPago');
     Mercadopago.createToken($datos,function (st,resp) {
       if(st!=200 && st!=201) alert('No ha llenado todos los datos');
       else {
-        var tipopago = $('.js-tipoPago option:selected').val();
+        var tipopago = $('.js-miTipoPago option:selected').data('type');
         //guardaPago($('.js-idSolicitud').val(),resp.id);
         console.log(resp);
       }
@@ -124,10 +139,28 @@ var mercpagoui = (function () {
   		}
   	});
   };
+  var initEvents = function () {
+    /*$().off('click').on('click',function () {
+
+    });*/
+    var s1 = selectTipoId();
+    var s2 = selectTipoPago();
+    $('.js-tipoId-td').html(s1);
+    $('.js-tipoPago').html(s2);
+    $('.js-cardNumber').off('keyup paste').on('keyup paste',function () {
+      clearTimeout($(this).data('timeout'));
+      $(this).data('timeout', setTimeout(function(){
+        adivinarTipoTarjeta();
+        var tipopago = $('.js-miTipoPago option:selected').data('type');
+        if(tipopago=='credit_card') cuotasParaTarjeta();
+      },200));
+    });
+  };
   return{
     selectTipoId: selectTipoId,
     selectTipoPago: selectTipoPago,
     adivinarTipoTarjeta: adivinarTipoTarjeta,
-    enviarPago: enviarPago
+    enviarPago: enviarPago,
+    initEvents: initEvents
   };
 })();

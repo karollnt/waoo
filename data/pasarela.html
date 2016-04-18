@@ -9,7 +9,7 @@
             <div id="pages_maincontent">
                 <div class="page_content">
                     <h2 class="">Registrar pago</h2>
-                    <form class="js-enviarPago" method="post">
+                    <form class="js-enviarPago table-responsive" method="post">
                       <input type="hidden" class="js-idSolicitud" value="">
                       <table class="table">
                         <tr>
@@ -45,6 +45,14 @@
                           </td>
                           <td>
                             <input type="text" name="cardExpirationYear" value="" class="js-expirationYear form-control" placeholder="A&ntilde;o expira (si el tipo de pago es con tarjeta cr&eacute;dito)">
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>
+                            Cuotas (s&oacute;lo tarj cr&eacute;dito)
+                          </td>
+                          <td>
+                            <select class="js-cuotas"></select>
                           </td>
                         </tr>
                       </table>
