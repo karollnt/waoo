@@ -3,6 +3,7 @@
 }
 .bgwhite{background-color: #FFF !important;}
 .m-t-10{margin-top: 10px;}
+.m-b-10{margin-bottom: 10px;}
 .inside-input{
     right: 1em;
     position:absolute;
@@ -10,3 +11,7 @@
 }
 .pos-r{position: relative;}
 .pos-a{position: absolute;}
+.miopt{
+	background-repeat: no-repeat;
+	background-position: 100% 0;
+}

@@ -485,6 +485,7 @@ function aceptarOferta(id,valor){
 	cargaPagina('data/pasarela.html',10);
 	setTimeout(function () {
 		$('.js-idSolicitud').val(id);
+		$('.js-valorOferta').val(valor);
 	},600);
 }
 

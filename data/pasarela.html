@@ -10,22 +10,24 @@
                 <div class="page_content">
                     <h2 class="">Registrar pago</h2>
                     <form class="js-enviarPago table-responsive" method="post">
-                      <input type="hidden" class="js-idSolicitud" value="">
+                      <input type="hidden" name="idpreciotrabajo" class="js-idSolicitud" value="">
+                      <input type="hidden" name="token" class="js-token" value="">
+                      <input type="hidden" name="valorOferta" class="js-valorOferta" value="52000">
                       <table class="table">
                         <tr>
                           <td colspan="2">
-                            <input type="text" name="name" value="" class="js-names form-control" placeholder="Nombre(s) y apellido(s)">
+                            <input type="text" name="nombres" value="" class="js-names form-control" placeholder="Nombre(s) y apellido(s)" required>
                           </td>
                         </tr>
                         <tr>
                           <td class="js-tipoId-td"></td>
                           <td>
-                            <input type="text" name="id" value="" class="js-numId form-control" placeholder="Numero identificacion">
+                            <input type="text" name="id" value="" class="js-numId form-control" placeholder="Numero identificacion" required>
                           </td>
                         </tr>
                         <tr>
                           <td colspan="2">
-                            <input type="text" name="email" value="" class="js-email form-control" placeholder="Correo electronico">
+                            <input type="text" name="email" value="" class="js-email form-control" placeholder="Correo electronico" required>
                           </td>
                         </tr>
                         <tr>
@@ -36,34 +38,32 @@
                             <input type="text" name="cardNumber" value="" class="js-cardNumber form-control" placeholder="N&uacute;mero de tarjeta (si el tipo de pago es con tarjeta)">
                           </td>
                           <td>
-                            <input type="text" name="securityCode" value="" class="js-securityCode form-control" placeholder="C&oacute;digo de seguridad de tarjeta (si el tipo de pago es con tarjeta cr&eacute;dito)">
+                            <input type="text" name="securityCode" value="" class="js-securityCode form-control" pattern="[0-9]{3}" placeholder="C&oacute;digo de seguridad de tarjeta (si el tipo de pago es con tarjeta cr&eacute;dito)">
                           </td>
                         </tr>
                         <tr>
                           <td>
-                            <input type="text" name="cardExpirationMonth" value="" class="js-expirationMonth form-control" placeholder="Mes expira (si el tipo de pago es con tarjeta cr&eacute;dito)">
+                            Mes expira <br/>
+                            <select class="js-expirationMonth form-control" name="cardExpirationMonth"></select>
                           </td>
                           <td>
-                            <input type="text" name="cardExpirationYear" value="" class="js-expirationYear form-control" placeholder="A&ntilde;o expira (si el tipo de pago es con tarjeta cr&eacute;dito)">
+                            A&ntilde;o expira <br/>
+                            <select class="js-expirationYear form-control" name="cardExpirationYear"></select>
                           </td>
                         </tr>
                         <tr>
-                          <td>
-                            Cuotas (s&oacute;lo tarj cr&eacute;dito)
-                          </td>
-                          <td>
-                            <select class="js-cuotas"></select>
+                          <td colspan="2">
+                            <select class="js-cuotas form-control" name="cuotas" placeholder="cuotas"></select>
                           </td>
                         </tr>
                       </table>
                       <div class="">
                         <div class="col-sm-6 m-t-10">
-                          <button type="button" class="btn btn-primary btn-block btn-lg" onclick="mercpagoui.enviarPago();">
-                            <i class="fa fa-money" aria-hidden="true"></i>
-                            Aceptar
+                          <button type="button" class="btn btn-primary btn-block btn-lg js-enviaPago" data-loading-text="Procesando...">
+                            <i class="fa fa-money" aria-hidden="true"></i> Aceptar
                           </button>
                         </div>
-                        <div class="col-sm-6 m-t-10">
+                        <div class="col-sm-6 m-t-10 m-b-10">
                           <button type="button" class="btn btn-block btn-lg" onclick="cargaPagina('index.html',0);">Cancelar</button>
                         </div>
                       </div>

@@ -1,11 +1,11 @@
 // Initialize your app
 var myApp = new Framework7({
-    animateNavBackIcon: true,
-    precompileTemplates: true,
+  animateNavBackIcon: true,
+  precompileTemplates: true,
 	swipeBackPage: false,
 	swipeBackPageThreshold: 1,
 	pushState: false,
-    template7Pages: true,
+  template7Pages: true,
 	cache: false
 });
 
@@ -53,7 +53,6 @@ function cargaPagina(url,num){
 									creasolicitud();
 									return false;
 								});
-								//cargaJQFU();
 							},1000);
 						}
 					}
@@ -88,6 +87,8 @@ function cargaPagina(url,num){
     else if(num==10){
       setTimeout(function(){
         mercpagoui.initEvents();
+        llenarSelectMes('.js-expirationMonth');
+        llenarSelectAnio('.js-expirationYear');
       },1000);
     }
 	}
@@ -103,7 +104,7 @@ function verifcarga(){
 		$("#loginimg").parent().bind('click',function(){myApp.popup(".popup-login");});
 		if(tareanotificaciones!=null) clearInterval(tareanotificaciones);
 		tareanotificaciones = null;
-        $("#snck").html(loggedin);
+    $("#snck").html(loggedin);
 	}
 	else{
 		$("#loginimg").prop("src","images/icons/blue/logout.png");
@@ -120,29 +121,48 @@ function verifcarga(){
 	}
 }
 
+function llenarSelectMes(id) {
+  var str = "";
+  for (var i = 1; i <= 12; i++) {
+    str += "<option value='"+i+"'>"+i+"</option>";
+  }
+  $(id).html(str);
+}
+
+function llenarSelectAnio(id) {
+  var fd = new Date();
+  var miny = fd.getFullYear();
+  var maxy = miny + 30;
+  var str = "";
+  for (var i = miny; i < maxy; i++) {
+    str += "<option value='"+i+"'>"+i+"</option>";
+  }
+  $(id).html(str);
+}
+
 jQuery(document).ready(function() {
 	"use strict";
 	verifcarga();
 	$('#LoginForm').on('submit', function(e) { //use on if jQuery 1.7+
-        e.preventDefault();  //prevent form from submitting
+    e.preventDefault();  //prevent form from submitting
 		login();
 		return false;
-    });
+  });
 	$('#RegisterForm').on('submit', function(e) {
-        e.preventDefault();
+    e.preventDefault();
 		register();
 		return false;
-    });
+  });
 	$('#RegisterForm2').on('submit', function(e) {
-        e.preventDefault();
-		register2();
-		return false;
-    });
+    e.preventDefault();
+  	register2();
+  	return false;
+  });
 
 	cargarBancoSelect("banco");
 	listaChecksMateria("matsreg");
-    //lib raty
-    $.fn.raty.defaults.path = './images';
+  //lib raty
+  $.fn.raty.defaults.path = './images';
 
 	$(".logo").animate({'top': '20px'},'slow',"easeInOutCirc");
 	$(".cartitems").delay(1000).animate({'width': '30px', 'height': '30px', 'top':'10px', 'right':'10px', 'opacity':1},1000,"easeOutBounce");
@@ -155,7 +175,7 @@ jQuery(document).ready(function() {
 	});
 
 	$(".main-nav ul > li span")
-	    .css('opacity', '0')
+    .css('opacity', '0')
 		.each(function(index, item) {
 			setTimeout(function() {
 				$(item).animate({'left': '0px', 'opacity':1},500,"easeInOutCirc");
