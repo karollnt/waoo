@@ -103,7 +103,7 @@ var mercpagoui = (function () {
     Mercadopago.createToken($datos,function (st,resp) {
       if(st!=200 && st!=201) alert('No ha llenado todos los datos');
       else {
-        vat tipopago = $('.js-tipoPago option:selected').val();
+        var tipopago = $('.js-tipoPago option:selected').val();
         //guardaPago($('.js-idSolicitud').val(),resp.id);
         console.log(resp);
       }
