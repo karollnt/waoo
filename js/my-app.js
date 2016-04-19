@@ -78,7 +78,7 @@ function cargaPagina(url,num){
 			},1000);
 		}
 		else if(num==6){
-
+      
 		}
     else if(num==7){
       misendbird.killTask();

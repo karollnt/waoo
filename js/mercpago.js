@@ -129,15 +129,19 @@ var mercpagoui = (function(){
   		url : waooserver+"/solicitudes/aceptarPrecio",
   		dataType: "json",
   		data : $('.js-enviarPago').serialize(),
-  		success : function(resp) {
-  			alert(resp.msg);
+      success : function(resp) {
+        alert(resp.msg);
         cargaPagina('data/chats.html',6);
-  		},
-  		error: function(e) {
-  			alert(e.message);
+        setTimeout(function () {
+          misendbird.killTask();
+          misendbird.init(0,resp.nickasistente);
+        },200);
+      },
+      error: function(e) {
+        alert(e.message);
         $('.js-enviaPago').button('reset');
-  		}
-  	});
+      }
+    });
   };
   var initEvents = function(){
     var s1 = selectTipoId();
