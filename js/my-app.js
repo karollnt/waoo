@@ -78,7 +78,7 @@ function cargaPagina(url,num){
 			},1000);
 		}
 		else if(num==6){
-      
+
 		}
     else if(num==7){
       misendbird.killTask();
@@ -188,34 +188,36 @@ jQuery(document).ready(function() {
 			}, index*175);
 	});
 
-    $('.item_delete').click(function(e){
-        e.preventDefault();
-        var currentVal = $(this).attr('id');
-        $('div#'+currentVal).fadeOut('slow');
-    });
+  $('.item_delete').click(function(e){
+    e.preventDefault();
+    var currentVal = $(this).attr('id');
+    $('div#'+currentVal).fadeOut('slow');
+  });
 
-    $('.qntyplus').click(function(e){
+  $('.qntyplus').click(function(e){
 
-        e.preventDefault();
-        var fieldName = $(this).attr('field');
-        var currentVal = parseInt($('input[name='+fieldName+']').val());
-        if (!isNaN(currentVal)) {
-            $('input[name='+fieldName+']').val(currentVal + 1);
-        } else {
-            $('input[name='+fieldName+']').val(0);
-        }
+    e.preventDefault();
+    var fieldName = $(this).attr('field');
+    var currentVal = parseInt($('input[name='+fieldName+']').val());
+    if (!isNaN(currentVal)) {
+      $('input[name='+fieldName+']').val(currentVal + 1);
+    }
+    else {
+      $('input[name='+fieldName+']').val(0);
+    }
 
-    });
-    $(".qntyminus").click(function(e) {
-        e.preventDefault();
-        var fieldName = $(this).attr('field');
-        var currentVal = parseInt($('input[name='+fieldName+']').val());
-        if (!isNaN(currentVal) && currentVal > 0) {
-            $('input[name='+fieldName+']').val(currentVal - 1);
-        } else {
-            $('input[name='+fieldName+']').val(0);
-        }
-    });
+  });
+  $(".qntyminus").click(function(e) {
+    e.preventDefault();
+    var fieldName = $(this).attr('field');
+    var currentVal = parseInt($('input[name='+fieldName+']').val());
+    if (!isNaN(currentVal) && currentVal > 0) {
+      $('input[name='+fieldName+']').val(currentVal - 1);
+    }
+    else {
+      $('input[name='+fieldName+']').val(0);
+    }
+  });
 
 });
 
@@ -252,100 +254,97 @@ myApp.onPageInit('index', function (page) {
 
 myApp.onPageInit('blog', function (page) {
 
-		$(".posts li").hide();
-		size_li = $(".posts li").size();
-		x=4;
+	$(".posts li").hide();
+	size_li = $(".posts li").size();
+	x=4;
+	$('.posts li:lt('+x+')').show();
+	$('#loadMore').click(function () {
+		x= (x+1 <= size_li) ? x+1 : size_li;
 		$('.posts li:lt('+x+')').show();
-		$('#loadMore').click(function () {
-			x= (x+1 <= size_li) ? x+1 : size_li;
-			$('.posts li:lt('+x+')').show();
-			if(x == size_li){
-				$('#loadMore').hide();
-				$('#showLess').show();
-			}
-		});
+		if(x == size_li){
+			$('#loadMore').hide();
+			$('#showLess').show();
+		}
+	});
 
-		$("ul.posts > li div.post_date")
-			.css('opacity', '0')
-			.each(function(index, item) {
-				setTimeout(function() {
-					$(item).animate({'left':'0px', 'opacity':1},800,"easeInOutCirc");
-				}, index*175);
-		});
-		$("ul.posts > li div.post_title")
-			.css('opacity', '0')
-			.each(function(index, item) {
-				setTimeout(function() {
-					$(item).animate({'right':'0px', 'opacity':1},800,"easeInOutCirc");
-				}, index*175);
-		});
+	$("ul.posts > li div.post_date")
+		.css('opacity', '0')
+		.each(function(index, item) {
+			setTimeout(function() {
+				$(item).animate({'left':'0px', 'opacity':1},800,"easeInOutCirc");
+			}, index*175);
+	});
+	$("ul.posts > li div.post_title")
+		.css('opacity', '0')
+		.each(function(index, item) {
+			setTimeout(function() {
+				$(item).animate({'right':'0px', 'opacity':1},800,"easeInOutCirc");
+			}, index*175);
+	});
 })
 
 myApp.onPageInit('blogsingle', function (page) {
-
-			$(".backto").animate({'left': '0px'},'slow',"easeInOutCirc");
-			$(".nextto").delay(500).animate({'opacity':1, 'width': '10%',},500,"easeOutBounce");
-			$(".post_title_single").animate({'right': '0px'},'slow',"easeInOutCirc");
-
-
+		$(".backto").animate({'left': '0px'},'slow',"easeInOutCirc");
+		$(".nextto").delay(500).animate({'opacity':1, 'width': '10%',},500,"easeOutBounce");
+		$(".post_title_single").animate({'right': '0px'},'slow',"easeInOutCirc");
 })
 
 myApp.onPageInit('shop', function (page) {
 
-		$("ul.shop_items > li")
-			.css('opacity', '0')
-			.each(function(index, item) {
-				setTimeout(function() {
-					$(item).fadeTo('slow',1,"easeInOutCirc");
-				}, index*175);
-		});
+	$("ul.shop_items > li")
+		.css('opacity', '0')
+		.each(function(index, item) {
+			setTimeout(function() {
+				$(item).fadeTo('slow',1,"easeInOutCirc");
+			}, index*175);
+	});
 
-		$("ul.shop_items > li .shopfav")
-			.css('opacity', '0')
-			.each(function(index, item) {
-				setTimeout(function() {
-					$(item).animate({'width':'8%', 'opacity':1},2000,"easeOutBounce");
-				}, index*175);
-		});
+	$("ul.shop_items > li .shopfav")
+		.css('opacity', '0')
+		.each(function(index, item) {
+			setTimeout(function() {
+				$(item).animate({'width':'8%', 'opacity':1},2000,"easeOutBounce");
+			}, index*175);
+	});
 
-		$("ul.shop_items > li h4")
-			.css('opacity', '0')
-			.each(function(index, item) {
-				setTimeout(function() {
-					$(item).animate({'right':'0px', 'opacity':1},800,"easeInOutCirc");
-				}, index*175);
-		});
+	$("ul.shop_items > li h4")
+		.css('opacity', '0')
+		.each(function(index, item) {
+			setTimeout(function() {
+				$(item).animate({'right':'0px', 'opacity':1},800,"easeInOutCirc");
+			}, index*175);
+	});
 
-		$("ul.shop_items > li div.shop_thumb")
-			.css('opacity', '0')
-			.each(function(index, item) {
-				setTimeout(function() {
-					$(item).animate({'left':'0px', 'opacity':1},800,"easeInOutCirc");
-				}, index*175);
-		});
+	$("ul.shop_items > li div.shop_thumb")
+		.css('opacity', '0')
+		.each(function(index, item) {
+			setTimeout(function() {
+				$(item).animate({'left':'0px', 'opacity':1},800,"easeInOutCirc");
+			}, index*175);
+	});
 
-		$('.qntyplusshop').click(function(e){
+	$('.qntyplusshop').click(function(e){
 
-			e.preventDefault();
-			var fieldName = $(this).attr('field');
-			var currentVal = parseInt($('input[name='+fieldName+']').val());
-			if (!isNaN(currentVal)) {
-				$('input[name='+fieldName+']').val(currentVal + 1);
-			} else {
-				$('input[name='+fieldName+']').val(0);
-			}
+		e.preventDefault();
+		var fieldName = $(this).attr('field');
+		var currentVal = parseInt($('input[name='+fieldName+']').val());
+		if (!isNaN(currentVal)) {
+			$('input[name='+fieldName+']').val(currentVal + 1);
+		} else {
+			$('input[name='+fieldName+']').val(0);
+		}
 
-		});
-		$(".qntyminusshop").click(function(e) {
-			e.preventDefault();
-			var fieldName = $(this).attr('field');
-			var currentVal = parseInt($('input[name='+fieldName+']').val());
-			if (!isNaN(currentVal) && currentVal > 0) {
-				$('input[name='+fieldName+']').val(currentVal - 1);
-			} else {
-				$('input[name='+fieldName+']').val(0);
-			}
-		});
+	});
+	$(".qntyminusshop").click(function(e) {
+		e.preventDefault();
+		var fieldName = $(this).attr('field');
+		var currentVal = parseInt($('input[name='+fieldName+']').val());
+		if (!isNaN(currentVal) && currentVal > 0) {
+			$('input[name='+fieldName+']').val(currentVal - 1);
+		} else {
+			$('input[name='+fieldName+']').val(0);
+		}
+	});
 
 })
 
