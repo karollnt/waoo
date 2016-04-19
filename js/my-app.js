@@ -140,6 +140,12 @@ function llenarSelectAnio(id) {
   $(id).html(str);
 }
 
+function closeModals() {
+  myApp.closeModal('.popup-signup');
+  myApp.closeModal('.popup-signup2');
+  myApp.closeModal('.popup-login');
+}
+
 jQuery(document).ready(function() {
 	"use strict";
 	verifcarga();

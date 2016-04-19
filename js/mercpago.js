@@ -131,7 +131,7 @@ var mercpagoui = (function(){
   		data : $('.js-enviarPago').serialize(),
   		success : function(resp) {
   			alert(resp.msg);
-        cargaPagina('index.html',0);
+        cargaPagina('data/chats.html',6);
   		},
   		error: function(e) {
   			alert(e.message);

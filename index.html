@@ -32,15 +32,16 @@
 				<div class="user_thumb">
 					<img src="images/profile.jpg" alt="" title="" />
 					<div class="user_details">
-						<p>Hi, <span id="snck">-</span></p>
+						<p>Hola, <span id="snck">-</span></p>
 					</div>
 					<div class="user_avatar"><img src="images/default_avatar.gif" alt="" title="" /></div>
 				</div>
 				<nav class="user-nav">
 					<ul>
 						<li><a href="#" onclick="cargaPagina('data/editaperfil.html',4);" class="close-panel"><img src="images/icons/blue/users.png" alt="" title="" /><span>Editar perfil</span></a></li>
-						<li><a href="#" onclick="logout();"><img src="images/icons/blue/logout.png" alt="" title=""/><span>Cerrar sesi&oacute;n</span></a></li>
-					</ul>
+						<li><a href="#" onclick="cargaPagina('data/guiauso.html');" class="close-panel"><img src="images/icons/blue/search.png" alt="" title=""/><span>Informaci&oacute;n</span></a></li>
+						<li><a href="#" onclick="logout();" class="close-panel"><img src="images/icons/blue/logout.png" alt="" title=""/><span>Cerrar sesi&oacute;n</span></a></li>
+					</ul><!--closePanel();-->
 				</nav>
 			</div>
 		</div>
@@ -133,8 +134,8 @@
 						<input type="submit" name="submit" class="form_submit" id="submit" value="Registrarse" />
 					</form>
 					<p>
-						Al registrarte est&aacute;s de acuerdo con los <a class="close_loginpopup_button" href="data/terminos.html">T&eacute;rminos y condiciones</a>
-						y la <a href="data/politica.html">Pol&iacute;tica de privacidad</a>
+						Al registrarte est&aacute;s de acuerdo con los <a href="data/terminos.html" onclick="closeModals();">T&eacute;rminos y condiciones</a>
+						y la <a href="data/privacidad.html" onclick="closeModals();">Pol&iacute;tica de privacidad</a>
 					</p>
 					<!--<div class="signup_social">
 					<a href="http://www.facebook.com/" class="signup_facebook external">FACEBOOK</a>
@@ -189,8 +190,8 @@
 						<input type="submit" name="submit" class="form_submit" id="submit" value="Registrarse" />
 					</form>
 					<p>
-						Al registrarte est&aacute;s de acuerdo con los <a class="close_loginpopup_button" href="data/terminos.html">T&eacute;rminos y condiciones</a>
-						y la <a href="data/politica.html">Pol&iacute;tica de privacidad</a>
+						Al registrarte est&aacute;s de acuerdo con los <a href="data/terminos.html" onclick="closeModals();">T&eacute;rminos y condiciones</a>
+						y la <a href="data/privacidad.html" onclick="closeModals();">Pol&iacute;tica de privacidad</a>
 					</p>
 					<!--<div class="signup_social">
 					<a href="http://www.facebook.com/" class="signup_facebook external">FACEBOOK</a>
