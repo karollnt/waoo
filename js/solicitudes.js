@@ -1,3 +1,4 @@
+'use strict';
 function creasolicitud(){
 	var n = window.localStorage.getItem("nickname");
 	$("#nck").val(n);
@@ -143,7 +144,6 @@ function listarSolicitudesSinAsignarDiv(id){
 							+"</tr>");
 						});
 					}
-					//$("#"+id).append();
 				}
 			}
 		},
@@ -164,9 +164,7 @@ function listarSolicitudesCreadasMatDiv(id){
 		success: function(resp) {
 			if(resp.error) $("#"+id).html("<div class='alert alert-danger'>"+resp.error+"</div>");
 			else{
-				if(resp.msg=="[No hay solicitudes]"){
-					$("#"+id).html("<div class='alert'>"+(resp.msg)+"</div>");
-				}
+				if(resp.msg=="[No hay solicitudes]") $("#"+id).html("<div class='alert'>"+(resp.msg)+"</div>");
 				else{
 					$("#"+id).html("<div class='alert table-responsive'>"
 						+"<table id='tblmat_"+id+"' class='table table-condensed'>"
@@ -289,14 +287,10 @@ function listarArchivosSolicitud(id,iddiv){
 		success: function(resp) {
 			if(resp.error) $("#"+iddiv).html("<div class='alert alert-danger'>"+resp.error+"</div>");
 			else{
-				if(resp.msg==""){
-					$("#"+iddiv).html(resp.msg);
-				}
+				if(resp.msg=="") $("#"+iddiv).html(resp.msg);
 				else{
 					$("#"+iddiv).html("<table class='table table-condensed'><caption><b>Archivos solicitud</b></caption></table>");
-					if(resp.msg=="No hay resultados"){
-						$("#"+iddiv+" table").append("<tr><td>"+resp.msg+"</td></tr>");
-					}
+					if(resp.msg=="No hay resultados") $("#"+iddiv+" table").append("<tr><td>"+resp.msg+"</td></tr>");
 					else{
 						var json = JSON.parse('['+resp.msg+']');
 						$.each(json,function(i2,v){
@@ -309,9 +303,7 @@ function listarArchivosSolicitud(id,iddiv){
 								+"</tr>");
 						});
 					}
-
 				}
-
 			}
 		},
 		error: function(e) {
@@ -363,9 +355,7 @@ function verOfertas(id,iddiv){
 			if(resp.error) $("#"+iddiv).html("<div class='alert alert-danger'>"+resp.error+"</div>");
 			else{
 				$("#"+iddiv).html("<ul class='shop_items'></ul>");
-				if(resp.msg=="No hay ofertas"){
-					$("#"+iddiv).html("<div class='alert alert-danger'>"+resp.msg+"</div>");
-				}
+				if(resp.msg=="No hay ofertas") $("#"+iddiv).html("<div class='alert alert-danger'>"+resp.msg+"</div>");
 				else{
 					var json = JSON.parse('['+resp.msg+']');
 					$.each(json,function(i2,v){
@@ -437,9 +427,7 @@ function verSolucion(id){
 			success : function(resp) {
 				if(resp.error) $("#"+iddiv).html("<div class='alert alert-danger'>"+resp.error+"</div>");
 				else{
-					if(resp.msg=="No hay ofertas"){
-						$("#"+iddiv).html("<div class='alert alert-danger'>"+resp.msg+"</div>");
-					}
+					if(resp.msg=="No hay ofertas") $("#"+iddiv).html("<div class='alert alert-danger'>"+resp.msg+"</div>");
 					else{
 						$("#solucionfiles").html('');
 						$("#solucionnotas").val('');

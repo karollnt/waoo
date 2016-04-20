@@ -1,3 +1,4 @@
+'use strict';
 var misendbird = (function () {
   var appId = 'A46AFE6E-E876-482B-BBAF-F736F7D02AFD';
   var apiToken = '7ba731169f7de777d71e1b613426ebe63c1efe5f';
@@ -67,7 +68,7 @@ var misendbird = (function () {
           "successFunc" : function(data) {
             //data.channel.channel_url
             join1on1();
-            getMessages();
+
           },
           "errorFunc": function(status, error) {
             console.log(status, error);
@@ -90,18 +91,15 @@ var misendbird = (function () {
           sendbird.connect({
             "successFunc" : function(data) {
               console.log(data);
-              // do something
+              getMessages();
             },
             "errorFunc": function(status, error) {
               console.log(status, error);
-              // do something
             }
           });
-          // do something
         },
         "errorFunc": function(status, error) {
           console.log(status, error);
-          // do something
         }
       }
     );

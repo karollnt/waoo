@@ -1,4 +1,4 @@
-//remember to use var 'waooserver' for getting server ip
+'use strict';
 function login(){
 	var datos = $("#LoginForm").serialize();
 	$.ajax({
@@ -92,10 +92,12 @@ function cambiaIconosAsesor(nickname){
 				if(resp.error) alert('Error: ' + resp.error);
 				else{
 					if(resp.tipo==2){
+						$('.js-assistance-chat').addClass('hidden');
 						$("#crsolspn").html("Solicitudes libres");
 					}
 					else if(resp.tipo==1){
 						$("#crsolspn").html("Crear solicitud");
+						$('.js-assistance-chat').removeClass('hidden');
 					}
 				}
 			},
@@ -268,7 +270,7 @@ function cargarDatosUsuario(){
 			$.each(usr,function(i2,v){
 				$("#tab1 .contactform input[name='nombre']").val(v.nombre);
 				$("#tab1 .contactform input[name='apellido']").val(v.apellido);
-				verificaMuestraAvatar();
+				colocarAvatar("#profile-img");
 				if(v.tipo==2){
 					$("#dtcnt").show();
 					$("#numct").val(v.numerocuenta);
@@ -301,13 +303,9 @@ function cambiarClave() {
 				}
 			});
 		}
-		else {
-			alert("Las claves no coinciden");
-		}
+		else alert("Las claves no coinciden");
 	}
-	else {
-		alert("La clave no puede estar en blanco");
-	}
+	else alert("La clave no puede estar en blanco");
 }
 
 function modificarUsuario() {
@@ -323,29 +321,7 @@ function modificarUsuario() {
 		processData : false,
 		success : function(resp) {
 			alert(resp.msg);
-			verificaMuestraAvatar();
-		},
-		error: function(e) {
-			alert("Error al conectar: "+e.message);
-		}
-	});
-}
-
-function verificaMuestraAvatar() {
-	var nickname = window.localStorage.getItem("nickname");
-	$.ajax({
-		type : 'post',
-		url : waooserver+"/usuarios/verificaAvatar",
-		dataType: "json",
-		data : {nickname:nickname},
-		success : function(resp) {
-			var idimg = resp.msg;
-			if(idimg*1==0){
-				$("#profile-img").prop("src","images/default_avatar.gif");
-			}
-			else{
-				$("#profile-img").prop("src",waooserver+"/usuarios/verAvatar/"+idimg+"/"+((Math.random()*1000)/1000));
-			}
+			colocarAvatar("#profile-img");
 		},
 		error: function(e) {
 			alert("Error al conectar: "+e.message);
@@ -362,12 +338,8 @@ function colocarAvatar(div) {
 		data : {nickname:nickname},
 		success : function(resp) {
 			var idimg = resp.msg;
-			if(idimg*1==0){
-				$(div).prop("src","images/default_avatar.gif");
-			}
-			else{
-				$(div).prop("src",waooserver+"/usuarios/verAvatar/"+idimg+"/"+((Math.random()*1000)/1000));
-			}
+			if(idimg*1==0) $(div).prop("src","images/default_avatar.gif");
+			else $(div).prop("src",waooserver+"/usuarios/verAvatar/"+idimg+"/"+((Math.random()*1000)/1000));
 		},
 		error: function(e) {
 			alert("Error al conectar: "+e.message);

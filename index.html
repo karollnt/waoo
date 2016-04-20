@@ -17,14 +17,13 @@
 		<link type="text/css" rel="stylesheet" href="css/stars.css">
 		<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css">
 		<link type="text/css" rel="stylesheet" href="css/star-rating.min.css">
-		<link type="text/css" rel="stylesheet" href="css/mystyle.css">
 		<link type="text/css" rel="stylesheet" href="css/jquery.raty.css">
 		<link type="text/css" rel="stylesheet" href="css/whatschat.css">
 		<link type="text/css" rel="stylesheet" href='http://fonts.googleapis.com/css?family=Roboto:400,300,900'>
 		<link type="text/css" rel="stylesheet" href="css/font-awesome.min.css">
+		<link type="text/css" rel="stylesheet" href="css/mystyle.css">
 	</head>
 	<body id="mobile_wrap">
-
 		<div class="statusbar-overlay"></div>
 		<div class="panel-overlay"></div>
 		<div class="panel panel-right panel-reveal" style="background: #2d2e3e;">
@@ -41,7 +40,7 @@
 						<li><a href="#" onclick="cargaPagina('data/editaperfil.html',4);" class="close-panel"><img src="images/icons/blue/users.png" alt="" title="" /><span>Editar perfil</span></a></li>
 						<li><a href="#" onclick="cargaPagina('data/guiauso.html');" class="close-panel"><img src="images/icons/blue/search.png" alt="" title=""/><span>Informaci&oacute;n</span></a></li>
 						<li><a href="#" onclick="logout();" class="close-panel"><img src="images/icons/blue/logout.png" alt="" title=""/><span>Cerrar sesi&oacute;n</span></a></li>
-					</ul><!--closePanel();-->
+					</ul>
 				</nav>
 			</div>
 		</div>
@@ -60,8 +59,8 @@
 									  <li><a href="#" onclick="cargaPagina('data/notificaciones.html',5);"><img src="images/icons/blue/cart.png" alt="" title="" /><span>Ofertas</span><div id="notifcounter" class="cartitems">0</div></a></li>
 									  <li><a href="#" onclick="cargaPagina('data/soporte.html',7);" class="external"><img src="images/icons/blue/phone.png" alt="" title="" /><span>Soporte</span></a></li>
 									  <li><a href="#" onclick="cargaPagina('data/pasarela.html',10);" class="external"><img src="images/icons/blue/cart.png" alt="" title="" /><span>PagosTestForm</span></a></li>
-									  <!-- <li><a href="#" onclick="cargaPagina('data/chats.html',6);"><img src="images/icons/blue/message.png" alt="" title="" /><span>Chat</span><div id="chatcounter" class="cartitems">0</div></a></li>
-									  <li><a href="#" onclick="cargaPagina('data/comprasaldo.html');"><img src="images/icons/blue/blog.png" alt="" title="" /><span>Pr&oacute;ximamente</span></a></li> -->
+									  <li class="js-assistance-chat hidden"><a href="#" onclick="cargaPagina('data/chats.html',6);"><img src="images/icons/blue/message.png" alt="" title="" /><span>Chat</span><div id="chatcounter" class="cartitems">0</div></a></li>
+									  <!-- <li><a href="#" onclick="cargaPagina('data/comprasaldo.html');"><img src="images/icons/blue/blog.png" alt="" title="" /><span>Pr&oacute;ximamente</span></a></li> -->
 									</ul>
 							  </nav>
 							</div>
@@ -86,10 +85,6 @@
 						<div class="forgot_pass"><a href="#" data-popup=".popup-forgot" class="open-popup">Olvid&oacute; su clave?</a></div>
 						<input type="submit" name="submit" class="form_submit" id="submit" value="Entrar" />
 					</form>
-					<!--<div class="signup_social">
-					<a href="http://www.facebook.com/" class="signup_facebook external">FACEBOOK</a>
-					<a href="http://www.twitter.com/" class="signup_twitter external">TWITTER</a>
-					</div>-->
 					<div class="signup_bottom">
 						<p>No tienes una cuenta?</p>
 						<a href="#" data-popup=".popup-signup" class="open-popup">Reg&iacute;strate ac&aacute;!</a>
@@ -100,7 +95,6 @@
 				<div id="closelogin" class="close_loginpopup_button"><a href="#" class="close-popup"><img src="images/icons/blue/menu_close.png" alt="" title="" /></a></div>
 			</div>
 		</div>
-
 		<!-- Register Popup -->
 		<div class="popup popup-signup">
 			<div id="fregistro" class="content-block-login">
@@ -137,15 +131,10 @@
 						Al registrarte est&aacute;s de acuerdo con los <a href="data/terminos.html" onclick="closeModals();">T&eacute;rminos y condiciones</a>
 						y la <a href="data/privacidad.html" onclick="closeModals();">Pol&iacute;tica de privacidad</a>
 					</p>
-					<!--<div class="signup_social">
-					<a href="http://www.facebook.com/" class="signup_facebook external">FACEBOOK</a>
-					<a href="http://www.twitter.com/" class="signup_twitter external">TWITTER</a>
-					</div>-->
 				</div>
 				<div class="close_loginpopup_button"><a href="#" class="close-popup"><img src="images/icons/blue/menu_close.png" alt="" title="" /></a></div>
 			</div>
 		</div>
-
 		<!-- Register assistant Popup -->
 		<div class="popup popup-signup2">
 			<div class="content-block-login">
@@ -193,15 +182,10 @@
 						Al registrarte est&aacute;s de acuerdo con los <a href="data/terminos.html" onclick="closeModals();">T&eacute;rminos y condiciones</a>
 						y la <a href="data/privacidad.html" onclick="closeModals();">Pol&iacute;tica de privacidad</a>
 					</p>
-					<!--<div class="signup_social">
-					<a href="http://www.facebook.com/" class="signup_facebook external">FACEBOOK</a>
-					<a href="http://www.twitter.com/" class="signup_twitter external">TWITTER</a>
-					</div>-->
 				</div>
 				<div class="close_loginpopup_button"><a href="#" class="close-popup"><img src="images/icons/white/menu_close.png" alt="" title="" /></a></div>
 			</div>
 		</div>
-
 		<!-- Login Popup -->
 		<div class="popup popup-forgot">
 			<div class="content-block-login">
@@ -219,20 +203,6 @@
 					</div>
 				</div>
 			  	<div class="close_loginpopup_button"><a href="#" class="close-popup"><img src="images/icons/white/menu_close.png" alt="" title="" /></a></div>
-			</div>
-		</div>
-		<!-- Social Popup -->
-		<div class="popup popup-social">
-			<div class="content-block">
-			<h4>S&iacute;guenos</h4>
-			<p>en nuestras redes sociales</p>
-			<ul class="popup_categories">
-				<li><a href="http://twitter.com/" class="external"><img src="images/icons/blue/twitter.png" alt="" title="" /><span>TWITTER</span></a></li>
-				<li><a href="http://www.facebook.com/" class="external"><img src="images/icons/blue/facebook.png" alt="" title="" /><span>FACEBOOK</span></a></li>
-				<li><a href="http://plus.google.com" class="external"><img src="images/icons/blue/gplus.png" alt="" title="" /><span>GOOGLE</span></a></li>
-				<li><a href="http://www.linkedin.com/" class="external"><img src="images/icons/blue/linkedin.png" alt="" title="" /><span>LINKEDIN</span></a></li>
-			</ul>
-			<div class="close_popup_button"><a href="#" class="close-popup"><img src="images/icons/white/menu_close.png" alt="" title="" /></a></div>
 			</div>
 		</div>
 
