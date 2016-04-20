@@ -14,3 +14,7 @@
 	background-position: 100% 0;
 }
 h3{font-weight: bold;}
+.header-logo{max-width: 110px;}
+@media screen and (max-width: 360px) {
+  .header-logo{max-width: 74px;}
+}
