@@ -347,6 +347,23 @@ function colocarAvatar(div) {
 	});
 }
 
+function colocarAvatarOf(div,nickname) {
+	$.ajax({
+		type : 'post',
+		url : waooserver+"/usuarios/verificaAvatar",
+		dataType: "json",
+		data : {nickname:nickname},
+		success : function(resp) {
+			var idimg = resp.msg;
+			if(idimg*1==0) $(div).prop("src","images/default_avatar.gif");
+			else $(div).prop("src",waooserver+"/usuarios/verAvatar/"+idimg+"/"+((Math.random()*1000)/1000));
+		},
+		error: function(e) {
+			alert("Error al conectar: "+e.message);
+		}
+	});
+}
+
 function actualizarCuenta() {
 	var idbanco = $("#banct option:selected").val();
 	var numerocuenta = $.trim($("#numct").val());

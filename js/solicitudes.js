@@ -360,13 +360,14 @@ function verOfertas(id,iddiv){
 					var json = JSON.parse('['+resp.msg+']');
 					$.each(json,function(i2,v){
 						$("#"+iddiv+" ul").append("<li>"
-							+"<div class='shop_thumb' style='position:initial !important;'><img src='images/shop_thumb1.jpg'></div>"
+							+"<div class='shop_thumb' style='position:initial !important;'><img class='js-shop-thumb-"+v.asistente+"' src=''></div>"
 							+"<div class='shop_item_details'>"
 								+"<h4 style='position:initial !important;'><a href='#'>"+v.asistente+"</a> <span class='stars'>"+v.calificacion+"</span></h4>"
 								+"<div class='shop_item_price'>$ "+v.valor+"</div>"
 							+"</div>"
 							+"<a id='addtocart' style='cursor:pointer;' onclick='aceptarOferta("+v.id+","+v.valor+");'>ACEPTAR</a>"
 						+"</li>");
+						colocarAvatarOf(".js-shop-thumb-"+v.asistente,v.asistente);
 					});
 					$('.stars').stars();
 				}
