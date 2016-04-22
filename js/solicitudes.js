@@ -484,7 +484,26 @@ function aceptarOferta(id,valor){
 }
 
 function aceptarOfertaCero(id) {
-	alert("pendiente");
+	$.ajax({
+		type : 'post',
+		url : waooserver+"/solicitudes/aceptarPrecioCero",
+		dataType: "json",
+		data : {idpreciotrabajo:id},
+		success : function(resp) {
+			if(resp.error) alert(resp.error);
+			else{
+				alert(resp.msg);
+				cargaPagina('data/chats.html',6);
+				setTimeout(function () {
+					misendbird.killTask();
+					misendbird.init(0,resp.nickasistente);
+				},200);
+			}
+		},
+		error: function(e) {
+			alert(e.message);
+		}
+	});
 }
 
 function agregarFilaArchivo(){
