@@ -471,11 +471,20 @@ function aceptarSolucion(id){
 }
 
 function aceptarOferta(id,valor){
-	cargaPagina('data/pasarela.html',10);
-	setTimeout(function () {
-		$('.js-idSolicitud').val(id);
-		$('.js-valorOferta').val(valor);
-	},600);
+	if(valor*1>0){
+		cargaPagina('data/pasarela.html',10);
+		setTimeout(function () {
+			$('.js-idSolicitud').val(id);
+			$('.js-valorOferta').val(valor);
+		},600);
+	}
+	else if(valor*1 == 0){
+		aceptarOfertaCero(id);
+	}
+}
+
+function aceptarOfertaCero(id) {
+	alert("pendiente");
 }
 
 function agregarFilaArchivo(){

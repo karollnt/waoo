@@ -130,7 +130,10 @@ var mercpagoui = (function(){
   		dataType: "json",
   		data : $('.js-enviarPago').serialize(),
       success : function(resp) {
-        if(resp.error) alert(resp.error);
+        if(resp.error){
+          alert(resp.error);
+          $('.js-enviaPago').button('reset');
+        }
         else{
           alert(resp.msg);
           cargaPagina('data/chats.html',6);
