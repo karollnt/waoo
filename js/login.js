@@ -16,11 +16,12 @@ function login(){
 				window.localStorage.setItem("nickname",nck);
 				$("#loginimg").parent().unbind('click');
 				$("#loginimg").parent().bind('click',function(){logout();});
+				$("#snck").html(nck);
 				cambiaIconosAsesor(nck);
 				contarNotificacionesSinLeer();
 				tareanotificaciones = setInterval(function(){contarNotificacionesSinLeer();},60000);
-				$("#snck").html(nck);
 				colocarAvatar('.user_avatar img');
+				verificaRedirect(nck);
 			}
 			else alert(resp.msg);
 		},
@@ -79,6 +80,22 @@ function verificarLog(){
 	var loggedin = window.localStorage.getItem("nickname");
 	if(loggedin) return true;
 	else return false;
+}
+
+function verificaRedirect(nickname) {
+	$.ajax({
+		type: "post",
+		url: waooserver+"/usuarios/tipoUsuario",
+		dataType: "json",
+		data: {nickname:nickname},
+		success: function(resp) {
+			if(resp.error) alert('Error: ' + resp.error);
+			else if(resp.tipo==1) cargaPagina('data/crearsolicitud.html',2);
+		},
+		error: function(e) {
+			alert('Error: ' + e.message);
+		}
+	});
 }
 
 function cambiaIconosAsesor(nickname){
