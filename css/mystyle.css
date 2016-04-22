@@ -16,6 +16,7 @@
 h3{font-weight: bold;}
 .header-logo{max-width: 110px;}
 .mimodal{display: none;}
+.al-right{text-align: right;}
 
 @media screen and (max-width: 360px) {
   .header-logo{max-width: 74px;}
