@@ -64,7 +64,7 @@ var mercpagoui = (function(){
   };
   var selectTipoId = function(){
     var idTypes = mercpago.getIdTypes();
-    var html = "<select class='js-tipoId form-control'>";
+    var html = "<select id='docType' name='docType' data-checkout='docType' class='js-tipoId form-control'>";
     $.each(idTypes,function (ixd,obj) {
       html += "<option value='"+obj.id+"'>"+obj.name+"</option>";
     });
@@ -73,7 +73,7 @@ var mercpagoui = (function(){
   };
   var selectTipoPago = function(){
     var paymentMethods = mercpago.getPaymentMethods();
-    var html = "<select class='js-miTipoPago form-control' name='tipoPago'>";
+    var html = "<select class='js-miTipoPago form-control' name='paymentMethodId'>";
     $.each(paymentMethods,function(ixd,obj){
       if(obj.status=='active'){
         html +=
@@ -111,7 +111,7 @@ var mercpagoui = (function(){
     }
   };
   var enviarPago = function(){
-    var $datos = $('.js-enviarPago');
+    var $datos = document.querySelector('.js-enviarPago');
     Mercadopago.createToken($datos,function (st,resp) {
       if(st!=200 && st!=201){
         alert('No ha llenado todos los datos');
