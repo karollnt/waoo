@@ -28,68 +28,62 @@ function cargaPagina(url,num){
 	if(!loggedin) myApp.popup(".popup-login");
 	else{
 		mainView.router.loadPage(url+"?"+(Math.floor((Math.random() * 1000) + 1)));
-		if(num==0){
-			setTimeout(function(){
-				verifcarga();
-			},1000);
-		}
-		else if(num==2){
-			$.ajax({
-				type: "post",
-				url: waooserver+"/usuarios/tipoUsuario",
-				dataType: "json",
-				data: {nickname:loggedin},
-				success: function(resp) {
-					if(resp.error) alert('Error: ' + resp.error);
-					else{
-						if(resp.tipo==2){
-							listarSolicitudesSinAsignarDiv("dirpc");
-						}
-						else if(resp.tipo==1){
-							setTimeout(function(){
-								cargarMateriaSelect("materia");
-								$('#creasolicitud').on('submit', function(e) {
-									e.preventDefault();
-									creasolicitud();
-									return false;
-								});
-							},1000);
-						}
-					}
-				},
-				error: function(e) {
-					alert('Error: ' + e.message);
-				}
-			});
-		}
-		else if(num==3){
-			setTimeout(function(){
-				cargaSolicitudesUsuario(loggedin);
-			},1000);
-		}
-		else if(num==4){
-			setTimeout(function(){
-				cargarDatosUsuario();
-			},1000);
-		}
-    else if(num==5){
-			setTimeout(function(){
-				listarNotificacionesSinLeer();
-			},1000);
-		}
-		else if(num==6){
+    switch (num) {
+      case 0:
+        setTimeout(function(){verifcarga();},1000);
+        break;
+      case 2:
+        $.ajax({
+          type: "post",
+          url: waooserver+"/usuarios/tipoUsuario",
+          dataType: "json",
+          data: {nickname:loggedin},
+          success: function(resp) {
+            if(resp.error) alert('Error: ' + resp.error);
+            else{
+              if(resp.tipo==2) listarSolicitudesSinAsignarDiv("dirpc");
+              else if(resp.tipo==1){
+                setTimeout(function(){
+                  cargarMateriaSelect("materia");
+                  $('#creasolicitud').on('submit', function(e) {
+                    e.preventDefault();
+                    creasolicitud();
+                    return false;
+                  });
+                },1000);
+              }
+            }
+          },
+          error: function(e) {
+            alert('Error: ' + e.message);
+          }
+        });
+        break;
+      case 3:
+        setTimeout(function(){cargaSolicitudesUsuario(loggedin);},1000);
+        break;
+      case 4:
+        setTimeout(function(){cargarDatosUsuario();},1000);
+        break;
+      case 5:
+        setTimeout(function(){listarNotificacionesSinLeer();},1000);
+        break;
+      case 6:
 
-		}
-    else if(num==7){
-      misendbird.killTask();
-      misendbird.init(1);
-    }
-    else if(num==10){
-      setTimeout(function(){
-        mercpagoui.initEvents();
-        llenarSelectMes('.js-expirationMonth');
-        llenarSelectAnio('.js-expirationYear');
-      },1000);
+        break;
+      case 7:
+        misendbird.killTask();
+        misendbird.init(1);
+        break;
+      case 10:
+        setTimeout(function(){
+          mercpagoui.initEvents();
+          llenarSelectMes('.js-expirationMonth');
+          llenarSelectAnio('.js-expirationYear');
+        },1000);
+        break;
+      default:
+        break;
     }
 	}
 }
