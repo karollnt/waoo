@@ -109,6 +109,13 @@ var mercpagoui = (function(){
           $sel.append("<option value='"+payerCosts[i].installments+"'>"+(payerCosts[i].recommended_message || payerCosts[i].installments)+"</option>");
         }
       });
+      $sel2.html('');
+      Mercadopago.getIssuers($('.js-miTipoPago').val(),function (st,resp) {
+        var isus = resp[0];
+        $.each(isus,function (i,obj) {
+          $sel2.append("<option style='background-image:url("+obj.secure_thumbnail+");' value='"+obj.id+"' class='miopt'>"+obj.name+"</option>");
+        });
+      });
     }
   };
   var enviarPago = function(){
