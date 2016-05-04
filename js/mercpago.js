@@ -122,7 +122,7 @@ var mercpagoui = (function(){
     var $datos = document.querySelector('.js-enviarPago');
     Mercadopago.createToken($datos,function (st,resp) {
       if(st!=200 && st!=201){
-        alert('No ha llenado todos los datos');
+        alert('No es posible llevar a cabo el proceso');
         $('.js-enviaPago').button('reset');
       }
       else {
