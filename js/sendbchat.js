@@ -5,7 +5,7 @@ var misendbird = (function () {
   var userId = window.localStorage.getItem("nickname");
   var assistantId = '';
   var supportUrl = '711cc.support_waoo';
-  var privUrl = '711cc.privchat_waoo';
+  var privUrl = '';
   var bgtask = null;
   var channelChat = '';
   var userAvatarSrc = '';
@@ -21,7 +21,9 @@ var misendbird = (function () {
           switch (chan) {
             case 0:
               assistantId = asid;
-              privChat();
+              setTimeout(function () {
+                privChat();
+              },1000);
               break;
             case 1:
               joinSupport();
@@ -61,24 +63,25 @@ var misendbird = (function () {
   };
   var privChat = function () {
     var guestIds = [userId,assistantId];
-    sendbird.startMessaging(guestIds,{
-      "successFunc" : function(data) {
-        console.log(data);
-        sendbird.connect({
-          "successFunc" : function(data) {
-            //data.channel.channel_url
-            join1on1();
-
-          },
-          "errorFunc": function(status, error) {
-            console.log(status, error);
-          }
-        });
-      },
-      "errorFunc": function(status, error) {
-        console.log(status, error);
-      }
-    });
+    if(privUrl!='') join1on1();
+    else{
+      sendbird.startMessaging(guestIds,{
+        "successFunc" : function(data) {
+          privUrl = data.channel.channel_url;
+          sendbird.connect({
+            "successFunc" : function(data) {
+              join1on1();
+            },
+            "errorFunc": function(status, error) {
+              console.log(status, error);
+            }
+          });
+        },
+        "errorFunc": function(status, error) {
+          console.log(status, error);
+        }
+      });
+    }
   };
   var joinSupport = function () {
     joinChannel(supportUrl);
@@ -124,7 +127,7 @@ var misendbird = (function () {
       "limit": 20,
       "successFunc" : function(data) {
         console.log(data);
-        moreMessage = data["messages"];
+        var moreMessage = data.messages;
         $('.chat_box').html("");
         $.each(moreMessage.reverse(), function(index, msg) {
           appendToChat(msg.payload.message,msg.payload.user.guest_id);

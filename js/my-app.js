@@ -69,7 +69,8 @@ function cargaPagina(url,num){
         setTimeout(function(){listarNotificacionesSinLeer();},1000);
         break;
       case 6:
-
+        misendbird.killTask();
+        misendbird.init(0,'asistente1');
         break;
       case 7:
         misendbird.killTask();
