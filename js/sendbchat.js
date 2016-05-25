@@ -5,7 +5,7 @@ var misendbird = (function () {
   var userId = window.localStorage.getItem("nickname");
   var assistantId = '';
   var supportUrl = '711cc.support_waoo';
-  var privUrl = '';
+  var privUrl = 'sendbird_group_messaging_6302035_d737810ab733dd2e846f4d36d4814e0b4c93431b';
   var bgtask = null;
   var channelChat = '';
   var userAvatarSrc = '';
@@ -95,6 +95,8 @@ var misendbird = (function () {
             "successFunc" : function(data) {
               console.log(data);
               getMessages();
+              //reviewMessages();
+              //peligroso, tumba el dispositivo, hay que ver bien cada cuanto llamarlo y en que condiciones, preguntar por la fecha del ultimo mensaje del canal
             },
             "errorFunc": function(status, error) {
               console.log(status, error);
@@ -112,7 +114,8 @@ var misendbird = (function () {
     if(msg!=''){
       sendbird.message(msg);
       $('#submit_message').val('');
-      appendToChat(msg,userId);
+      if(channelChat==0) join1on1();
+      else joinSupport();
     }
   };
   var scrollContainer = function (div) {
@@ -184,7 +187,9 @@ var misendbird = (function () {
   };
   var reviewMessages = function () {
     bgtask = setInterval(function () {
-      getMessages();
+      if(channelChat==0) join1on1();
+      else joinSupport();
+      console.log("searching msgs");
     },2000);
   };
   var killTask = function () {
