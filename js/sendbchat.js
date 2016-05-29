@@ -9,44 +9,53 @@ var misendbird = (function () {
   var bgtask = null;
   var channelChat = '';
   var userAvatarSrc = '';
-  var init = function (chan,asid) {
-      channelChat = chan;
-      sendbird.init({
-        "app_id": appId,
-        "guest_id": userId,
-        "user_name": userId,
-        "image_url": '',
-        "access_token": '',
-        "successFunc": function(data) {
-          switch (chan) {
-            case 0:
-              assistantId = asid;
-              setTimeout(function () {
-                privChat();
-              },1000);
-              break;
-            case 1:
-              joinSupport();
-              break;
-            default:
-              console.log("No channel specified");
-              break;
-          }
-        },
-        "errorFunc": function(status, error) {
-          console.log(status, error);
-          putReconnectButton();
+  var lastmessageid = 0;
+  function init(chan,asid) {
+    channelChat = chan;
+    sendbird.init({
+      "app_id": appId,
+      "guest_id": userId,
+      "user_name": userId,
+      "image_url": '',
+      "access_token": '',
+      "successFunc": function(data) {
+        switch (chan) {
+          case 0:
+            assistantId = asid;
+            setTimeout(function () {
+              privChat();
+            },1000);
+            break;
+          case 1:
+            joinSupport();
+            break;
+          default:
+            console.log("No channel specified");
+            break;
         }
-      });
-  };
-  var joinChannel = function (channel) {
+      },
+      "errorFunc": function(status, error) {
+        console.log(status, error);
+        putReconnectButton();
+      }
+    });
+  }
+  function joinChannel(channel) {
     sendbird.joinChannel(channel,{
       "successFunc" : function(data) {
-        console.log(data);
+        // console.log(data);
+        var revie = false;
+        if(lastmessageid != data.last_message.msg_id){
+          lastmessageid = data.last_message.msg_id;
+          revie = true;
+        }
         sendbird.connect({
           "successFunc": function(data) {
-            console.log(data);
-            getMessages();
+            // console.log(data);
+            if(revie){
+              getMessages();
+              reviewMessages();
+            }
           },
           "errorFunc": function(status, error) {
             console.log(status, error);
@@ -57,11 +66,11 @@ var misendbird = (function () {
         console.log(status, error);
       }
     });
-  };
-  var setAssistant = function (asid) {
+  }
+  function setAssistant(asid) {
     assistantId = asid;
-  };
-  var privChat = function () {
+  }
+  function privChat() {
     var guestIds = [userId,assistantId];
     if(privUrl!='') join1on1();
     else{
@@ -82,21 +91,27 @@ var misendbird = (function () {
         }
       });
     }
-  };
-  var joinSupport = function () {
+  }
+  function joinSupport() {
     joinChannel(supportUrl);
-  };
-  var join1on1 = function () {
+  }
+  function join1on1() {
     sendbird.joinMessagingChannel(
       privUrl,{
         "successFunc" : function(data) {
-          console.log(data);
+          // console.log(data);
+          var revie = false;
+          if(lastmessageid != data.last_message.msg_id){
+            lastmessageid = data.last_message.msg_id;
+            revie = true;
+          }
           sendbird.connect({
             "successFunc" : function(data) {
-              console.log(data);
-              getMessages();
-              //reviewMessages();
-              //peligroso, tumba el dispositivo, hay que ver bien cada cuanto llamarlo y en que condiciones, preguntar por la fecha del ultimo mensaje del canal
+              //console.log(data);
+              if(revie){
+                getMessages();
+                reviewMessages();
+              }
             },
             "errorFunc": function(status, error) {
               console.log(status, error);
@@ -108,8 +123,8 @@ var misendbird = (function () {
         }
       }
     );
-  };
-  var sendMsg = function () {
+  }
+  function sendMsg() {
     var msg = $.trim($('#submit_message').val());
     if(msg!=''){
       sendbird.message(msg);
@@ -117,19 +132,19 @@ var misendbird = (function () {
       if(channelChat==0) join1on1();
       else joinSupport();
     }
-  };
-  var scrollContainer = function (div) {
+  }
+  function scrollContainer(div) {
     $(div).stop().animate({
       scrollTop: $(div).prop('scrollHeight')
     }, 800);
-  };
-  var getMessages = function () {
-    $('.chat_box').html("<img src='images/ajax-loader.gif'/>");
+  }
+  function getMessages() {
+    //$('.chat_box').html("<img src='images/ajax-loader.gif'/>");
     getAvatar();
     sendbird.getMessageLoadMore({
       "limit": 20,
       "successFunc" : function(data) {
-        console.log(data);
+        //console.log(data);
         var moreMessage = data.messages;
         $('.chat_box').html("");
         $.each(moreMessage.reverse(), function(index, msg) {
@@ -142,11 +157,11 @@ var misendbird = (function () {
         putReconnectButton();
       }
     });
-  };
-  var putReconnectButton = function () {
+  }
+  function putReconnectButton() {
     $('.chat_box').html("<button type='button' onclick='misendbird.reconnect();'>Recargar</button>");
-  };
-  var getAvatar = function () {
+  }
+  function getAvatar() {
     var nickname = window.localStorage.getItem("nickname");
   	$.ajax({
   		type : 'post',
@@ -155,19 +170,13 @@ var misendbird = (function () {
   		data : {nickname:nickname},
   		success : function(resp) {
   			var idimg = resp.msg;
-  			if(idimg*1==0){
-  				userAvatarSrc = "images/default_avatar.gif";
-  			}
-  			else{
-  				userAvatarSrc = waooserver+"/usuarios/verAvatar/"+idimg+"/"+((Math.random()*1000)/1000);
-  			}
+  			if(idimg*1==0) userAvatarSrc = "images/default_avatar.gif";
+  			else userAvatarSrc = waooserver+"/usuarios/verAvatar/"+idimg+"/"+((Math.random()*1000)/1000);
   		},
-  		error: function(e) {
-  			alert("Error al conectar: "+e.message);
-  		}
+  		error: function(e) { alert("Error al obtener avatar: "+e.message); }
   	});
-  };
-  var appendToChat = function (msg,nck) {
+  }
+  function appendToChat(msg,nck) {
     var loc = nck==userId?1:0;
     var rnorm = (loc==1?' chat_message_right':'');
     nck = typeof nck === "undefined"?userId:nck;
@@ -184,25 +193,26 @@ var misendbird = (function () {
       +"</ul>"
     +"</div>";
     $('.chat_box').append(html);
-  };
-  var reviewMessages = function () {
+  }
+  function reviewMessages() {
+    killTask();
     bgtask = setInterval(function () {
       if(channelChat==0) join1on1();
       else joinSupport();
-      console.log("searching msgs");
+      //console.log("searching msgs");
     },2000);
-  };
-  var killTask = function () {
+  }
+  function killTask() {
     clearInterval(bgtask);
     bgtask = null;
-  };
-  var getChannel = function () {
+  }
+  function getChannel() {
     return channelChat;
-  };
-  var reconnect = function () {
+  }
+  function reconnect() {
     init(channelChat,assistantId);
-  };
-  return{
+  }
+  return {
     init: init,
     sendMsg: sendMsg,
     getMessages: getMessages,
