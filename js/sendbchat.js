@@ -200,7 +200,7 @@ var misendbird = (function () {
       if(channelChat==0) join1on1();
       else joinSupport();
       //console.log("searching msgs");
-    },2000);
+    },1500);
   }
   function killTask() {
     clearInterval(bgtask);
