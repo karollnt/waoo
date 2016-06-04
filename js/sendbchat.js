@@ -6,12 +6,9 @@ var misendbird = (function () {
   var assistantId = '';
   var supportUrl = '711cc.support_waoo';
   var privUrl = 'sendbird_group_messaging_6302035_d737810ab733dd2e846f4d36d4814e0b4c93431b';
-  var bgtask = null;
   var channelChat = '';
   var userAvatarSrc = '';
-  var lastmessageid = 0;
   function init(chan,asid) {
-    killTask();
     channelChat = chan;
     sendbird.init({
       "app_id": appId,
@@ -44,19 +41,9 @@ var misendbird = (function () {
   function joinChannel(channel) {
     sendbird.joinChannel(channel,{
       "successFunc" : function(data) {
-        // console.log(data);
-        var revie = false;
-        if(lastmessageid != data.last_message.msg_id){
-          lastmessageid = data.last_message.msg_id;
-          revie = true;
-        }
         sendbird.connect({
           "successFunc": function(data) {
-            // console.log(data);
-            if(revie){
-              getMessages();
-              reviewMessages();
-            }
+            getMessages();
           },
           "errorFunc": function(status, error) {
             console.log(status, error);
@@ -100,19 +87,9 @@ var misendbird = (function () {
     sendbird.joinMessagingChannel(
       privUrl,{
         "successFunc" : function(data) {
-          // console.log(data);
-          var revie = false;
-          if(lastmessageid != data.last_message.msg_id){
-            lastmessageid = data.last_message.msg_id;
-            revie = true;
-          }
           sendbird.connect({
             "successFunc" : function(data) {
-              //console.log(data);
-              if(revie){
-                getMessages();
-                reviewMessages();
-              }
+              getMessages();
             },
             "errorFunc": function(status, error) {
               console.log(status, error);
@@ -125,16 +102,18 @@ var misendbird = (function () {
       }
     );
   }
+  sendbird.events.onMessageReceived = function(obj) {
+    appendToChat(obj.message,obj.user.guest_id);
+    scrollContainer('.whatschat');
+  };
+  sendbird.events.onSystemMessageReceived = function(obj) {
+    //posible push
+  };
   function sendMsg() {
     var msg = $.trim($('#submit_message').val());
     if(msg!=''){
-      sendbird.message(msg);
+      sendbird.message(msg,'sucmsLScsz-ooa52a');
       $('#submit_message').val('');
-      appendToChat(msg,userId);
-      scrollContainer('.whatschat');
-      setTimeout(function () {
-        reviewMessages();
-      },1200);
     }
   }
   function scrollContainer(div) {
@@ -143,12 +122,10 @@ var misendbird = (function () {
     }, 800);
   }
   function getMessages() {
-    //$('.chat_box').html("<img src='images/ajax-loader.gif'/>");
     getAvatar();
     sendbird.getMessageLoadMore({
       "limit": 20,
       "successFunc" : function(data) {
-        //console.log(data);
         var moreMessage = data.messages;
         $('.chat_box').html("");
         $.each(moreMessage.reverse(), function(index, msg) {
@@ -198,18 +175,6 @@ var misendbird = (function () {
     +"</div>";
     $('.chat_box').append(html);
   }
-  function reviewMessages() {
-    killTask();
-    bgtask = setInterval(function () {
-      if(channelChat==0) join1on1();
-      else joinSupport();
-      //console.log("searching msgs");
-    },1500);
-  }
-  function killTask() {
-    clearInterval(bgtask);
-    bgtask = null;
-  }
   function getChannel() {
     return channelChat;
   }
@@ -223,8 +188,6 @@ var misendbird = (function () {
     setAssistant: setAssistant,
     privChat: privChat,
     joinSupport: joinSupport,
-    reviewMessages: reviewMessages,
-    killTask: killTask,
     getChannel: getChannel,
     reconnect: reconnect
   };
