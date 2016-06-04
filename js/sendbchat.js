@@ -11,6 +11,7 @@ var misendbird = (function () {
   var userAvatarSrc = '';
   var lastmessageid = 0;
   function init(chan,asid) {
+    killTask();
     channelChat = chan;
     sendbird.init({
       "app_id": appId,
@@ -129,8 +130,11 @@ var misendbird = (function () {
     if(msg!=''){
       sendbird.message(msg);
       $('#submit_message').val('');
-      if(channelChat==0) join1on1();
-      else joinSupport();
+      appendToChat(msg,userId);
+      scrollContainer('.whatschat');
+      setTimeout(function () {
+        reviewMessages();
+      },1200);
     }
   }
   function scrollContainer(div) {
