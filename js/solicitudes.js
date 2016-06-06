@@ -233,9 +233,11 @@ function verDetalleSolicitud(id,iddiv,oferta){
 									:(v.idestado==1 ?
 										"<input id='voferta' type='number' class='form-control' placeholder='¿Cu&aacute;nto cobrar&iacute;as por hacer este trabajo? (solo n&uacute;meros)'>"
 										+"<button type='button' class='btn btn-primary btn-lg btn-block' onclick='ofertar("+v.id+",this);'>Hacer oferta</button>"
-										:(v.idestado==2?
-											"<button type='button' class='btn btn-primary btn-lg btn-block' onclick='abrirSolucion("+v.id+",this);'>Enviar soluci&oacute;n</button>"
-											:"<button type='button' class='btn btn-primary btn-lg btn-block' onclick='verSolucion("+v.id+",this);'>Ver soluci&oacute;n</button>"
+										:(v.idestado==2 && (v.usuario!=window.localStorage.getItem("nickname"))
+											?"<button type='button' class='btn btn-primary btn-lg btn-block' onclick='abrirSolucion("+v.id+",this);'>Enviar soluci&oacute;n</button>"
+											:(v.idestado>2)
+												?"<button type='button' class='btn btn-primary btn-lg btn-block' onclick='verSolucion("+v.id+",this);'>Ver soluci&oacute;n</button>"
+												:""
 										)
 									)
 								)
