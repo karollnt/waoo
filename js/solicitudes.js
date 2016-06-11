@@ -392,6 +392,7 @@ function abrirSolucion(id){
 	cargaPagina("data/formsolucion.html?id="+id+"&"+(Math.floor((Math.random() * 1000) + 1)));
 	setTimeout(function(){
 		verOfertas(id,"listaofertas");
+		$('#idtrabajo').val(id);
 		$('#formsolucion').on('submit', function(e) {
 			e.preventDefault();
 			enviarSolucion();
