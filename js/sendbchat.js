@@ -5,7 +5,8 @@ var misendbird = (function () {
   var userId = window.localStorage.getItem("nickname");
   var assistantId = '';
   var supportUrl = '711cc.support_waoo';
-  var privUrl = 'sendbird_group_messaging_6302035_d737810ab733dd2e846f4d36d4814e0b4c93431b';
+  //var privUrl = 'sendbird_group_messaging_6302035_d737810ab733dd2e846f4d36d4814e0b4c93431b';
+  var privUrl = '';
   var channelChat = '';
   var userAvatarSrc = '';
   function init(chan,asid) {
@@ -103,11 +104,29 @@ var misendbird = (function () {
     );
   }
   sendbird.events.onMessageReceived = function(obj) {
-    appendToChat(obj.message,obj.user.guest_id);
-    scrollContainer('.whatschat');
+    if($('.whatschat').length){
+      appendToChat(obj.message,obj.user.guest_id);
+      scrollContainer('.whatschat');
+    }
+    else {
+      if(obj.user.guest_id!=userId){
+        sendbird.getChannelInfo(function(data) {
+          if(data.isMessaging){
+            privUrl = data.channel_url;
+            cargaPagina('data/chats.html',6);
+    				setTimeout(function () {
+    					init(0,obj.user.guest_id);
+    				},200);
+          }
+        });
+      }
+    }
   };
   sendbird.events.onSystemMessageReceived = function(obj) {
     //posible push
+  };
+  sendbird.events.onMessagingChannelUpdateReceived = function(obj) {
+    // do something...
   };
   function sendMsg() {
     var msg = $.trim($('#submit_message').val());

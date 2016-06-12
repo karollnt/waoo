@@ -22,6 +22,7 @@ function login(){
 				tareanotificaciones = setInterval(function(){contarNotificacionesSinLeer();},60000);
 				colocarAvatar('.user_avatar img');
 				verificaRedirect(nck);
+				misendbird.init(0);
 			}
 			else alert(resp.msg);
 		},
@@ -91,6 +92,7 @@ function verificaRedirect(nickname) {
 		success: function(resp) {
 			if(resp.error) alert('Error: ' + resp.error);
 			else if(resp.tipo==1) cargaPagina('data/crearsolicitud.html',2);
+			else location.href = 'index.html';
 		},
 		error: function(e) {
 			alert('Error: ' + e.message);
