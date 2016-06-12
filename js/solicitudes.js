@@ -415,6 +415,7 @@ function enviarSolucion(){
 		processData : false,
 		success : function(data) {
 			alert(data.msg);
+			cargaPagina('index.html',0);
 		}
 	});
 }
