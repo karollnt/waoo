@@ -192,8 +192,7 @@ function listarSolicitudesCreadasMatDiv(id){
 }
 
 function verDetalleSolicitud(id,iddiv,oferta){
-	$("#"+iddiv).html('');
-	$("#"+iddiv).show();
+	$("#soldet__body").html('');
 	oferta = typeof oferta !== 'undefined' ? oferta : 0;
 	$.ajax({
 		type: "post",
@@ -244,7 +243,8 @@ function verDetalleSolicitud(id,iddiv,oferta){
 							+"</td>"
 						+"</tr>"
 					+"</table>";
-					$("#"+iddiv).append(tbl);
+					$("#soldet__body").html(tbl);
+					$("#soldet").modal('show');
 					listarArchivosSolicitud(v.id,"listfiles");
 				});
 				if(oferta==1){
