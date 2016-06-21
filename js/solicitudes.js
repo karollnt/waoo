@@ -271,7 +271,7 @@ function verDetalleSolicitud(id,iddiv,oferta){
 }
 
 function verModalSolicitud(id,oferta){
-	$("#detalleoferta").show();
+	//$("#detalleoferta").show();
 	verDetalleSolicitud(id,'detalleoferta-cnt',oferta);
 }
 
