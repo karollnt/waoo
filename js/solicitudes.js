@@ -235,7 +235,7 @@ function verDetalleSolicitud(id,iddiv,oferta){
 										:(v.idestado==2 && (v.usuario!=window.localStorage.getItem("nickname"))
 											?"<button type='button' class='btn btn-primary btn-lg btn-block' onclick='abrirSolucion("+v.id+",this);'>Enviar soluci&oacute;n</button>"
 											:(v.idestado>2)
-												?"<button type='button' class='btn btn-primary btn-lg btn-block' onclick='verSolucion("+v.id+",this);'>Ver soluci&oacute;n</button>"
+												?"<button type='button' class='btn btn-primary btn-lg btn-block' onclick='verSolucion("+v.id+",this);'>Aceptar soluci&oacute;n</button>"
 												:""
 										)
 									)
@@ -425,33 +425,7 @@ function verSolucion(id){
 	cargaPagina("data/versolucion.html?id="+id+"&"+(Math.floor((Math.random() * 1000) + 1)));
 	var iddiv = "solucionfiles";
 	setTimeout(function(){
-		$.ajax({
-			type : 'post',
-			url : waooserver+"/solicitudes/verSolucion",
-			dataType: "json",
-			data : {idtrabajo:id},
-			success : function(resp) {
-				if(resp.error) $("#"+iddiv).html("<div class='alert alert-danger'>"+resp.error+"</div>");
-				else{
-					if(resp.msg=="No hay ofertas") $("#"+iddiv).html("<div class='alert alert-danger'>"+resp.msg+"</div>");
-					else{
-						$("#solucionfiles").html('');
-						$("#solucionnotas").val('');
-						$("#idtrabajo").val(0);
-						var json = JSON.parse('['+resp.msg+']');
-						$.each(json,function(i2,v){
-							$("#solucionfiles").append(+"Archivo "+(i2+1)+" por "+v.usuario+" ("+v.tipoarchivo+") "
-								+"<img style='display:inline !important; cursor:pointer;' src='images/icons/blue/plus.png' onclick='verArchivoSolicitud("+v.id+");'>");
-							$("#solucionnotas").val(v.notas);
-							$("#idtrabajo").val(id);
-						});
-					}
-				}
-			},
-			error: function(e) {
-				$("#"+iddiv).html(e.message);
-			}
-		});
+		$("#idtrabajo").val(id);
 		$('.raty').raty({
 			click: function(score, evt){$('#calificacion').val(score);},
 			hints: ['malo','regular','bueno','muy bueno','excelente']
@@ -468,6 +442,7 @@ function aceptarSolucion(id){
 		data : {idtrabajo:id},
 		success : function(resp) {
 			alert(resp.msg);
+			window.location.href="index.html";
 		},
 		error: function(e) {
 			alert(e.message);
