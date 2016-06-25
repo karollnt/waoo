@@ -439,7 +439,7 @@ function aceptarSolucion(id){
 		type : 'post',
 		url : waooserver+"/solicitudes/aceptarSolucion",
 		dataType: "json",
-		data : {idtrabajo:id},
+		data : {idtrabajo:id, calificacion:califica},
 		success : function(resp) {
 			alert(resp.msg);
 			window.location.href="index.html";
