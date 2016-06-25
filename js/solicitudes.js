@@ -434,7 +434,7 @@ function verSolucion(id){
 }
 
 function aceptarSolucion(id){
-	var califica = $("#calificacion option:selected").val();
+	var califica = $("#calificacion").val();
 	$.ajax({
 		type : 'post',
 		url : waooserver+"/solicitudes/aceptarSolucion",
