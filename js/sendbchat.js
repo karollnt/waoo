@@ -59,6 +59,29 @@ var misendbird = (function () {
   function setAssistant(asid) {
     assistantId = asid;
   }
+  function obtenerDireccionCanalChat() {
+  	$.ajax({
+  		type : 'post',
+  		url : waooserver+"/solicitudes/obtenerDireccionCanalChat",
+  		dataType: "json",
+  		data : {idasistente:assistantId},
+  		success : function(resp) {
+  			if(resp.error) alert(resp.error);
+  			else{
+  				if(resp.msg!=''){
+            privUrl = resp.msg;
+            cargaPagina('data/chats.html');
+            setTimeout(function () {
+            	init(0,assistantId);
+            },200);
+          }
+  			}
+  		},
+  		error: function(e) {
+  			alert(e.message);
+  		}
+  	});
+  }
   function privChat() {
     var guestIds = [userId,assistantId];
     if(privUrl!='') join1on1();
@@ -66,6 +89,18 @@ var misendbird = (function () {
       sendbird.startMessaging(guestIds,{
         "successFunc" : function(data) {
           privUrl = data.channel.channel_url;
+          $.ajax({
+        		type : 'post',
+        		url : waooserver+"/solicitudes/actualizarDireccionCanalChat",
+        		dataType: "json",
+        		data : {idasistente:assistantId,idusuario:userId,canal:privUrl},
+        		success : function(resp) {
+        			if(resp.error) alert(resp.error);
+        		},
+        		error: function(e) {
+        			alert(e.message);
+        		}
+        	});
           sendbird.connect({
             "successFunc" : function(data) {
               join1on1();
@@ -113,7 +148,7 @@ var misendbird = (function () {
         sendbird.getChannelInfo(function(data) {
           if(data.isMessaging){
             privUrl = data.channel_url;
-            cargaPagina('data/chats.html',6);
+            cargaPagina('data/chats.html');
     				setTimeout(function () {
     					init(0,obj.user.guest_id);
     				},200);
@@ -208,6 +243,7 @@ var misendbird = (function () {
     privChat: privChat,
     joinSupport: joinSupport,
     getChannel: getChannel,
-    reconnect: reconnect
+    reconnect: reconnect,
+    obtenerDireccionCanalChat: obtenerDireccionCanalChat
   };
 })();

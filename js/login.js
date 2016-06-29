@@ -92,7 +92,12 @@ function verificaRedirect(nickname) {
 		success: function(resp) {
 			if(resp.error) alert('Error: ' + resp.error);
 			else if(resp.tipo==1) cargaPagina('data/crearsolicitud.html',2);
-			else location.href = 'index.html';
+			else {
+				location.href = 'index.html';
+				setTimeout(function () {
+					misendbird.obtenerDireccionCanalChat();
+				},1000);
+			}
 		},
 		error: function(e) {
 			alert('Error: ' + e.message);
