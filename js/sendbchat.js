@@ -1,15 +1,16 @@
 'use strict';
 var misendbird = (function () {
-  var appId = 'A46AFE6E-E876-482B-BBAF-F736F7D02AFD';
   var apiToken = '7ba731169f7de777d71e1b613426ebe63c1efe5f';
-  var userId = window.localStorage.getItem("nickname");
+  var appId = 'A46AFE6E-E876-482B-BBAF-F736F7D02AFD';
   var assistantId = '';
-  var supportUrl = '711cc.support_waoo';
-  //var privUrl = 'sendbird_group_messaging_6302035_d737810ab733dd2e846f4d36d4814e0b4c93431b';
-  var privUrl = '';
   var channelChat = '';
+  var privUrl = '';
+  //var privUrl = 'sendbird_group_messaging_6302035_d737810ab733dd2e846f4d36d4814e0b4c93431b';
+  var supportUrl = '711cc.support_waoo';
   var userAvatarSrc = '';
+  var userId = '';
   function init(chan,asid) {
+    userId = window.localStorage.getItem("nickname");
     channelChat = chan;
     sendbird.init({
       "app_id": appId,
