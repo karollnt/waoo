@@ -244,6 +244,7 @@ var misendbird = (function () {
     joinSupport: joinSupport,
     getChannel: getChannel,
     reconnect: reconnect,
+    setAssistant: setAssistant,
     obtenerDireccionCanalChat: obtenerDireccionCanalChat
   };
 })();

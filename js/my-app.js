@@ -69,6 +69,7 @@ function cargaPagina(url,num){
         setTimeout(function(){listarNotificacionesSinLeer();},1000);
         break;
       case 6:
+        misendbird.setAssistant(window.localStorage.getItem("nickname"));
         misendbird.obtenerDireccionCanalChat();
         break;
       case 7:

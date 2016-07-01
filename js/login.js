@@ -53,6 +53,7 @@ function register(){
 		success: function(resp) {
 			alert(resp.msg);
 			$("#RegisterForm")[0].reset();
+			location.href = 'index.html';
 		},
 		error: function(e) {
 			alert('Error: ' + e.message);
@@ -70,6 +71,7 @@ function register2(){
 		success: function(resp) {
 			alert(resp.msg);
 			$("#RegisterForm2")[0].reset();
+			location.href = 'index.html';
 		},
 		error: function(e) {
 			alert('Error: ' + e.message);
@@ -95,6 +97,7 @@ function verificaRedirect(nickname) {
 			else {
 				location.href = 'index.html';
 				setTimeout(function () {
+					misendbird.setAssistant(window.localStorage.getItem("nickname"));
 					misendbird.obtenerDireccionCanalChat();
 				},1000);
 			}
