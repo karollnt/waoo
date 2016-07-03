@@ -144,7 +144,7 @@ var mercpagoui = (function(){
         }
         else{
           alert(resp.msg);
-          cargaPagina('data/chats.html',6);
+          cargaPagina('data/chats.html');
           setTimeout(function () {
             misendbird.init(0,resp.nickasistente);
           },200);

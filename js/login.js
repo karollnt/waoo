@@ -22,7 +22,6 @@ function login(){
 				tareanotificaciones = setInterval(function(){contarNotificacionesSinLeer();},60000);
 				colocarAvatar('.user_avatar img');
 				verificaRedirect(nck);
-				misendbird.init(0);
 			}
 			else alert(resp.msg);
 		},
@@ -95,8 +94,10 @@ function verificaRedirect(nickname) {
 			if(resp.error) alert('Error: ' + resp.error);
 			else if(resp.tipo==1) cargaPagina('data/crearsolicitud.html',2);
 			else {
-				location.href = 'index.html';
+				cargaPagina('index.html',0);
 				setTimeout(function () {
+					misendbird.init(0);
+					misendbird.setChannel('');
 					misendbird.setAssistant(window.localStorage.getItem("nickname"));
 					misendbird.obtenerDireccionCanalChat();
 				},1000);

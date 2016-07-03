@@ -233,6 +233,9 @@ var misendbird = (function () {
   function getChannel() {
     return channelChat;
   }
+  function setChannel(can) {
+    privUrl = can;
+  }
   function reconnect() {
     init(channelChat,assistantId);
   }
@@ -246,6 +249,7 @@ var misendbird = (function () {
     getChannel: getChannel,
     reconnect: reconnect,
     setAssistant: setAssistant,
-    obtenerDireccionCanalChat: obtenerDireccionCanalChat
+    obtenerDireccionCanalChat: obtenerDireccionCanalChat,
+    setChannel: setChannel
   };
 })();
