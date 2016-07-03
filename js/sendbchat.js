@@ -90,6 +90,7 @@ var misendbird = (function () {
       sendbird.startMessaging(guestIds,{
         "successFunc" : function(data) {
           privUrl = data.channel.channel_url;
+          console.log({idasistente:assistantId,idusuario:userId,canal:privUrl});
           $.ajax({
         		type : 'post',
         		url : waooserver+"/solicitudes/actualizarDireccionCanalChat",
