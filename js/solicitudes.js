@@ -234,7 +234,7 @@ function verDetalleSolicitud(id,iddiv,oferta){
 										+"<button type='button' class='btn btn-primary btn-lg btn-block' onclick='ofertar("+v.id+",this);'>Hacer oferta</button>"
 										:(v.idestado==2 && (v.usuario!=window.localStorage.getItem("nickname"))
 											?"<button type='button' class='btn btn-primary btn-lg btn-block' onclick='abrirSolucion("+v.id+",this);'>Enviar soluci&oacute;n</button>"
-											:(v.idestado>2)
+											:(v.idestado<4)
 												?"<button type='button' class='btn btn-primary btn-lg btn-block' onclick='verSolucion("+v.id+",this);'>Aceptar soluci&oacute;n</button>"
 												:""
 										)
