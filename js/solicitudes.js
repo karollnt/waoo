@@ -366,7 +366,7 @@ function verOfertas(id,iddiv){
 							+"<div class='shop_thumb' style='position:initial !important;'><img class='js-shop-thumb-"+v.asistente+"' src=''></div>"
 							+"<div class='shop_item_details'>"
 								+"<h4 style='position:initial !important;'><a href='#'>"+v.asistente+"</a> <span class='stars'>"+v.calificacion+"</span></h4>"
-								+"<div class='shop_item_price'>$ "+v.valor+"</div>"
+								+"<div class='shop_item_price'>"+v.valor+" Waoo Tokens</div>"
 							+"</div>"
 							+"<a id='addtocart' style='cursor:pointer;' onclick='aceptarOferta("+v.id+","+v.valor+");'>ACEPTAR</a>"
 						+"</li>");
@@ -450,13 +450,42 @@ function aceptarSolucion(id){
 	});
 }
 
-function aceptarOferta(id,valor){
+/*function aceptarOferta(id,valor){
 	if(valor*1>0){
 		cargaPagina('data/pasarela.html',10);
 		setTimeout(function () {
 			$('.js-idSolicitud').val(id);
 			$('.js-valorOferta').val(valor);
 		},600);
+	}
+	else if(valor*1 == 0){
+		aceptarOfertaCero(id);
+	}
+}*/
+function aceptarOferta(id,valor) {
+	if(valor*1>0){
+		$.ajax({
+			type : 'post',
+			url : waooserver+"/solicitudes/aceptarPrecio",
+			dataType: "json",
+			data : {idpreciotrabajo:id},
+			success : function(resp) {
+				if(resp.error){
+					alert(resp.error);
+				}
+				else{
+					alert(resp.msg);
+					cargaPagina('data/chats.html');
+					setTimeout(function () {
+						misendbird.init(0,resp.nickasistente);
+					},200);
+				}
+			},
+			error: function(e) {
+				alert(e.message);
+				$('.js-enviaPago').button('reset');
+			}
+		});
 	}
 	else if(valor*1 == 0){
 		aceptarOfertaCero(id);
