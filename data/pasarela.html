@@ -8,11 +8,22 @@
 			</div>
       <div id="pages_maincontent">
         <div class="page_content">
-          <h2 class="">Registrar pago</h2>
+          <h2 class="">Recargar Waoo Tokens</h2>
           <form class="js-enviarPago table-responsive" method="post">
-            <input type="hidden" name="idpreciotrabajo" class="js-idSolicitud" value="">
             <input type="hidden" name="token" class="js-token" value="">
-            <input type="hidden" name="valorOferta" class="js-valorOferta" value="52000">
+            <input type="hidden" name="nickname" class="js-nick" value="">
+            <div class="form-group">
+              <div>Cantidad de tokens (1 token = $ 1000)</div>
+              <select class="form-control" name="valor">
+                <option value="1000">1 token</option>
+                <option value="2000">2 tokens</option>
+                <option value="5000">5 tokens</option>
+                <option value="10000">10 tokens</option>
+                <option value="20000">20 tokens</option>
+                <option value="50000">50 tokens</option>
+                <option value="100000">100 tokens</option>
+              </select>
+            </div>
             <div class="form-group">
               <input type="text" id="cardholderName" name="nombres" value="" data-checkout="cardholderName" class="js-names form-control" placeholder="Nombre(s) y apellido(s)" required>
             </div>

@@ -192,7 +192,6 @@ function listarSolicitudesCreadasMatDiv(id){
 }
 
 function verDetalleSolicitud(id,iddiv,oferta){
-	//$("#soldet__body").html('');
 	oferta = typeof oferta !== 'undefined' ? oferta : 0;
 	$.ajax({
 		type: "post",
@@ -230,7 +229,7 @@ function verDetalleSolicitud(id,iddiv,oferta){
 								+(oferta==0 ?
 									"<button type='button' class='btn btn-primary btn-lg btn-block' onclick='ventanaOfertas("+v.id+");'>Ver ofertas</button>"
 									:(v.idestado==1 ?
-										"<input id='voferta' type='number' class='form-control' placeholder='¿Cu&aacute;nto cobrar&iacute;as por hacer este trabajo? (solo n&uacute;meros)'>"
+										"<input id='voferta' type='number' class='form-control' placeholder='¿Cu&aacute;ntos tokens cobrar&iacute;as por hacer este trabajo? (solo n&uacute;meros, 1 token = $1000)'>"
 										+"<button type='button' class='btn btn-primary btn-lg btn-block' onclick='ofertar("+v.id+",this);'>Hacer oferta</button>"
 										:(v.idestado==2 && (v.usuario!=window.localStorage.getItem("nickname"))
 											?"<button type='button' class='btn btn-primary btn-lg btn-block' onclick='abrirSolucion("+v.id+",this);'>Enviar soluci&oacute;n</button>"
@@ -243,8 +242,6 @@ function verDetalleSolicitud(id,iddiv,oferta){
 							+"</td>"
 						+"</tr>"
 					+"</table>";
-					//$("#soldet__body").html(tbl);
-					//$("#soldet").modal('show');
 					alertDetail(tbl);
 					listarArchivosSolicitud(v.id,"listfiles");
 				});
@@ -271,7 +268,6 @@ function verDetalleSolicitud(id,iddiv,oferta){
 }
 
 function verModalSolicitud(id,oferta){
-	//$("#detalleoferta").show();
 	verDetalleSolicitud(id,'detalleoferta-cnt',oferta);
 }
 
@@ -427,7 +423,7 @@ function verSolucion(id){
 	setTimeout(function(){
 		$("#idtrabajo").val(id);
 		$('.raty').raty({
-			click: function(score, evt){$('#calificacion').val(score);},
+			click: function(score, evt){ $('#calificacion').val(score); },
 			hints: ['malo','regular','bueno','muy bueno','excelente']
 		});
 	},1000);
@@ -450,25 +446,13 @@ function aceptarSolucion(id){
 	});
 }
 
-/*function aceptarOferta(id,valor){
-	if(valor*1>0){
-		cargaPagina('data/pasarela.html',10);
-		setTimeout(function () {
-			$('.js-idSolicitud').val(id);
-			$('.js-valorOferta').val(valor);
-		},600);
-	}
-	else if(valor*1 == 0){
-		aceptarOfertaCero(id);
-	}
-}*/
 function aceptarOferta(id,valor) {
 	if(valor*1>0){
 		$.ajax({
 			type : 'post',
 			url : waooserver+"/solicitudes/aceptarPrecio",
 			dataType: "json",
-			data : {idpreciotrabajo:id},
+			data : {idpreciotrabajo:id,valor:valor},
 			success : function(resp) {
 				if(resp.error){
 					alert(resp.error);
@@ -483,7 +467,6 @@ function aceptarOferta(id,valor) {
 			},
 			error: function(e) {
 				alert(e.message);
-				$('.js-enviaPago').button('reset');
 			}
 		});
 	}
