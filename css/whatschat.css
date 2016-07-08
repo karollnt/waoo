@@ -40,55 +40,6 @@ a:focus {
     text-align: center;
     width: 26px;
 }
-.popup-head-right {
-    margin: 9px 0 0;
-}
-.popup-head .btn-group {
-    margin: -5px 3px 0 -1px;
-}
-.gurdeepoushan .dropdown-menu {
-    padding: 6px;
-}
-.gurdeepoushan .dropdown-menu li a span {
-    border: 1px solid;
-    border-radius: 50px;
-    display: list-item;
-    font-size: 19px;
-    height: 40px;
-    line-height: 36px;
-    margin: auto;
-    text-align: center;
-    width: 40px;
-}
-.gurdeepoushan .dropdown-menu li {
-    float: left;
-    text-align: center;
-    width: 33%;
-}
-.gurdeepoushan .dropdown-menu li a {
-    border-radius: 7px;
-    font-family: oswald;
-    padding: 3px;
-   transition: all 0.3s ease-in-out 0s;
-}
-.gurdeepoushan .dropdown-menu li a:hover {
-    background:#304445 none repeat scroll 0 0 !important;
-    color: #fff;
-}
-.popup-head {
-    background: #304445 none repeat scroll 0 0 !important;
-    border-bottom: 3px solid #ccc;
-    color: #fff;
-    display: table;
-    width: 100%;
-    padding: 8px;
-}
-.popup-head .md-user-image {
-    border: 2px solid #5a7172;
-    border-radius: 12px;
-    float: left;
-    width: 44px;
-}
 .uk-input-group-addon .glyphicon.glyphicon-send {
     color: #ffffff;
     font-size: 21px;

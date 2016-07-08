@@ -75,7 +75,7 @@ var mercpagoui = (function(){
     var paymentMethods = mercpago.getPaymentMethods();
     var html = "<select class='js-miTipoPago form-control' name='paymentMethodId'>";
     $.each(paymentMethods,function(ixd,obj){
-      if(obj.status=='active'){
+      if(obj.status=='active' && obj.payment_type_id=='credit_card'){
         html +=
           "<option style='background-image:url("+obj.secure_thumbnail+");' value='"+obj.id+"' data-type='"+obj.payment_type_id+"' class='miopt'>"
             +obj.name
@@ -132,9 +132,10 @@ var mercpagoui = (function(){
     });
   };
   var guardaPago = function(){
+    $('.js-nick').val(window.localStorage.getItem("nickname"));
     $.ajax({
   		type : 'post',
-  		url : waooserver+"/solicitudes/aceptarPrecio",
+  		url : waooserver+"/usuarios/recargarTokensMP",
   		dataType: "json",
   		data : $('.js-enviarPago').serialize(),
       success : function(resp) {
@@ -144,10 +145,7 @@ var mercpagoui = (function(){
         }
         else{
           alert(resp.msg);
-          cargaPagina('data/chats.html');
-          setTimeout(function () {
-            misendbird.init(0,resp.nickasistente);
-          },200);
+          cargaPagina('index.html');
         }
       },
       error: function(e) {
