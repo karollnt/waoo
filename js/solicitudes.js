@@ -505,3 +505,21 @@ function agregarFilaArchivo(){
 	$(".uploadfiles").append('<input type="file" name="uploadfile'+cant+'">');
 	cfiles.val(cant);
 }
+
+function consultarTokens() {
+	$.ajax({
+		type : 'post',
+		url : waooserver+"/usuarios/cantidadTokens",
+		dataType: "json",
+		data : {nickname:window.localStorage.getItem("nickname")},
+		success : function(resp) {
+			if(resp.error) alert(resp.error);
+			else{
+				$('.js-cantidad-tokens').html(resp.msg);
+			}
+		},
+		error: function(e) {
+			alert(e.message);
+		}
+	});
+}

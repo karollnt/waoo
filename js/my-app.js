@@ -80,6 +80,7 @@ function cargaPagina(url,num){
           mercpagoui.initEvents();
           llenarSelectMes('.js-expirationMonth');
           llenarSelectAnio('.js-expirationYear');
+          consultarTokens();
         },1000);
         break;
       default:
