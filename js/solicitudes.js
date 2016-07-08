@@ -438,7 +438,9 @@ function aceptarSolucion(id){
 		data : {idtrabajo:id, calificacion:califica},
 		success : function(resp) {
 			alert(resp.msg);
-			window.location.href="index.html";
+			if(resp.msg!='No tienes saldo suficiente'){
+				window.location.href="index.html";
+			}
 		},
 		error: function(e) {
 			alert(e.message);
