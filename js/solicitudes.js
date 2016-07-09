@@ -438,9 +438,6 @@ function aceptarSolucion(id){
 		data : {idtrabajo:id, calificacion:califica},
 		success : function(resp) {
 			alert(resp.msg);
-			if(resp.msg!='No tienes saldo suficiente'){
-				window.location.href="index.html";
-			}
 		},
 		error: function(e) {
 			alert(e.message);
@@ -461,10 +458,12 @@ function aceptarOferta(id,valor) {
 				}
 				else{
 					alert(resp.msg);
-					cargaPagina('data/chats.html');
-					setTimeout(function () {
-						misendbird.init(0,resp.nickasistente);
-					},200);
+					if(resp.msg!='No tienes saldo suficiente'){
+						cargaPagina('data/chats.html');
+						setTimeout(function () {
+							misendbird.init(0,resp.nickasistente);
+						},200);
+					}
 				}
 			},
 			error: function(e) {
