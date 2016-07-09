@@ -437,12 +437,14 @@ function actualizarCuenta() {
 function actualizarToken() {
 	var token = window.localStorage.getItem("token");
 	var usuario = window.localStorage.getItem("nickname");
+	var plataforma = window.localStorage.getItem("plataforma");
+
 	if(token != null) {
 		$.ajax({
 			type : 'post',
 			url : waooserver+"/usuarios/actualizarToken",
 			dataType: "json",
-			data : {token: token, nickname:usuario},
+			data : {token: token, nickname:usuario, plataforma:plataforma},
 			success : function(resp) {},
 			error: function(e) {}
 		});
