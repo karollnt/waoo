@@ -109,6 +109,27 @@ function verificaRedirect(nickname) {
 	});
 }
 
+function verificaRedirect2(nickname) {
+	$.ajax({
+		type: "post",
+		url: waooserver+"/usuarios/tipoUsuario",
+		dataType: "json",
+		data: {nickname:nickname},
+		success: function(resp) {
+			if(resp.error) alert('Error: ' + resp.error);
+			else if(resp.tipo==1){
+				$('.js-recharge').show();
+			}
+			else{
+				$('.js-recharge').hide();
+			}
+		},
+		error: function(e) {
+			alert('Error: ' + e.message);
+		}
+	});
+}
+
 function cambiaIconosAsesor(nickname){
 	if(nickname){
 		$.ajax({

@@ -100,6 +100,7 @@ function verifcarga(){
 		if(tareanotificaciones!=null) clearInterval(tareanotificaciones);
 		tareanotificaciones = null;
     $("#snck").html(loggedin);
+    verificaRedirect2(loggedin);
 	}
 	else{
 		$("#loginimg").prop("src","images/icons/blue/logout.png");
