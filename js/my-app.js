@@ -100,7 +100,6 @@ function verifcarga(){
 		if(tareanotificaciones!=null) clearInterval(tareanotificaciones);
 		tareanotificaciones = null;
     $("#snck").html(loggedin);
-    verificaRedirect2(loggedin);
 	}
 	else{
 		$("#loginimg").prop("src","images/icons/blue/logout.png");
@@ -109,6 +108,7 @@ function verifcarga(){
 		$("#loginimg").parent().unbind('click');
 		$("#loginimg").parent().bind('click',function(){logout();});
 		cambiaIconosAsesor(loggedin);
+    verificaRedirect2(loggedin);
     $("#snck").html("-");
 		if(tareanotificaciones==null){
 			contarNotificacionesSinLeer();
