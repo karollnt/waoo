@@ -22,6 +22,7 @@ function login(){
 				tareanotificaciones = setInterval(function(){contarNotificacionesSinLeer();},60000);
 				colocarAvatar('.user_avatar img');
 				verificaRedirect(nck);
+				actualizarToken();
 			}
 			else alert(resp.msg);
 		},
@@ -431,4 +432,18 @@ function actualizarCuenta() {
 			alert("Error al conectar: "+e.message);
 		}
 	});
+}
+
+function actualizarToken() {
+	var token = window.localStorage.getItem("token");
+	if(token != null) {
+		$.ajax({
+			type : 'post',
+			url : waooserver+"/usuarios/actualizarToken",
+			dataType: "json",
+			data : {token: token},
+			success : function(resp) {},
+			error: function(e) {}
+		});
+	}
 }
