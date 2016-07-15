@@ -71,6 +71,7 @@ function register2(){
 		success: function(resp) {
 			alert(resp.msg);
 			$("#RegisterForm2")[0].reset();
+			misendbird.preInit($('.js-assistant-reg').val());
 			location.href = 'index.html';
 		},
 		error: function(e) {

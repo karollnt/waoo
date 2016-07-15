@@ -240,6 +240,22 @@ var misendbird = (function () {
   function reconnect() {
     init(channelChat,assistantId);
   }
+  function preInit(nick) {
+    sendbird.init({
+      "app_id": appId,
+      "guest_id": nick,
+      "user_name": nick,
+      "image_url": '',
+      "access_token": '',
+      "successFunc": function(data) {
+        joinSupport();
+      },
+      "errorFunc": function(status, error) {
+        console.log(status, error);
+        putReconnectButton();
+      }
+    });
+  }
   return {
     init: init,
     sendMsg: sendMsg,
@@ -249,8 +265,8 @@ var misendbird = (function () {
     joinSupport: joinSupport,
     getChannel: getChannel,
     reconnect: reconnect,
-    setAssistant: setAssistant,
     obtenerDireccionCanalChat: obtenerDireccionCanalChat,
+    preInit: preInit,
     setChannel: setChannel
   };
 })();
