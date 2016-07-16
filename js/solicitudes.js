@@ -463,6 +463,7 @@ function aceptarOferta(id,valor) {
 					if(resp.msg!='No tienes saldo suficiente'){
 						cargaPagina('data/chats.html');
 						setTimeout(function () {
+							misendbird.setChannel('');
 							misendbird.init(0,resp.nickasistente);
 						},200);
 					}
@@ -490,6 +491,7 @@ function aceptarOfertaCero(id) {
 				alert(resp.msg);
 				cargaPagina('data/chats.html');
 				setTimeout(function () {
+					misendbird.setChannel('');
 					misendbird.init(0,resp.nickasistente);
 				},200);
 			}
