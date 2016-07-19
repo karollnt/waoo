@@ -1,35 +1,42 @@
 'use strict';
 function login(){
-	var datos = $("#LoginForm").serialize();
-	$.ajax({
-		type: "post",
-		url: waooserver+"/sesiones/login",
-		dataType: "json",
-		data: datos,
-		success: function(resp) {
-			if(resp.msg == "ok"){
-				$("#loginimg").prop("src","images/icons/blue/logout.png");
-				$("#loginsp").html("Cerrar sesi&oacute;n");
-				myApp.closeModal('.popup-login');
-				var nck = $("#LoginForm input[name='nickname']").val();
-				$("#LoginForm")[0].reset();
-				window.localStorage.setItem("nickname",nck);
-				$("#loginimg").parent().unbind('click');
-				$("#loginimg").parent().bind('click',function(){logout();});
-				$("#snck").html(nck);
-				cambiaIconosAsesor(nck);
-				contarNotificacionesSinLeer();
-				tareanotificaciones = setInterval(function(){contarNotificacionesSinLeer();},60000);
-				colocarAvatar('.user_avatar img');
-				verificaRedirect(nck);
-				actualizarToken();
+	var usr = document.querySelector('.js-usuario').value;
+	if(usr!=''){
+		var clave = document.querySelector('.js-clave').value;
+		clave = md5(clave);
+		$.ajax({
+			type: "post",
+			url: waooserver+"/sesiones/login",
+			dataType: "json",
+			data: {nickname:usr,clave:clave},
+			success: function(resp) {
+				if(resp.msg == "ok"){
+					$("#loginimg").prop("src","images/icons/blue/logout.png");
+					$("#loginsp").html("Cerrar sesi&oacute;n");
+					myApp.closeModal('.popup-login');
+					var nck = $("#LoginForm input[name='nickname']").val();
+					$("#LoginForm")[0].reset();
+					window.localStorage.setItem("nickname",nck);
+					$("#loginimg").parent().unbind('click');
+					$("#loginimg").parent().bind('click',function(){logout();});
+					$("#snck").html(nck);
+					cambiaIconosAsesor(nck);
+					contarNotificacionesSinLeer();
+					tareanotificaciones = setInterval(function(){contarNotificacionesSinLeer();},60000);
+					colocarAvatar('.user_avatar img');
+					verificaRedirect(nck);
+					actualizarToken();
+				}
+				else alert(resp.msg);
+			},
+			error: function(e) {
+				alert('Error: ' + e.message);
 			}
-			else alert(resp.msg);
-		},
-		error: function(e) {
-			alert('Error: ' + e.message);
-		}
-	});
+		});
+	}
+	else{
+		alert("Escriba un nombre de usuario");
+	}
 }
 
 function logout(){
