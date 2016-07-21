@@ -231,9 +231,9 @@ function verDetalleSolicitud(id,iddiv,oferta){
 									:(v.idestado==1 ?
 										"<input id='voferta' type='number' class='form-control' placeholder='¿Cu&aacute;ntos tokens cobrar&iacute;as por hacer este trabajo? (solo n&uacute;meros, 1 token = $1000)'>"
 										+"<button type='button' class='btn btn-primary btn-lg btn-block' onclick='ofertar("+v.id+",this);'>Hacer oferta</button>"
-										:(v.idestado==2 && (v.nickasistente==window.localStorage.getItem("nickname")))
+										:(v.idestado==2 && (v.asistente==window.localStorage.getItem("nickname")))
 											?"<button type='button' class='btn btn-primary btn-lg btn-block' onclick='abrirSolucion("+v.id+",this);'>Enviar soluci&oacute;n</button>"
-											:(v.idestado<4 && (v.nickname==window.localStorage.getItem("nickname")))
+											:(v.idestado==3 && (v.usuario==window.localStorage.getItem("nickname")))
 												?"<button type='button' class='btn btn-primary btn-lg btn-block' onclick='verSolucion("+v.id+",this);'>Aceptar soluci&oacute;n</button>"
 												:""
 									)
