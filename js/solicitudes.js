@@ -447,52 +447,24 @@ function aceptarSolucion(id){
 }
 
 function aceptarOferta(id,valor) {
-	if(valor*1>0){
-		$.ajax({
-			type : 'post',
-			url : waooserver+"/solicitudes/aceptarPrecio",
-			dataType: "json",
-			data : {idpreciotrabajo:id,valor:valor},
-			success : function(resp) {
-				if(resp.error){
-					alert(resp.error);
-				}
-				else{
-					alert(resp.msg);
-					if(resp.msg!='No tienes saldo suficiente'){
-						cargaPagina('data/chats.html');
-						setTimeout(function () {
-							misendbird.setChannel('');
-							misendbird.init(0,resp.nickasistente);
-						},200);
-					}
-				}
-			},
-			error: function(e) {
-				alert(e.message);
-			}
-		});
-	}
-	else if(valor*1 == 0){
-		aceptarOfertaCero(id);
-	}
-}
-
-function aceptarOfertaCero(id) {
 	$.ajax({
 		type : 'post',
-		url : waooserver+"/solicitudes/aceptarPrecioCero",
+		url : waooserver+"/solicitudes/aceptarPrecio",
 		dataType: "json",
-		data : {idpreciotrabajo:id},
+		data : {idpreciotrabajo:id,valor:valor},
 		success : function(resp) {
-			if(resp.error) alert(resp.error);
+			if(resp.error){
+				alert(resp.error);
+			}
 			else{
 				alert(resp.msg);
-				cargaPagina('data/chats.html');
-				setTimeout(function () {
-					misendbird.setChannel('');
-					misendbird.init(0,resp.nickasistente);
-				},200);
+				if(resp.msg!='No tienes saldo suficiente'){
+					cargaPagina('data/chats.html');
+					setTimeout(function () {
+						misendbird.setChannel('');
+						misendbird.init(0,resp.nickasistente);
+					},200);
+				}
 			}
 		},
 		error: function(e) {
