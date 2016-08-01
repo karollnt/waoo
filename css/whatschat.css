@@ -225,3 +225,34 @@ img {
     display: table;
     position: relative;
 }
+/* ios styles */
+@media only screen
+and (min-device-width : 375px)
+and (max-device-width : 667px) {
+  .chat_submit_box {
+      height: auto;
+  }
+  .chat_box_wrapper.chat_box_small.chat_box_active {
+      height: 95%;
+  }
+}
+@media only screen
+and (min-device-width : 320px)
+and (max-device-width : 568px) {
+  .chat_submit_box {
+      height: auto;
+  }
+  .chat_box_wrapper.chat_box_small.chat_box_active {
+      height: 95%;
+  }
+}
+@media only screen
+and (min-device-width : 320px)
+and (max-device-width : 480px) {
+  .chat_submit_box {
+      height: auto;
+  }
+  .chat_box_wrapper.chat_box_small.chat_box_active {
+      height: 95%;
+  }
+}
