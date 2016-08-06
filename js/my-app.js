@@ -509,8 +509,8 @@ $$(document).on('pageInit', function (e) {
 	}, false);
 
 	// Add ScrollFix
-	var scrollingContent = document.getElementById("pages_maincontent");
-	new ScrollFix(scrollingContent);
+	/*var scrollingContent = document.getElementById("pages_maincontent");
+	new ScrollFix(scrollingContent);*/
 
 
 	var ScrollFix = function(elem) {
