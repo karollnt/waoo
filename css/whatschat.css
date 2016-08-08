@@ -47,12 +47,17 @@ a:focus {
     padding: 0 6px;
 }
 .chat_box_wrapper.chat_box_small.chat_box_active {
-    height: 90%;
-    overflow-y: scroll;
     width: 100% !important;
 }
 .chat_box {
-    padding: 16px;
+    padding:0 16px;
+    overflow-y:auto;
+    position:absolute;
+    top:0;
+    bottom:0;
+    left:0;
+    right:0;
+    margin-bottom:60px;
 }
 .chat_box .chat_message_wrapper::after {
     clear: both;
@@ -229,39 +234,56 @@ img {
 @media only screen
 and (min-device-width : 375px)
 and (max-device-width : 667px) {
-  body{
+  html,body{
+    height: 100%;
     -webkit-text-size-adjust:none;
   }
   .chat_submit_box {
-      height: auto;
+    position: fixed;
+    height: auto;
+    z-index: 9;
   }
   .chat_box_wrapper.chat_box_small.chat_box_active {
-      height: 95%;
+    height: 95%;
+    z-index: 1;
   }
 }
 @media only screen
-and (min-device-width : 320px)
-and (max-device-width : 568px) {
-  body{
+and (min-device-width : 750px)
+and (max-device-width : 1334px) {
+  html,body{
+    height: 100%;
     -webkit-text-size-adjust:none;
   }
   .chat_submit_box {
-      height: auto;
+    height: auto;
+    z-index: 9;
   }
   .chat_box_wrapper.chat_box_small.chat_box_active {
-      height: 95%;
+    height: 95%;
+    z-index: 1;
   }
 }
 @media only screen
-and (min-device-width : 320px)
-and (max-device-width : 480px) {
-  body{
+and (min-device-width : 1242px)
+and (max-device-width : 2208px) {
+  html,body{
+    height: 100%;
     -webkit-text-size-adjust:none;
   }
   .chat_submit_box {
-      height: auto;
+    position: fixed;
+    height: auto;
+    z-index: 9;
   }
   .chat_box_wrapper.chat_box_small.chat_box_active {
-      height: 95%;
+    height: 95%;
+    z-index: 1;
   }
 }
+
+
+
+
+
+
