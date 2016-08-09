@@ -235,7 +235,9 @@ function verDetalleSolicitud(id,iddiv,oferta){
 											?"<button type='button' class='btn btn-primary btn-lg btn-block' onclick='abrirSolucion("+v.id+",this);'>Enviar soluci&oacute;n</button>"
 											:(v.idestado==3 && (v.usuario==window.localStorage.getItem("nickname")))
 												?"<button type='button' class='btn btn-primary btn-lg btn-block' onclick='verSolucion("+v.id+",this);'>Aceptar soluci&oacute;n</button>"
-												:""
+												:(v.idestado>3)
+													?"<button type='button' class='btn btn-primary btn-lg btn-block' onclick='ventanaSustentacion($(\"#idtrabajo\").val());''>Sustentaci&oacute;n</button>"
+													:""
 									)
 								)
 							+"</td>"
@@ -490,6 +492,28 @@ function consultarTokens() {
 			if(resp.error) alert(resp.error);
 			else{
 				$('.js-cantidad-tokens').html(resp.msg);
+			}
+		},
+		error: function(e) {
+			alert(e.message);
+		}
+	});
+}
+
+function ventanaSustentacion(idtrabajo) {
+	$.ajax({
+		type : 'post',
+		url : waooserver+"/solicitudes/canalChatTrabajo",
+		dataType: "json",
+		data : {idtrabajo: idtrabajo},
+		success : function(resp) {
+			if(resp.error) alert(resp.error);
+			else{
+				cargaPagina('data/chats.html');
+				setTimeout(function () {
+					misendbird.setChannel(resp.canal);
+					misendbird.init(0,resp.nickasistente);
+				},200);
 			}
 		},
 		error: function(e) {

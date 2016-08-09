@@ -10,15 +10,16 @@
 				<h2 class="page_title">Aceptar solucion</h2>
 				<div class="page_content">
 					<div id="solucionfiles" class="blog-posts"></div>
-					Notas: <br>
-					<!-- <textarea id="solucionnotas" readonly></textarea> -->
-					<br><br>
+					<!-- Notas: <br>
+					<textarea id="solucionnotas" readonly></textarea>
+					<br><br> -->
 					<input type="hidden" id="idtrabajo" name="idtrabajo" value="0">
 					<br><br>
 					Por favor, califique su experiencia con nuestro asesor:<br>
 					<div class="raty"></div>
 					<input type="hidden" id="calificacion" name="calificacion">
 					<br><br>
+					<button type='button' class='btn btn-primary btn-lg btn-block' onclick="ventanaSustentacion($('#idtrabajo').val());">Sustentaci&oacute;n</button>
 					<button type='button' class='btn btn-primary btn-lg btn-block' onclick="aceptarSolucion($('#idtrabajo').val(),this);">Aceptar soluci&oacute;n</button>
 				</div>
 			</div>
