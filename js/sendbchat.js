@@ -5,7 +5,7 @@ var misendbird = (function () {
   var assistantId = '';
   var channelChat = '';
   var privUrl = '';
-  var supportUrl = '711cc.soporte_waoo';
+  var supportUrl = '444e4.soporte';
   var userAvatarSrc = '';
   var userId = '';
   function init(chan,asid) {
