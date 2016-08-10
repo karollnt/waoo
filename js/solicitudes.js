@@ -231,13 +231,14 @@ function verDetalleSolicitud(id,iddiv,oferta){
 									:(v.idestado==1 ?
 										"<input id='voferta' type='number' class='form-control' placeholder='¿Cu&aacute;ntos tokens cobrar&iacute;as por hacer este trabajo? (solo n&uacute;meros, 1 token = $1000)'>"
 										+"<button type='button' class='btn btn-primary btn-lg btn-block' onclick='ofertar("+v.id+",this);'>Hacer oferta</button>"
-										:(v.idestado==2 && (v.asistente==window.localStorage.getItem("nickname")))
+										:(v.idestado==2 && (v.asistente==window.localStorage.getItem("nickname"))
 											?"<button type='button' class='btn btn-primary btn-lg btn-block' onclick='abrirSolucion("+v.id+",this);'>Enviar soluci&oacute;n</button>"
-											:(v.idestado==3 && (v.usuario==window.localStorage.getItem("nickname")))
+											:(v.idestado==3 && (v.usuario==window.localStorage.getItem("nickname"))
 												?"<button type='button' class='btn btn-primary btn-lg btn-block' onclick='verSolucion("+v.id+",this);'>Aceptar soluci&oacute;n</button>"
-												:(v.idestado>3)
-													?"<button type='button' class='btn btn-primary btn-lg btn-block' onclick='ventanaSustentacion($(\"#idtrabajo\").val());''>Sustentaci&oacute;n</button>"
-													:""
+												:""
+											)
+										)
+										+"<button type='button' class='btn btn-primary btn-lg btn-block' onclick='ventanaSustentacion("+v.id+");''>Sustentaci&oacute;n</button>"
 									)
 								)
 							+"</td>"
@@ -505,15 +506,15 @@ function ventanaSustentacion(idtrabajo) {
 		type : 'post',
 		url : waooserver+"/solicitudes/canalChatTrabajo",
 		dataType: "json",
-		data : {idtrabajo: idtrabajo},
+		data : {idtrabajo: idtrabajo, nickname:window.localStorage.getItem("nickname")},
 		success : function(resp) {
 			if(resp.error) alert(resp.error);
 			else{
 				misendbird.disconnect();
 				cargaPagina('data/chats.html');
 				setTimeout(function () {
-					misendbird.setChannel(resp.canal);
-					misendbird.init(0,resp.nickasistente);
+					misendbird.setChannel(resp.msg);
+					misendbird.init(0,resp.nickusr);
 				},200);
 			}
 		},

@@ -60,6 +60,7 @@ function register(){
 		success: function(resp) {
 			alert(resp.msg);
 			$("#RegisterForm")[0].reset();
+			misendbird.preInit($('.js-user-reg').val());
 			location.href = 'index.html';
 		},
 		error: function(e) {
@@ -101,13 +102,16 @@ function verificaRedirect(nickname) {
 		data: {nickname:nickname},
 		success: function(resp) {
 			if(resp.error) alert('Error: ' + resp.error);
-			else if(resp.tipo==1) cargaPagina('data/crearsolicitud.html',2);
+			else if(resp.tipo==1) {
+				cargaPagina('data/crearsolicitud.html',2);
+				misendbird.preInit(nickname);
+			}
 			else {
 				cargaPagina('index.html',0);
 				setTimeout(function () {
 					misendbird.init(0);
 					misendbird.setChannel('');
-					misendbird.setAssistant(window.localStorage.getItem("nickname"));
+					misendbird.setAssistant(nickname);
 					misendbird.obtenerDireccionCanalChat();
 				},1000);
 			}
