@@ -509,6 +509,7 @@ function ventanaSustentacion(idtrabajo) {
 		success : function(resp) {
 			if(resp.error) alert(resp.error);
 			else{
+				misendbird.disconnect();
 				cargaPagina('data/chats.html');
 				setTimeout(function () {
 					misendbird.setChannel(resp.canal);

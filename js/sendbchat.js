@@ -237,7 +237,11 @@ var misendbird = (function () {
     privUrl = can;
   }
   function reconnect() {
+    sendbird.disconnect();
     init(channelChat,assistantId);
+  }
+  function disconnect() {
+    sendbird.disconnect();
   }
   function preInit(nick) {
     sendbird.init({
@@ -266,6 +270,7 @@ var misendbird = (function () {
     reconnect: reconnect,
     obtenerDireccionCanalChat: obtenerDireccionCanalChat,
     preInit: preInit,
-    setChannel: setChannel
+    setChannel: setChannel,
+    disconnect: disconnect
   };
 })();
