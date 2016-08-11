@@ -156,12 +156,12 @@ function cambiaIconosAsesor(nickname){
 				if(resp.error) alert('Error: ' + resp.error);
 				else{
 					if(resp.tipo==2){
-						$('.js-assistance-chat').removeClass('hidden');
+						$('.js-assistance-history').removeClass('hidden');
 						$("#crsolspn").html("Solicitudes libres");
 					}
 					else if(resp.tipo==1){
 						$("#crsolspn").html("Crear solicitud");
-						$('.js-assistance-chat').addClass('hidden');
+						$('.js-assistance-history').addClass('hidden');
 					}
 				}
 			},

@@ -75,6 +75,9 @@ function cargaPagina(url,num){
       case 7:
         misendbird.init(1);
         break;
+      case 8:
+        setTimeout(function(){historialTrabajosAceptados();},1000);
+        break;
       case 10:
         setTimeout(function(){
           mercpagoui.initEvents();

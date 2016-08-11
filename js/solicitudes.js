@@ -63,6 +63,35 @@ function cargaSolicitudesUsuario(nickname){
 	});
 }
 
+function renderSolicitudesAsignacion(lista,div,asignada) {
+	var $div = $(div);
+	for(var i=0;i<lista.length;i++){
+		var el = lista[i].split(";");
+		$div.append("<div class='alert alert-info'>"+el[0]+"</div>");
+		if(el[1]=="[No hay solicitudes]"){
+			$div.append("<div class='alert'>"+el[1]+"</div>");
+		}
+		else{
+			$div.append("<div class='alert table-responsive'>"
+				+"<table id='tblmat_"+i+"' class='table table-condensed'>"
+					+"<tr><th>T&iacute;tulo</th>"+(asignada==1 ? "<th class='al-right'>Estado</th>" : "")+"<th>&nbsp;</th></tr>"
+				+"</table>"
+				+"<div id='detsols_"+el[0]+"' class='alert alert-dismissable'></div>"
+			+"</div>");
+			var json = JSON.parse(el[1]);
+			$.each(json,function(i2,v){
+				$("#tblmat_"+i).append("<tr>"
+					+"<td>"+((v.titulo).substring(0,10)+"...")+"</td>"
+					+(v.estado ? "<td>"+v.estado+"</td>" : "")
+					+"<td>"
+						+"<img style='margin:0;cursor:pointer;' src='images/icons/blue/plus.png' onclick='verDetalleSolicitud("+v.id+",\"detsols_"+el[0]+"\",1);'>"
+					+"</td>"
+				+"</tr>");
+			});
+		}
+	}
+}
+
 function listarSolicitudesAsignadasMatDiv(id){
 	$("#"+id).html('');
 	var n = window.localStorage.getItem("nickname");
@@ -75,31 +104,7 @@ function listarSolicitudesAsignadasMatDiv(id){
 			if(resp.error) $("#"+id).html("<div class='alert alert-danger'>"+resp.error+"</div>");
 			else{
 				var lista = (resp.msg).split("|");
-				for(var i=0;i<lista.length;i++){
-					var el = lista[i].split(";");
-					$("#"+id).append("<div class='alert alert-info'>"+el[0]+"</div>");
-					if(el[1]=="[No hay solicitudes]"){
-						$("#"+id).append("<div class='alert'>"+el[1]+"</div>");
-					}
-					else{
-						$("#"+id).append("<div class='alert table-responsive'>"
-							+"<table id='tblmat_"+i+"' class='table table-condensed'>"
-								+"<tr><th>T&iacute;tulo</th><th class='al-right'>Estado</th><th>&nbsp;</th></tr>"
-							+"</table>"
-							+"<div id='detsols_"+el[0]+"' class='alert alert-dismissable'></div>"
-						+"</div>");
-						var json = JSON.parse(el[1]);
-						$.each(json,function(i2,v){
-							$("#tblmat_"+i).append("<tr>"
-								+"<td>"+((v.titulo).substring(0,10)+"...")+"</td>"
-								+"<td>"+v.estado+"</td>"
-								+"<td>"
-									+"<img style='margin:0;cursor:pointer;' src='images/icons/blue/plus.png' onclick='verDetalleSolicitud("+v.id+",\"detsols_"+el[0]+"\",1);'>"
-								+"</td>"
-							+"</tr>");
-						});
-					}
-				}
+				renderSolicitudesAsignacion(lista,"#"+id,1);
 			}
 		},
 		error: function(e) {
@@ -121,30 +126,7 @@ function listarSolicitudesSinAsignarDiv(id){
 			if(resp.error) $("#"+id).html("<div class='alert alert-danger'>"+resp.error+"</div>");
 			else{
 				var lista = (resp.msg).split("|");
-				for(var i=0;i<lista.length;i++){
-					var el = lista[i].split(";");
-					$("#"+id).append("<div class='alert alert-info'>"+el[0]+"</div>");
-					if(el[1]=="[No hay solicitudes]"){
-						$("#"+id).append("<div class='alert'>"+el[1]+"</div>");
-					}
-					else{
-						$("#"+id).append("<div class='alert table-responsive'>"
-							+"<table id='tblmat_"+i+"' class='table table-condensed'>"
-								+"<tr><th>T&iacute;tulo</th><th>&nbsp;</th></tr>"
-							+"</table>"
-							+"<div id='detsols_"+el[0]+"' class='alert'></div>"
-						+"</div>");
-						var json = JSON.parse(el[1]);
-						$.each(json,function(i2,v){
-							$("#tblmat_"+i).append("<tr>"
-								+"<td>"+((v.titulo).substring(0,10)+"...")+"</td>"
-								+"<td class='al-right'>"
-									+"<img style='margin:0;cursor:pointer;' src='images/icons/blue/plus.png' onclick='verDetalleSolicitud("+v.id+",\"detsols_"+el[0]+"\",1);'>"
-								+"</td>"
-							+"</tr>");
-						});
-					}
-				}
+				renderSolicitudesAsignacion(lista,"#"+id,0);
 			}
 		},
 		error: function(e) {
@@ -414,8 +396,9 @@ function enviarSolucion(){
 		cache : false,
 		contentType : false,
 		processData : false,
-		success : function(data) {
-			alert(data.msg);
+		success : function(resp) {
+			var json = JSON.parse('{"msg":"Se ha actualizado la solicitud"}');
+			alert(json.msg);
 			cargaPagina('index.html',0);
 		}
 	});
@@ -521,5 +504,40 @@ function ventanaSustentacion(idtrabajo) {
 		error: function(e) {
 			alert(e.message);
 		}
+	});
+}
+
+function renderHistorialTrabajosAceptados(resp) {
+	var html = '', total = 0;
+	if(resp.error) alert(resp.error);
+	else{
+		if(resp.msg){
+			$.each(resp.msg,function (i,v) {
+				total += parseInt(v.valor);
+				html += '<tr>'
+					+'<td>'+v.fecha+'</td>'
+					+'<td>'+v.nombre+'</td>'
+					+'<td>'+v.valor+'</td>'
+				+'</tr>';
+			});
+			html += '<tr><td colspan="2">Total</td><td>'+total+'</td></tr>';
+		}
+		else {
+			html = '<tr><td colspan="3">No hay registros</td></tr>';
+		}
+		$('.js-historial').html(html);
+	}
+}
+
+function historialTrabajosAceptados() {
+	var ajx = $.ajax({
+		type : 'post',
+		url : waooserver+"/solicitudes/historialTrabajosAceptados",
+		dataType: "json",
+		data : {nickname:window.localStorage.getItem("nickname")}
+	});
+	ajx.done(renderHistorialTrabajosAceptados)
+	.fail(function(e) {
+		alert('Error: ' + e.message);
 	});
 }
