@@ -397,7 +397,7 @@ function enviarSolucion(){
 		contentType : false,
 		processData : false,
 		success : function(resp) {
-			var json = JSON.parse('{"msg":"Se ha actualizado la solicitud"}');
+			var json = JSON.parse(resp);
 			alert(json.msg);
 			cargaPagina('index.html',0);
 		}
@@ -512,12 +512,13 @@ function renderHistorialTrabajosAceptados(resp) {
 	if(resp.error) alert(resp.error);
 	else{
 		if(resp.msg){
-			$.each(resp.msg,function (i,v) {
-				total += parseInt(v.valor);
+			var json = JSON.parse('['+resp.msg+']');
+			$.each(json,function (i,v) {
+				total += parseInt(v.tokens);
 				html += '<tr>'
 					+'<td>'+v.fecha+'</td>'
-					+'<td>'+v.nombre+'</td>'
-					+'<td>'+v.valor+'</td>'
+					+'<td>'+v.titulo+'</td>'
+					+'<td>'+v.tokens+'</td>'
 				+'</tr>';
 			});
 			html += '<tr><td colspan="2">Total</td><td>'+total+'</td></tr>';
@@ -536,7 +537,9 @@ function historialTrabajosAceptados() {
 		dataType: "json",
 		data : {nickname:window.localStorage.getItem("nickname")}
 	});
-	ajx.done(renderHistorialTrabajosAceptados)
+	ajx.done(function (resp) {
+		renderHistorialTrabajosAceptados(resp);
+	})
 	.fail(function(e) {
 		alert('Error: ' + e.message);
 	});
