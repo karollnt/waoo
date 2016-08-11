@@ -259,6 +259,13 @@ var misendbird = (function () {
       }
     });
   }
+  $( "#submit_message" ).keyup(function() {
+  if ($("#submit_message").val().length>= 1){
+$(".chat_box").stop().animate({
+      scrollTop: $(".chat_box").prop('scrollHeight')
+    }, 800);
+}
+});
   return {
     init: init,
     sendMsg: sendMsg,
