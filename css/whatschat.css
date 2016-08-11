@@ -59,6 +59,7 @@ a:focus {
     left:0;
     right:0;
     margin-bottom:60px;
+    padding-bottom:60px;
 }
 .chat_box .chat_message_wrapper::after {
     clear: both;
