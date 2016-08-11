@@ -50,6 +50,7 @@ a:focus {
     width: 100% !important;
 }
 .chat_box {
+    padding-bottom:60px;
     padding:0 16px;
     overflow-y:auto;
     position:absolute;
