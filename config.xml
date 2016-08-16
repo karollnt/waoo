@@ -2,13 +2,13 @@
 
 <widget xmlns     = "http://www.w3.org/ns/widgets"
         xmlns:gap = "http://phonegap.com/ns/1.0"
-        id        = "com.lunarm.waoo"
-        version   = "1.0.0">
+        id        = "com.waooapp.waoo"
+        version   = "1.0.4">
 	<name>Waoo</name>
 	<description>
 		Front-end para waoo
 	</description>
-	<author href = "mailto:lunarmdesigns@gmail.com" email = "lunarmdesigns@gmail.com">
+	<author href = "mailto:info@waooapp.com" email = "info@waooapp.com">
 		Luna RM Designs
 	</author>
 
