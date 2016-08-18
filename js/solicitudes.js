@@ -160,7 +160,7 @@ function listarSolicitudesCreadasMatDiv(id){
 							+"<td>"+((v.titulo).substring(0,10)+"...")+"</td>"
 							+"<td class='al-right' style='vertical-align: bottom;'>"
 								+v.estado
-								+"<img style='margin:0;cursor:pointer;display:inline;' src='images/icons/blue/plus.png' onclick='verDetalleSolicitud("+v.id+",\"detsols_"+id+"\""+(v.asistente!='nousr'?',1':'')+");'>"
+								+"<img style='margin:0;cursor:pointer;display:inline;' src='images/icons/blue/plus.png' onclick='verDetalleSolicitud("+v.id+",\"detsols_"+id+"\""+(v.asistente!='sinasistente'?',1':'')+");'>"
 							+"</td>"
 						+"</tr>");
 					});
@@ -181,10 +181,10 @@ function verDetalleSolicitud(id,iddiv,oferta){
 		dataType: "json",
 		data: {id:id},
 		success: function(resp) {
-			if(resp.error) $("#"+iddiv).html('Error: ' + resp.error);
+			if(resp.error) alertDetail('Error: ' + resp.error);
 			else{
 				var json = JSON.parse('['+resp.msg+']');
-				$("#"+iddiv).html("<button type='button' class='close' aria-label='close' onclick='$(\"#"+iddiv+"\").hide();'>&times;</button>");
+				//$("#"+iddiv).html("<button type='button' class='close' aria-label='close' onclick='$(\"#"+iddiv+"\").hide();'>&times;</button>");
 				$.each(json,function(i2,v){
 					var tbl = "<table class='table table-condensed'>"
 						+"<caption><b>Detalles solicitud</b></caption>"
