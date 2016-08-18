@@ -210,7 +210,7 @@ function verDetalleSolicitud(id,iddiv,oferta){
 							+"<td colspan='2'>"
 								+(oferta==0 ?
 									"<button type='button' class='btn btn-primary btn-lg btn-block' onclick='ventanaOfertas("+v.id+");'>Ver ofertas</button>"
-									:(v.idestado==1 ?
+									:(v.idestado==1 && (v.asistente==window.localStorage.getItem("nickname"))?
 										"<input id='voferta' type='number' class='form-control' placeholder='¿Cu&aacute;ntos tokens cobrar&iacute;as por hacer este trabajo? (solo n&uacute;meros, 1 token = $1000)'>"
 										+"<button type='button' class='btn btn-primary btn-lg btn-block' onclick='ofertar("+v.id+",this);'>Hacer oferta</button>"
 										:(v.idestado==2 && (v.asistente==window.localStorage.getItem("nickname"))
@@ -220,7 +220,7 @@ function verDetalleSolicitud(id,iddiv,oferta){
 												:""
 											)
 										)
-										+"<button type='button' class='btn btn-primary btn-lg btn-block' onclick='ventanaSustentacion("+v.id+");''>Sustentaci&oacute;n</button>"
+										+(v.idestado>1 ? "<button type='button' class='btn btn-primary btn-lg btn-block' onclick='ventanaSustentacion("+v.id+");''>Sustentaci&oacute;n</button>" : "")
 									)
 								)
 							+"</td>"
