@@ -45,6 +45,11 @@ function cargaPagina(url,num){
               else if(resp.tipo==1){
                 setTimeout(function(){
                   cargarMateriaSelect("materia");
+                  llenarSelectAnio('#anio');
+                  llenarSelectMes2('#mes');
+                  llenarSelectDias('#dia');
+                  llenarSelectHoras('#hora');
+                  llenarSelectMinutos('#minutos');
                   $('#creasolicitud').on('submit', function(e) {
                     e.preventDefault();
                     creasolicitud();
@@ -125,6 +130,34 @@ function llenarSelectMes(id) {
   for (var i = 1; i <= 12; i++) {
     str += "<option value='"+i+"'>"+i+"</option>";
   }
+  $(id).html(str);
+}
+
+function llenarSelect2(inicio,final) {
+  var str = "";
+  for (var i = inicio; i <= final; i++) {
+    str += "<option value='"+(i<10?'0':'')+i+"'>"+(i<10?'0':'')+i+"</option>";
+  }
+  return str;
+}
+
+function llenarSelectMes2(id) {
+  var str = llenarSelect2(1,12);
+  $(id).html(str);
+}
+
+function llenarSelectDias(id) {
+  var str = llenarSelect2(1,31);
+  $(id).html(str);
+}
+
+function llenarSelectHoras(id) {
+  var str = llenarSelect2(0,23);
+  $(id).html(str);
+}
+
+function llenarSelectMinutos(id) {
+  var str = llenarSelect2(0,59);
   $(id).html(str);
 }
 
