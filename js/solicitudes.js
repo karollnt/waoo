@@ -221,7 +221,8 @@ function verDetalleSolicitud(id,iddiv,oferta){
 												:""
 											)
 										)
-										+(v.idestado>1 ? "<button type='button' class='btn btn-primary btn-lg btn-block' onclick='ventanaSustentacion("+v.id+");''>Sustentaci&oacute;n</button>" : "")
+										+(v.idestado>1 && (v.asistente==window.localStorage.getItem("nickname") || v.usuario==window.localStorage.getItem("nickname")) 
+											? "<button type='button' class='btn btn-primary btn-lg btn-block' onclick='ventanaSustentacion("+v.id+");''>Sustentaci&oacute;n</button>" : "")
 									)
 								)
 							+"</td>"
