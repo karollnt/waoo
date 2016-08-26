@@ -195,6 +195,7 @@ function verDetalleSolicitud(id,iddiv,oferta){
 						+"<tr>"+"<th>Fecha creado</th>"+"<td>"+v.fecharegistro+"</td>"+"</tr>"
 						+"<tr>"+"<th>Materia</th>"+"<td>"+v.materia+"</td>"+"</tr>"
 						+"<tr>"+"<th>Usuario</th>"+"<td>"+v.usuario+"</td>"+"</tr>"
+						+"<tr>"+"<th>Fecha entrega</th>"+"<td>"+v.fechaentrega+"</td>"+"</tr>"
 						+"<tr>"
 							+"<th>Descripcion</th>"
 							+"<td>"
