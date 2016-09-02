@@ -221,7 +221,7 @@ function verDetalleSolicitud(id,iddiv,oferta){
 												:""
 											)
 										)
-										+(v.idestado>1 && (v.asistente==window.localStorage.getItem("nickname") || v.usuario==window.localStorage.getItem("nickname")) 
+										+(v.idestado>1 && (v.asistente==window.localStorage.getItem("nickname") || v.usuario==window.localStorage.getItem("nickname"))
 											? "<button type='button' class='btn btn-primary btn-lg btn-block' onclick='ventanaSustentacion("+v.id+");''>Sustentaci&oacute;n</button>" : "")
 									)
 								)
@@ -304,6 +304,9 @@ function verArchivoSolicitud(id){
 		dataType: "json",
 		success : function(data) {
 			var rfpg = window.open(data.msg,"_system","location=yes");
+			if (rfpg == null || typeof(rfpg)=='undefined'){
+				alert("Desactiva tu pop-up blocker!\n\nTratamos de abrir la url:\n"+data.msg+"\n\nVe a Configuracion > Seguridad para desactivarlo");
+			}
 		},
 		error: function(e) {
 			alert(e.message);
