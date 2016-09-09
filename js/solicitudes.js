@@ -292,8 +292,8 @@ function listarArchivosSolicitud(id,iddiv){
 								"<tr>"
 									+"<td style='vertical-align:bottom !important;'>"
 										+"Archivo "+(i2+1)+" por "+v.usuario+" ("+v.tipoarchivo+") "
-										+"<img style='display:inline !important; cursor:pointer;' src='images/icons/blue/plus.png' onclick='window.open(\""+filesUrl+v.nombrearchivo+"\");'>"
-										//+"<img style='display:inline !important; cursor:pointer;' src='images/icons/blue/plus.png' onclick='verArchivoSolicitud("+v.id+");'>" //web y android
+										// +"<img style='display:inline !important; cursor:pointer;' src='images/icons/blue/plus.png' onclick='window.open(\""+filesUrl+v.nombrearchivo+"\");'>"
+										+"<img style='display:inline !important; cursor:pointer;' src='images/icons/blue/plus.png' onclick='verArchivoSolicitud("+v.id+");'>" //web y android
 									+"</td>"
 								+"</tr>");
 						});
