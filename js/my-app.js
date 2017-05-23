@@ -23,8 +23,9 @@ var mainView = myApp.addView('.view-main', {
   dynamicNavbar: false
 });
 
-function cargaPagina(url,num){
+function cargaPagina(url,num,params){
 	var loggedin = window.localStorage.getItem("nickname");
+  params = typeof params !== 'undefined' ? params : {};
 	if(!loggedin) myApp.popup(".popup-login");
 	else{
 		mainView.router.loadPage(url+"?"+(Math.floor((Math.random() * 1000) + 1)));
@@ -90,6 +91,12 @@ function cargaPagina(url,num){
           llenarSelectAnio('.js-expirationYear');
           mercpagoui.initEvents();
           consultarTokens();
+          if (params.tokens) {
+            var totalValue = params.tokens * 1000;
+            $('.js-tokens-default').val(params.tokens).prop('readonly',true);
+            $('.js-checkout-total').html('$ '+totalValue);
+            $('.js-id-solicitud').val(params.idpreciotrabajo);
+          }
         },1000);
         break;
       default:
@@ -134,21 +141,24 @@ function llenarSelectMes(id) {
   $(id).html(str);
 }
 
-function llenarSelect2(inicio,final) {
+function llenarSelect2(inicio,final,seleccionado) {
+  seleccionado = typeof seleccionado !== 'undefined' ? seleccionado : 0;
   var str = "";
   for (var i = inicio; i <= final; i++) {
-    str += "<option value='"+(i<10?'0':'')+i+"'>"+(i<10?'0':'')+i+"</option>";
+    str += "<option value='"+(i<10?'0':'')+i+"'"+(seleccionado==i ? " selected":"")+">"+(i<10?'0':'')+i+"</option>";
   }
   return str;
 }
 
 function llenarSelectMes2(id) {
-  var str = llenarSelect2(1,12);
+  var fd = new Date();
+  var str = llenarSelect2(1,12,fd.getMonth()+1);
   $(id).html(str);
 }
 
 function llenarSelectDias(id) {
-  var str = llenarSelect2(1,31);
+  var fd = new Date();
+  var str = llenarSelect2(1,31,fd.getDate());
   $(id).html(str);
 }
 

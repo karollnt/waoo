@@ -158,7 +158,7 @@ function listarSolicitudesCreadasMatDiv(id){
 				else{
 					$("#"+id).html("<div class='alert table-responsive'>"
 						+"<table id='tblmat_"+id+"' class='table table-condensed'>"
-							+"<tr><th>T&iacute;tulo</th><th class='al-right'>Estado</th></tr>"
+							+"<tr><th>T&iacute;tulo</th><th>Asistente</th><th class='al-right'>Estado</th></tr>"
 						+"</table>"
 						+"<div id='detsols_"+id+"' class='alert'></div>"
 					+"</div>");
@@ -166,6 +166,7 @@ function listarSolicitudesCreadasMatDiv(id){
 					$.each(json,function(i2,v){
 						$("#tblmat_"+id).append("<tr>"
 							+"<td>"+((v.titulo).substring(0,10)+"...")+"</td>"
+							+"<td>"+(v.asistente)+"</td>"
 							+"<td class='al-right' style='vertical-align: bottom;'>"
 								+v.estado
 								+"<img style='margin:0;cursor:pointer;display:inline;' src='images/icons/blue/plus.png' onclick='verDetalleSolicitud("+v.id+",\"detsols_"+id+"\""+(v.asistente!='sinasistente'?',1':'')+");'>"
@@ -362,6 +363,7 @@ function verOfertas(id,iddiv){
 							+"<div class='shop_item_details'>"
 								+"<h4 style='position:initial !important;'>"
 									+"<a href='#'>"+v.asistente+"</a> <span class='stars' title='"+v.calificacion+"'>"+v.calificacion+"</span>"
+                  +"<span>("+v.calificacion+")</span>"
 								+"</h4>"
 								+"<div class='shop_item_price'>"+v.valor+" Waoo Tokens</div>"
 							+"</div>"
@@ -459,7 +461,10 @@ function aceptarOferta(id,valor) {
 			}
 			else{
 				alert(resp.msg);
-				if(resp.msg!='No tienes saldo suficiente'){
+				if(resp.msg=='No tienes saldo suficiente'){
+          cargaPagina('data/pasarela.html',10, {idpreciotrabajo:id, tokens:valor});
+        }
+        else {
 					cargaPagina('data/chats.html');
 					setTimeout(function () {
 						misendbird.setChannel('');

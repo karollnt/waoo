@@ -146,7 +146,15 @@ var mercpagoui = (function(){
         }
         else{
           alert(resp.msg);
-          cargaPagina('index.html');
+          var idSolicitud = $('.js-id-solicitud');
+          var tokens = $('.js-tokens-default').val();
+          idSolicitud = idSolicitud.length ? idSolicitud.val() * 1 : 0;
+          if (idSolicitud!=0) {
+            aceptarOferta(idSolicitud,tokens);
+          }
+          else {
+            cargaPagina('index.html');
+          }
         }
       },
       error: function(e) {
