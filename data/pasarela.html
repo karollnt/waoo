@@ -10,8 +10,11 @@
         <div class="page_content">
           <h2 class="">Recargar Waoo Tokens</h2>
           <div>
-            Actualmente cuentas con <span class="js-cantidad-tokens">0</span> tokens.
-          </div>
+		   <ul class="responsive_table">
+                     <li class="table_row">
+                        <div class="table_section_small">Actualmente cuentas con  <span class="js-cantidad-tokens">0</span> tokens. </div>
+                     </li>
+      
           <div class="buttons-row">
             <a href="#tab1" class="tab-link button button-big active">Efectivo</a>
             <a href="#tab2" class="tab-link button button-big">Tarjeta cr&eacute;dito</a>
@@ -29,6 +32,7 @@
                       Luego de realizarlo, toma una fotograf&iacute;a al soporte y subelo en este formulario.
                     </p>
                   </div>
+				  
                   <div class="form-row">
                     <div>Cantidad de tokens (1 token = $ 1000)</div>
                     <select class="form-control" name="valor">
@@ -85,14 +89,7 @@
                       <div class="form_row_icon"><img src="../images/icons/blue/mobile.png" alt="" title="" /></div>
                       <input type="tel" name="telefono" value="" class="form_input required mobile" placeholder="celular"/>
                     </div>
-                    <div class="form_row">
-                      <div class="form_row_icon"><img src="../images/icons/blue/briefcase.png" alt="" title="" /></div>
-                      <input type="text" name="empresa" value="" class="form_input required mobile" placeholder="empresa"/>
-                    </div>
-                    <div class="form_row">
-                      <div class="form_row_icon"><img src="../images/icons/blue/map.png" alt="" title="" /></div>
-                      <input type="text" name="direccion" class="form_input required" placeholder="Direccion de envio">
-                    </div>
+                    
                     <div class="row form_row">
                       <div class="col-100 tablet-50">
                         <div class="form_row_icon"><img src="../images/icons/blue/next.png" alt="" title="" /></div>
@@ -134,7 +131,7 @@
                       <div class="col-50 js-checkout-total"></div>
                       <input type="hidden" name="valor" value="0" class="js-checkout-valor">
                     </div>
-					
+					 </div>
                    <div class="row form-group">
                     <div class="col-xs-12 col-sm-6 m-t-10">
                       <button type="button" class="btn btn-primary btn-block btn-lg js-enviaPago" data-loading-text="Procesando...">
@@ -155,12 +152,3 @@
     </div>
   </div>
 </div>
-
-			 
-			 
-			 
-			 
-			 
-			 
-			 
-
