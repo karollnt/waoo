@@ -447,9 +447,8 @@ function actualizarCuenta() {
 }
 
 function actualizarToken() {
-	var token = window.localStorage.getItem("devToken");
+  var token = window.localStorage.getItem("devToken");
   if (!token) {
-    window.plugins.OneSignal.registerForPushNotifications();
     window.plugins.OneSignal.getIds(function(ids) {
       window.localStorage.setItem('devToken',ids.pushToken);
       alert("userId = " + ids.userId + "\npushToken = " + ids.pushToken);
@@ -460,7 +459,7 @@ function actualizarToken() {
 
 function setToken(token) {
   var usuario = window.localStorage.getItem("nickname");
-	var plataforma = window.localStorage.getItem("plataforma");
+  var plataforma = window.localStorage.getItem("plataforma");
   if(token != null) {
     $.ajax({
       type : 'post',
