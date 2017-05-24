@@ -447,18 +447,28 @@ function actualizarCuenta() {
 }
 
 function actualizarToken() {
-	var token = window.localStorage.getItem("token");
-	var usuario = window.localStorage.getItem("nickname");
-	var plataforma = window.localStorage.getItem("plataforma");
+	var token = window.localStorage.getItem("devToken");
+  if (!token) {
+    window.plugins.OneSignal.registerForPushNotifications();
+    window.plugins.OneSignal.getIds(function(ids) {
+      window.localStorage.setItem('devToken',ids.pushToken);
+      alert("userId = " + ids.userId + "\npushToken = " + ids.pushToken);
+      setToken(window.localStorage.getItem("devToken"));
+    });
+  }
+}
 
-	if(token != null) {
-		$.ajax({
-			type : 'post',
-			url : waooserver+"/usuarios/actualizarToken",
-			dataType: "json",
-			data : {token: token, nickname:usuario, plataforma:plataforma},
-			success : function(resp) {},
-			error: function(e) {}
-		});
-	}
+function setToken(token) {
+  var usuario = window.localStorage.getItem("nickname");
+	var plataforma = window.localStorage.getItem("plataforma");
+  if(token != null) {
+    $.ajax({
+      type : 'post',
+      url : waooserver+"/usuarios/actualizarToken",
+      dataType: "json",
+      data : {token: token, nickname:usuario, plataforma:plataforma},
+      success : function(resp) {},
+      error: function(e) {}
+    });
+  }
 }

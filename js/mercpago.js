@@ -8,18 +8,18 @@ var mercpago = (function(){
   var init = function(){
     $.ajax({
       type : 'post',
-  		url : waooserver+"/solicitudes/datosPasarela",
-  		dataType: "json",
-  		data : "",
-  		success : function(resp){
+      url : waooserver+'/solicitudes/datosPasarela',
+      dataType: 'json',
+      data : '',
+      success : function(resp){
         Mercadopago.setPublishableKey(resp.pubKey);
         searchPaymentMethods();
         searchIdTypes();
-  		},
-  		error: function(e){
-  			alert(e.message);
-  		}
-  	});
+      },
+      error: function(e){
+        alert(e.message);
+      }
+    });
   };
   var getPaymentMethods = function(){
     return paymentMethods;
@@ -95,6 +95,7 @@ var mercpagoui = (function(){
     var bin = getBin();
     if(bin.length>5) Mercadopago.getPaymentMethod({"bin": bin}, function (st,resp) {
       if(st==200) $('.js-miTipoPago').val(resp[0].id);
+      cuotasParaTarjeta();
     });
   };
   var cuotasParaTarjeta = function(){
@@ -134,10 +135,10 @@ var mercpagoui = (function(){
   var guardaPago = function(){
     $('.js-nick').val(window.localStorage.getItem("nickname"));
     $.ajax({
-  		type : 'post',
-  		url : waooserver+"/usuarios/recargarTokensMP",
-  		dataType: "json",
-  		data : $('.js-enviarPago').serialize(),
+      type : 'post',
+      url : waoobackend+"/usuarios/recargarTokensMP",
+      dataType: "json",
+      data : $('.js-enviarPago').serialize(),
       success : function(resp) {
         if(resp.error){
           alert(resp.error);
@@ -145,7 +146,15 @@ var mercpagoui = (function(){
         }
         else{
           alert(resp.msg);
-          cargaPagina('index.html');
+          var idSolicitud = $('.js-id-solicitud');
+          var tokens = $('.js-tokens-default').val();
+          idSolicitud = idSolicitud.length ? idSolicitud.val() * 1 : 0;
+          if (idSolicitud!=0) {
+            aceptarOferta(idSolicitud,tokens);
+          }
+          else {
+            cargaPagina('index.html');
+          }
         }
       },
       error: function(e) {

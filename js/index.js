@@ -1,13 +1,20 @@
-document.addEventListener("deviceready", function(){
-	  window.localStorage.setItem("plataforma", device.platform);
+document.addEventListener("deviceready", onDeviceReady, false);
+function onDeviceReady () {
+  if (!window.localStorage.getItem('plataforma')) {
+    window.localStorage.setItem('plataforma', device.platform);
+  }
 
-    window.plugins.PushbotsPlugin.initialize("575f09fc4a9efab5a28b4568", {"android":{"sender_id":"157120585069"}});
-    window.plugins.PushbotsPlugin.on("registered", function(token){
-        window.localStorage.setItem("token", token);
-    });
-
-    window.plugins.PushbotsPlugin.getRegistrationId(function(token){
-        window.localStorage.setItem("token", token);
-    });
-}, false);
-
+  window.plugins.OneSignal
+    .startInit("2456ad57-ed56-498f-b352-e8ebd9c51cee")
+    .handleNotificationReceived(function(jsonData) {
+      alert("Notification received: \n" + JSON.stringify(jsonData));
+      console.log('Did I receive a notification: ' + JSON.stringify(jsonData));
+    })
+    .handleNotificationOpened(function(jsonData) {
+      alert("Notification opened: \n" + JSON.stringify(jsonData));
+      console.log('didOpenRemoteNotificationCallBack: ' + JSON.stringify(jsonData));
+    })
+    .inFocusDisplaying(window.plugins.OneSignal.OSInFocusDisplayOption.InAppAlert)
+    .iOSSettings(iosSettings)
+    .endInit();
+}
