@@ -451,7 +451,6 @@ function actualizarToken() {
   if (!token) {
     window.plugins.OneSignal.getIds(function(ids) {
       window.localStorage.setItem('devToken',ids.pushToken);
-      alert("userId = " + ids.userId + "\npushToken = " + ids.pushToken);
       setToken(window.localStorage.getItem("devToken"));
     });
   }

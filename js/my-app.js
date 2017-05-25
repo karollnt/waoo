@@ -92,10 +92,22 @@ function cargaPagina(url,num,params){
           mercpagoui.initEvents();
           consultarTokens();
           if (params.tokens) {
-            var totalValue = params.tokens * 1000;
-            $('.js-tokens-default').val(params.tokens).prop('readonly',true);
-            $('.js-checkout-total').html('$ '+totalValue);
-            $('.js-id-solicitud').val(params.idpreciotrabajo);
+            var ajax = $.ajax({
+              type : 'post',
+              url : waooserver+"/usuarios/cantidadTokens",
+              dataType: "json",
+              data : {nickname:window.localStorage.getItem("nickname")}
+            });
+            (function (extraParams) {
+              ajax.done(function (resp) {
+                var actual = resp.msg * 1;
+                var required = extraParams.tokens - actual;
+                var totalValue = required * 1000;
+                $('.js-tokens-default').val(required);
+                $('.js-checkout-total').html('$ '+totalValue);
+                $('.js-id-solicitud').val(extraParams.idpreciotrabajo);
+              });
+            })(params);
           }
         },1000);
         break;

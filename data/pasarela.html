@@ -20,9 +20,9 @@
             <a href="#tab1" class="tab-link button button-big active">Efectivo</a>
             <a href="#tab2" class="tab-link button button-big">Tarjeta cr&eacute;dito</a>
           </div>
-                <div class="tabs-animated-wrap">
-                 <div class="tabs">
-                 <div id="tab1" class="tab active">
+            <div class="tabs-animated-wrap">
+              <div class="tabs">
+                <div id="tab1" class="tab active">
                  <form class="js-pago-efectivo" method="post">
                   <div class="row center-block form-row m-t-10">
                     <p>
@@ -57,7 +57,7 @@
                 </form>
               </div>
               <div id="tab2" class="tab">
-                <form class="js-enviarPago table-responsive" method="post">
+                <form class="js-enviarPago" method="post">
                   <h4 class="checkout_title">DETALLES DE FACTURACION</h4>
                   <div class="contactform">
                     <div class="form_row">
@@ -132,14 +132,14 @@
                       <div class="col-50"><span>Total</span></div>
                       <div class="col-50 js-checkout-total"></div>
                     </div>
-                    <div class="row form-group">
-                      <div class="col-xs-12 col-sm-6 m-t-10">
-                        <button type="button" class="btn btn-primary btn-block btn-lg js-enviaPago" data-loading-text="Procesando...">
+                    <div class="row form_row">
+                      <div class="col-50 m-t-10">
+                        <button type="button" class="button btn-block btn-lg js-enviaPago" data-loading-text="Procesando...">
                           <i class="fa fa-money" aria-hidden="true"></i> Aceptar
                         </button>
                       </div>
-                      <div class="col-xs-12 col-sm-6 m-t-10 m-b-10">
-                        <button type="button" class="btn btn-block btn-lg" onclick="cargaPagina('index.html',0);">Cancelar</button>
+                      <div class="col-50 m-t-10 m-b-10">
+                        <button type="button" class="button btn-block btn-lg" onclick="cargaPagina('index.html',0);">Cancelar</button>
                       </div>
                     </div>
                   </div>
@@ -149,7 +149,6 @@
           </div>
         </div>
       </div>
-     </div>
     </div>
-   </div>
-  
+  </div>
+ </div>
