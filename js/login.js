@@ -450,7 +450,7 @@ function actualizarToken() {
   var token = window.localStorage.getItem("devToken");
   if (!token) {
     window.plugins.OneSignal.getIds(function(ids) {
-      window.localStorage.setItem('devToken',ids.pushToken);
+      window.localStorage.setItem('devToken',ids.userId);
       setToken(window.localStorage.getItem("devToken"));
     });
   }
