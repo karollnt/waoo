@@ -16,9 +16,19 @@ function onDeviceReady () {
     })
     .handleNotificationOpened(function(jsonData) {
       // alert("Notification opened: \n" + JSON.stringify(jsonData));
+      if (jsonData.additionalData) {
+        var resp = jsonData.additionalData;
+        if (resp.open_chat) {
+          cargaPagina('data/chats.html');
+          setTimeout(function () {
+            misendbird.setChannel(resp.channel_id);
+            misendbird.init(0,resp.assistant_nick);
+          },200);
+        }
+      }
       console.log('didOpenRemoteNotificationCallBack: ' + JSON.stringify(jsonData));
     })
-    .inFocusDisplaying(window.plugins.OneSignal.OSInFocusDisplayOption.InAppAlert)
+    .inFocusDisplaying(window.plugins.OneSignal.OSInFocusDisplayOption.Notification)
     .iOSSettings(iosSettings)
     .endInit()
     .registerForPushNotifications();
