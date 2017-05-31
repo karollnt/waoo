@@ -468,7 +468,7 @@ function aceptarOferta(id,valor) {
 					cargaPagina('data/chats.html');
 					setTimeout(function () {
 						misendbird.setChannel('');
-						misendbird.init(0,resp.nickasistente);
+						misendbird.init(0,resp.nickasistente,id);
 					},200);
 				}
 			}
@@ -477,6 +477,15 @@ function aceptarOferta(id,valor) {
 			alert(e.message);
 		}
 	});
+}
+
+function notificarAperturaChatOfertaAceptada(idpreciotrabajo,nickasistente,urlChat) {
+  var ajax = $.ajax({
+    type: 'post',
+    url: waooserver+'/solicitudes/notificarAperturaChatOfertaAceptada',
+    dataType: 'json',
+    data: {nickasistente: nickasistente, urlChat: urlChat, idpreciotrabajo: idpreciotrabajo}
+  });
 }
 
 function agregarFilaArchivo(){

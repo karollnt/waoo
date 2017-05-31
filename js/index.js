@@ -16,8 +16,9 @@ function onDeviceReady () {
     })
     .handleNotificationOpened(function(jsonData) {
       // alert("Notification opened: \n" + JSON.stringify(jsonData));
-      if (jsonData.additionalData) {
-        var resp = jsonData.additionalData;
+      var data = jsonData.notification;
+      if (data.payload.additionalData) {
+        var resp = data.payload.additionalData;
         if (resp.open_chat) {
           cargaPagina('data/chats.html');
           setTimeout(function () {

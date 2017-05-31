@@ -8,7 +8,8 @@ var misendbird = (function () {
   var supportUrl = '444e4.soporte';
   var userAvatarSrc = '';
   var userId = '';
-  function init(chan,asid) {
+  function init(chan,asid,idpreciotrabajo) {
+    idpreciotrabajo = typeof idpreciotrabajo !== 'undefined' ? idpreciotrabajo : null;
     userId = window.localStorage.getItem("nickname");
     userId = userId.toLowerCase();
     channelChat = chan;
@@ -23,7 +24,7 @@ var misendbird = (function () {
           case 0:
             assistantId = asid;
             setTimeout(function () {
-              privChat();
+              privChat(idpreciotrabajo);
             },1000);
             break;
           case 1:
@@ -83,8 +84,9 @@ var misendbird = (function () {
   		}
   	});
   }
-  function privChat() {
+  function privChat(idpreciotrabajo) {
     var guestIds = [userId,assistantId];
+    idpreciotrabajo = typeof idpreciotrabajo !== 'undefined' ? idpreciotrabajo : null;
     if(privUrl!='') join1on1();
     else{
       sendbird.startMessaging(guestIds,{
@@ -98,6 +100,9 @@ var misendbird = (function () {
         		data : {idasistente:assistantId,idusuario:userId,canal:privUrl},
         		success : function(resp) {
         			if(resp.error) alert(resp.error);
+              if (idpreciotrabajo) {
+                notificarAperturaChatOfertaAceptada(idpreciotrabajo,assistantId,privUrl);
+              }
         		},
         		error: function(e) {
         			alert(e.message);
