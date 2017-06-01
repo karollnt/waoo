@@ -526,7 +526,7 @@ function ventanaSustentacion(idtrabajo) {
 				cargaPagina('data/chats.html');
 				setTimeout(function () {
 					misendbird.setChannel(resp.msg);
-					misendbird.init(0,resp.nickusr);
+					misendbird.init(0,resp.nickusr,-1);
 				},200);
 			}
 		},
