@@ -78,6 +78,9 @@ function cargaPagina(url,num,params){
               if (params.isAssistant) {
                 verDetalleSolicitud(params.id,'detsols_'+params.id,1);
               }
+              else if (params.viewSolution) {
+                verDetalleSolicitud(params.id,'detsols_'+params.id,1);
+              }
               else {
                 verDetalleSolicitud(params.id,'detsols_'+params.id);
               }

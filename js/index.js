@@ -31,7 +31,7 @@ function onDeviceReady () {
             ventanaOfertas(resp.requirement_id);
           }
           else if (resp.open_solution) {
-            cargaPagina('data/solicitudes.html',3,{id:resp.requirement_id});
+            cargaPagina('data/solicitudes.html',3,{id:resp.requirement_id,viewSolution:true});
           }
           else if (resp.open_offer) {
             cargaPagina('data/solicitudes.html',3,{id:resp.requirement_id,isAssistant:true});
