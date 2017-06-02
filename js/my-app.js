@@ -66,7 +66,22 @@ function cargaPagina(url,num,params){
         });
         break;
       case 3:
-        setTimeout(function(){cargaSolicitudesUsuario(loggedin);},1000);
+        setTimeout(function(){
+          if (params.id) {
+            if (params.isAssistant) {
+              listarSolicitudesSinAsignarDiv('dirpc');
+            }
+            else {
+              cargaSolicitudesUsuario(loggedin);
+            }
+            setTimeout(function () {
+              verDetalleSolicitud(params.id,'detsols_'+params.id);
+            },1000);
+          }
+          else {
+            cargaSolicitudesUsuario(loggedin);
+          }
+        },1000);
         break;
       case 4:
         setTimeout(function(){cargarDatosUsuario();},1000);
