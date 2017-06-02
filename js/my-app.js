@@ -75,7 +75,12 @@ function cargaPagina(url,num,params){
               cargaSolicitudesUsuario(loggedin);
             }
             setTimeout(function () {
-              verDetalleSolicitud(params.id,'detsols_'+params.id);
+              if (params.isAssistant) {
+                verDetalleSolicitud(params.id,'detsols_'+params.id,1);
+              }
+              else {
+                verDetalleSolicitud(params.id,'detsols_'+params.id);
+              }
             },1000);
           }
           else {
