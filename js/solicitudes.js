@@ -462,7 +462,7 @@ function aceptarOferta(id,valor) {
 			else{
 				alert(resp.msg);
 				if(resp.msg=='No tienes saldo suficiente'){
-          cargaPagina('data/pasarela.html',10, {idpreciotrabajo:id, tokens:valor});
+          cargaPagina('data/pasarelaCredito.html',10, {idpreciotrabajo:id, tokens:valor});
         }
         else {
 					cargaPagina('data/chats.html');
@@ -572,4 +572,28 @@ function historialTrabajosAceptados() {
 	.fail(function(e) {
 		alert('Error: ' + e.message);
 	});
+}
+
+
+function procesaPagoEfectivo(ev) {
+  ev.preventDefault();
+  var form = ev.target;
+  form.querySelector('.js-user').value = window.localStorage.getItem("nickname");
+  var formData = new FormData(form);
+  var ajx = $.ajax({
+    type: 'post',
+    url: waooserver+'/solicitudes/ingresarSoporte',
+    dataType: 'json',
+    data: formData,
+    async : false,
+    cache : false,
+    contentType : false,
+    processData : false
+  });
+  ajx.done(function (resp) {
+    alert(resp.msg);
+  })
+  .fail(function (e) {
+    alert('Error: ' + e.message);
+  });
 }

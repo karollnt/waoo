@@ -245,6 +245,7 @@ jQuery(document).ready(function() {
 
 	cargarBancoSelect("banco");
 	listaChecksMateria("matsreg");
+  $(document).off('submit','.js-pago-efectivo').on('submit','.js-pago-efectivo',procesaPagoEfectivo);
   //lib raty
   $.fn.raty.defaults.path = './images';
 

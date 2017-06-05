@@ -16,136 +16,40 @@
               </li>
             </ul>
           </div>
-          <div class="buttons-row">
-            <a href="#tab1" class="tab-link button button-big active">Efectivo</a>
-            <a href="#tab2" class="tab-link button button-big">Tarjeta cr&eacute;dito</a>
-          </div>
-            <div class="tabs-animated-wrap">
-              <div class="tabs">
-                <div id="tab1" class="tab active">
-                 <form class="js-pago-efectivo" method="post">
-                  <div class="row center-block form-row m-t-10">
-                    <p>
-                      Debes realizar una consignaci&oacute;n con los siguientes datos:<br>
-                      <b>Nombre del titular:</b> Asasas<br>
-                      <b>Banco:</b> Bancolombia<br>
-                      <b>N&uacute;mero de cuenta:</b> 77777777 (cuenta de ahorros)<br>
-                      Luego de realizarlo, toma una fotograf&iacute;a al soporte y subelo en este formulario.
-                    </p>
-                  </div>
-                  <div class="form-row">
-                    <div>Cantidad de tokens (1 token = $ 1000)</div>
-                    <input type="number" name="valor" value="0" class="form_input required">
-                  </div>
-                  <div class="row form-row m-t-10">
-                    <span>Soporte de pago</span>
-                  </div>
-                  <div class="row form-row m-t-10">
-                    <input type="file" name="soporte" class="form-control">
-                  </div>
-                  <input type="hidden" name="efectivo" value="1">
-                  <div class="row form-group m-t-10">
-                    <div class="col-50">
-                      <button type="button" class="btn btn-lg btn-block" data-loading-text="Procesando...">
-                        <i class="fa fa-money" aria-hidden="true"></i> Aceptar
-                      </button>
-                    </div>
-                    <div class="col-50">
-                      <button type="button" class="btn btn-block btn-lg" onclick="cargaPagina('index.html',0);">Cancelar</button>
-                    </div>
-                  </div>
-                </form>
+          <div>
+            <form class="js-pago-efectivo" method="post">
+              <div class="row center-block form-row m-t-10">
+                <p>
+                  Debes realizar una consignaci&oacute;n con los siguientes datos:<br>
+                  <b>Nombre del titular:</b> Asasas<br>
+                  <b>Banco:</b> Bancolombia<br>
+                  <b>N&uacute;mero de cuenta:</b> 77777777 (cuenta de ahorros)<br>
+                  Luego de realizarlo, toma una fotograf&iacute;a al soporte y subelo en este formulario.
+                </p>
               </div>
-              <div id="tab2" class="tab">
-                <form class="js-enviarPago" method="post">
-                  <h4 class="checkout_title">DETALLES DE FACTURACION</h4>
-                  <div class="contactform">
-                    <div class="form_row">
-                      <div class="form_row_icon"><img src="images/icons/blue/user.png" alt="" title="" /></div>
-                      <input type="text" name="nombre" id="cardholderName" data-checkout="cardholderName" value="" class="form_input required" placeholder="nombre"/>
-                    </div>
-                    <div class="form_row row">
-                      <div class="form_row_icon"><img src="images/icons/blue/user.png" alt="" title="" /></div>
-                      <div class="col-50">
-                        <input type="number" id="docNumber" data-checkout="docNumber" value="" class="js-numId form_input required" placeholder="Numero identificacion"/>
-                      </div><!--
-                      --><div class="col-40 js-tipoId-td"></div>
-                    </div>
-                    <div class="form_row">
-                      <div class="form_row_icon"><img src="images/icons/blue/contact.png" alt="" title="" /></div>
-                      <input type="email" name="email" value="" class="js-email form_input required email" placeholder="email"/>
-                    </div>
-                    <div class="form_row">
-                      <div class="form_row_icon"><img src="images/icons/blue/mobile.png" alt="" title="" /></div>
-                      <input type="tel" name="telefono" value="" class="form_input required mobile" placeholder="celular"/>
-                    </div>
-                    <div class="row form_row">
-                      <div class="col-100 tablet-50">
-                        <div class="form_row_icon"><img src="images/icons/blue/next.png" alt="" title="" /></div>
-                        <input type="text" id="cardNumber" name="cardNumber" data-checkout="cardNumber" value="" class="js-cardNumber form_input" placeholder="N&uacute;mero de tarjeta (si el tipo de pago es con tarjeta)">
-                      </div>
-                      <div class="col-100 tablet-50">
-                        <div class="form_row_icon"><img src="images/icons/blue/next.png" alt="" title="" /></div>
-                        <input type="text" id="securityCode" name="securityCode" data-checkout="securityCode" value="" class="js-securityCode form_input" pattern="[0-9]{3}" placeholder="C&oacute;digo de seguridad de tarjeta (si el tipo de pago es con tarjeta cr&eacute;dito)">
-                      </div>
-                    </div>
-                    <div class="form_row m-b-10">
-                      <div class="form_row_icon"><img src="images/icons/blue/settings.png" alt="" title="" /></div>
-                      <div class="js-tipoPago"></div>
-                    </div>
-                    <div class="row form_row m-t-10">
-                      <div class="col-50">
-                        <div class="form_row_icon"><img src="images/icons/blue/next.png" alt="" title="" /></div>
-                        <span>Mes expira</span> <br/>
-                        <select class="js-expirationMonth form_select" id="cardExpirationMonth" name="cardExpirationMonth" data-checkout="cardExpirationMonth"></select>
-                      </div>
-                      <div class="col-50">
-                        <div class="form_row_icon"><img src="images/icons/blue/next.png" alt="" title="" /></div>
-                        <span>A&ntilde;o expira</span> <br/>
-                        <select class="js-expirationYear form_select" id="cardExpirationYear" name="cardExpirationYear" data-checkout="cardExpirationYear"></select>
-                      </div>
-                    </div>
-                    <div class="form_row">
-                      <span>Cuotas</span> <br/>
-                      <select class="js-cuotas form_select" id="installments" name="installments" placeholder="cuotas">
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                        <option value="6">6</option>
-                        <option value="7">7</option>
-                        <option value="8">8</option>
-                        <option value="9">9</option>
-                        <option value="10">10</option>
-                        <option value="11">11</option>
-                        <option value="12">12</option>
-                      </select>
-                      <select class="hide js-issuer form_select" name="issuer"></select>
-                    </div>
-                    <div class="form_row">
-                      <span>Tokens</span><br/>
-                      <input type="number" name="valor" value="0" class="form_input required js-tokens-default">
-                      <input type="hidden" name="idsolicitud" value="0" class="js-id-solicitud" min="1">
-                    </div>
-                    <div class="form_row">
-                      <div class="col-50"><span>Total</span></div>
-                      <div class="col-50 js-checkout-total"></div>
-                    </div>
-                    <div class="row form_row">
-                      <div class="col-50 m-t-10">
-                        <button type="button" class="button btn-block btn-lg js-enviaPago" data-loading-text="Procesando...">
-                          <i class="fa fa-money" aria-hidden="true"></i> Aceptar
-                        </button>
-                      </div>
-                      <div class="col-50 m-t-10 m-b-10">
-                        <button type="button" class="button btn-block btn-lg" onclick="cargaPagina('index.html',0);">Cancelar</button>
-                      </div>
-                    </div>
-                  </div>
-                </form>
+              <div class="form-row">
+                <div>Cantidad de tokens (1 token = $ 1000)</div>
+                <input type="number" name="valor" value="0" class="form_input required">
               </div>
-            </div>
+              <div class="row form-row m-t-10">
+                <span>Soporte de pago</span>
+              </div>
+              <div class="row form-row m-t-10">
+                <input type="file" name="archivo" class="form_input">
+              </div>
+              <input type="hidden" name="efectivo" value="1">
+              <input type="hidden" name="user" class="js-user" value="">
+              <div class="row form-group m-t-10">
+                <div class="col-50">
+                  <button type="submit" class="button btn-lg btn-block" data-loading-text="Procesando...">
+                    <i class="fa fa-money" aria-hidden="true"></i> Aceptar
+                  </button>
+                </div>
+                <div class="col-50">
+                  <button type="button" class="button btn-block btn-lg" onclick="cargaPagina('index.html',0);">Cancelar</button>
+                </div>
+              </div>
+            </form>
           </div>
         </div>
       </div>

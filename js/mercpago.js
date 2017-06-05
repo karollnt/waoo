@@ -64,7 +64,7 @@ var mercpagoui = (function(){
   };
   var selectTipoId = function(){
     var idTypes = mercpago.getIdTypes();
-    var html = "<select id='docType' name='docType' data-checkout='docType' class='js-tipoId form-control'>";
+    var html = "<select id='docType' name='docType' data-checkout='docType' class='js-tipoId form_select'>";
     $.each(idTypes,function (ixd,obj) {
       html += "<option value='"+obj.id+"'>"+obj.name+"</option>";
     });
