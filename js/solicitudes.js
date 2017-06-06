@@ -156,22 +156,25 @@ function listarSolicitudesCreadasMatDiv(id){
 			else{
 				if(resp.msg=="[No hay solicitudes]") $("#"+id).html("<div class='alert'>"+(resp.msg)+"</div>");
 				else{
-					$("#"+id).html("<div class='alert table-responsive'>"
-						+"<table id='tblmat_"+id+"' class='table table-condensed'>"
-							+"<tr><th>T&iacute;tulo</th><th>Asistente</th><th class='al-right'>Estado</th></tr>"
-						+"</table>"
-						+"<div id='detsols_"+id+"' class='alert'></div>"
-					+"</div>");
+					$("#"+id).html(
+            '<div id="detsols_'+id+'" class="alert"></div>'
+            +'<ul id="tblmat_'+id+'" class="features_list_detailed"></ul>'
+          );
 					var json = JSON.parse(resp.msg);
 					$.each(json,function(i2,v){
-						$("#tblmat_"+id).append("<tr>"
-							+"<td>"+((v.titulo).substring(0,10)+"...")+"</td>"
-							+"<td>"+(v.asistente)+"</td>"
-							+"<td class='al-right' style='vertical-align: bottom;'>"
-								+v.estado
-								+"<img style='margin:0;cursor:pointer;display:inline;' src='images/icons/blue/plus.png' onclick='verDetalleSolicitud("+v.id+",\"detsols_"+id+"\""+(v.asistente!='sinasistente'?',1':'')+");'>"
-							+"</td>"
-						+"</tr>");
+						$("#tblmat_"+id).append(
+              '<li>'
+                +'<div class="feat_small_icon"><img src="images/icons/blue/favorites.png" alt="" title="" /></div>'
+                +'<div class="feat_small_details">'
+                  +'<h4><a href="#">'+((v.titulo).length > 30 ? (v.titulo).substring(0,30)+'...' : v.titulo)+'</a></h4>'
+                  +'<span><b>Tutor</b>: '+v.asistente+'</span><br/>'
+                  +'<span><b>Estado</b>: '+v.estado+'</span>'
+                +'</div>'
+                +'<span class="plus_icon">'
+                  +'<img style="margin:0;cursor:pointer;display:inline;" src="images/icons/blue/plus.png" onclick="verDetalleSolicitud(\''+v.id+'\',\'detsols_'+id+'\''+(v.asistente!='sinasistente'?',1':'')+');" />'
+                +'</span>'
+              +'</li>'
+            );
 					});
 				}
 			}
