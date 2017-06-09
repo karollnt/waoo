@@ -163,7 +163,7 @@ function listarSolicitudesCreadasMatDiv(id){
 					var json = JSON.parse(resp.msg);
 					$.each(json,function(i2,v){
 						$("#tblmat_"+id).append(
-              '<li>'
+              '<li style="cursor:pointer;" onclick="verDetalleSolicitud(\''+v.id+'\',\'detsols_'+id+'\''+(v.asistente!='sinasistente'?',1':'')+');">'
                 +'<div class="feat_small_icon"><img src="images/icons/blue/favorites.png" alt="" title="" /></div>'
                 +'<div class="feat_small_details">'
                   +'<h4><a href="#">'+((v.titulo).length > 30 ? (v.titulo).substring(0,30)+'...' : v.titulo)+'</a></h4>'
@@ -171,7 +171,7 @@ function listarSolicitudesCreadasMatDiv(id){
                   +'<span><b>Estado</b>: '+v.estado+'</span>'
                 +'</div>'
                 +'<span class="plus_icon">'
-                  +'<img style="margin:0;cursor:pointer;display:inline;" src="images/icons/blue/plus.png" onclick="verDetalleSolicitud(\''+v.id+'\',\'detsols_'+id+'\''+(v.asistente!='sinasistente'?',1':'')+');" />'
+                  +'<img style="margin:0;cursor:pointer;display:inline;" src="images/icons/blue/plus.png" />'
                 +'</span>'
               +'</li>'
             );
@@ -233,7 +233,7 @@ function verDetalleSolicitud(id,iddiv,oferta){
 												:""
 											)
 										)
-										+(v.idestado>1 && (v.asistente==window.localStorage.getItem("nickname") || v.usuario==window.localStorage.getItem("nickname"))
+										+(v.idestado>1 && v.idestado<4 && (v.asistente==window.localStorage.getItem("nickname") || v.usuario==window.localStorage.getItem("nickname"))
 											? "<button type='button' class='btn btn-primary btn-lg btn-block' onclick='ventanaSustentacion("+v.id+");''>Sustentaci&oacute;n</button>" : "")
 									)
 								)
