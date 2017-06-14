@@ -107,6 +107,9 @@ function cargaPagina(url,num,params){
       case 8:
         setTimeout(function(){historialTrabajosAceptados();},1000);
         break;
+      case 9:
+        setTimeout(function(){consultarTokens();},1000);
+        break;
       case 10:
         setTimeout(function(){
           mercpagoui.initEvents();
