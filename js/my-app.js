@@ -10,7 +10,7 @@ var myApp = new Framework7({
 });
 
 //backend server address
-var waooserver = "http://waoo.herokuapp.com";
+var waooserver = "http://localhost/waoobackend";
 //para notificaciones
 var tareanotificaciones = null;
 
@@ -112,11 +112,12 @@ function cargaPagina(url,num,params){
         break;
       case 10:
         setTimeout(function(){
-          mercpagoui.initEvents();
+          /*mercpagoui.initEvents();
           llenarSelectMes('.js-expirationMonth');
           llenarSelectAnio('.js-expirationYear');
-          mercpagoui.initEvents();
+          mercpagoui.initEvents();*/
           consultarTokens();
+          initBraintree();
           if (params.tokens) {
             var ajax = $.ajax({
               type : 'post',

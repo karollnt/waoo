@@ -18,19 +18,26 @@
           </div>
           <form method="post" class="js-payment-form" action="">
             <section>
-              <label for="amount">
-                <span class="input-label">Amount</span>
-                <div class="input-wrapper amount-wrapper">
-                  <input id="amount" name="amount" type="tel" min="1" placeholder="Amount" value="10">
+              <div class="row">
+                <div class="col-50">
+                  <label for="firstName" class="heading">Nombre(s)</label>
+                  <input type="text" name="firstName" id="firstName">
                 </div>
-              </label>
-
+                <div class="col-50">
+                  <label for="lastName" class="heading">Apellido(s)</label>
+                  <input type="text" name="lastName" id="lastName">
+                </div>
+              </div>
+              <div>
+                <label for="amount" class="heading">Amount (USD)</label>
+                <input type="text" name="amount" id="amount">
+              </div>
               <div class="bt-drop-in-wrapper">
-                <div id="bt-dropin"></div>
+                <div class="js-dropin-container"></div>
               </div>
             </section>
             <input id="nonce" name="payment_method_nonce" type="hidden" />
-            <button class="button" type="submit"><span>Test Transaction</span></button>
+            <button class="button btn-lg btn-block" type="submit"><span>Test Transaction</span></button>
           </form>
         </div>
       </div>

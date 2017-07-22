@@ -1,4 +1,4 @@
-$(document).ready(function() {
+function initBraintree() {
   var ajx = $.ajax({
     type: "post",
     url: waooserver+"/usuarios/initBrainTree",
@@ -25,4 +25,4 @@ $(document).ready(function() {
       });
     });
   });
-});
+}
