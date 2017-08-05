@@ -8,36 +8,39 @@
       </div>
       <div id="pages_maincontent">
         <div class="page_content">
-          <h2 class="">Recargar Waoo Tokens</h2>
-          <div class="row center-block">
+          <h2 class="">Proceder a pago</h2>
+          <!--<div class="row center-block">
             <ul class="responsive_table">
               <li class="table_row">
                 <span class="soft">Actualmente cuentas con  <span class="js-cantidad-tokens">0</span> tokens.</span>
               </li>
             </ul>
-          </div>
+          </div>-->
           <form method="post" class="js-payment-form" action="">
-            <section>
-              <div class="row">
-                <div class="col-50">
-                  <label for="firstName" class="heading">Nombre(s)</label>
-                  <input type="text" name="firstName" id="firstName">
-                </div>
-                <div class="col-50">
-                  <label for="lastName" class="heading">Apellido(s)</label>
-                  <input type="text" name="lastName" id="lastName">
-                </div>
+            <section class="contactform">
+              <div class="form_row">
+                <label for="firstName" class="heading">Nombre(s)</label>
+                <input type="text" name="firstName" id="firstName" class="form_input" required>
               </div>
-              <div>
-                <label for="amount" class="heading">Amount (USD)</label>
-                <input type="text" name="amount" id="amount">
+              <div class="form_row">
+                <label for="lastName" class="heading">Apellido(s)</label>
+                <input type="text" name="lastName" id="lastName" class="form_input" required>
+              </div>
+              <div class="form_row">
+                <label for="email" class="heading">Email</label>
+                <input type="text" name="email" id="email" class="form_input" required>
+              </div>
+              <div class="form_row">
+                <label for="amount" class="heading">Valor</label>
+                <input type="text" name="amount" id="amount" class="js-checkout-total form_input" readonly>
+                <input type="hidden" class="js-id-solicitud" value="0" name="idpreciotrabajo">
               </div>
               <div class="bt-drop-in-wrapper">
                 <div class="js-dropin-container"></div>
               </div>
             </section>
             <input id="nonce" name="payment_method_nonce" type="hidden" />
-            <button class="button btn-lg btn-block" type="submit"><span>Test Transaction</span></button>
+            <button class="button btn-lg btn-block" type="submit"><span>Enviar</span></button>
           </form>
         </div>
       </div>

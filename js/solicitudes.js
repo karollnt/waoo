@@ -224,7 +224,7 @@ function verDetalleSolicitud(id,iddiv,oferta){
 								+(oferta==0 ?
 									"<button type='button' class='btn btn-primary btn-lg btn-block' onclick='ventanaOfertas("+v.id+");'>Ver ofertas</button>"
 									:(v.idestado==1 ?
-										"<input id='voferta' type='number' class='form-control' placeholder='¿Cu&aacute;ntos tokens cobrar&iacute;as por hacer este trabajo? (solo n&uacute;meros, 1 token = $1000)'>"
+										"<input id='voferta' type='number' class='form-control' placeholder='¿Cu&aacute;nto cobrar&iacute;as por hacer este trabajo? (solo n&uacute;meros)'>"
 										+"<button type='button' class='btn btn-primary btn-lg btn-block' onclick='ofertar("+v.id+",this);'>Hacer oferta</button>"
 										:(v.idestado==2 && (v.asistente==window.localStorage.getItem("nickname"))
 											?"<button type='button' class='btn btn-primary btn-lg btn-block' onclick='abrirSolucion("+v.id+",this);'>Enviar soluci&oacute;n</button>"
@@ -368,7 +368,7 @@ function verOfertas(id,iddiv){
 									+"<a href='#'>"+v.asistente+"</a> <span class='stars' title='"+v.calificacion+"'>"+v.calificacion+"</span>"
                   +"<span>("+v.calificacion+")</span>"
 								+"</h4>"
-								+"<div class='shop_item_price'>"+v.valor+" Waoo Tokens</div>"
+								+"<div class='shop_item_price'>$ "+v.valor+"</div>"
 							+"</div>"
 							+"<a id='addtocart' style='cursor:pointer;' onclick='aceptarOferta("+v.id+","+v.valor+");'>ACEPTAR</a>"
 						+"</li>");
@@ -452,7 +452,7 @@ function aceptarSolucion(id){
 	});
 }
 
-function aceptarOferta(id,valor) {
+function aceptarOferta0(id,valor) {
 	$.ajax({
 		type : 'post',
 		url : waooserver+"/solicitudes/aceptarPrecio",
@@ -480,6 +480,35 @@ function aceptarOferta(id,valor) {
 			alert(e.message);
 		}
 	});
+}
+
+function aceptarOferta(id, valor) {
+  cargaPagina('data/pasarelaCredito.html', 10, { idpreciotrabajo: id, valor: valor });
+}
+
+function efectuarPagoBT(formSelector) {
+  var formData = $(formSelector).serialize();
+  var ajx = $.ajax({
+    type: 'post',
+    url: waooserver + '/solicitudes/procesarPagoBT',
+    dataType: 'json',
+    data: formData
+  });
+  ajx.done(function (resp) {
+    if (resp.msg.indexOf('Pago recibido satisfactoriamente') > -1) {
+      cargaPagina('data/chats.html');
+      setTimeout(function () {
+        misendbird.setChannel('');
+        misendbird.init(0, resp.nickasistente, resp.id);
+      }, 400);
+    }
+    else {
+      alert(resp.msg);
+    }
+  })
+  .fail(function (e) {
+    alert('Error: ' + e.message);
+  });
 }
 
 function notificarAperturaChatOfertaAceptada(idpreciotrabajo,nickasistente,urlChat) {

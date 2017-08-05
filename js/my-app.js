@@ -116,9 +116,11 @@ function cargaPagina(url,num,params){
           llenarSelectMes('.js-expirationMonth');
           llenarSelectAnio('.js-expirationYear');
           mercpagoui.initEvents();*/
-          consultarTokens();
+          //consultarTokens();
           initBraintree();
-          if (params.tokens) {
+          $('.js-id-solicitud').val(params.idpreciotrabajo);
+          $('.js-checkout-total').val(params.valor);
+          /*if (params.tokens) {
             var ajax = $.ajax({
               type : 'post',
               url : waooserver+"/usuarios/cantidadTokens",
@@ -135,7 +137,7 @@ function cargaPagina(url,num,params){
                 $('.js-id-solicitud').val(extraParams.idpreciotrabajo);
               });
             })(params);
-          }
+          }*/
         },1000);
         break;
       default:

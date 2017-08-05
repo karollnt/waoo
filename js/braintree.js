@@ -20,6 +20,7 @@ function initBraintree() {
           }
           // Add the nonce to the form and submit
           document.querySelector('#nonce').value = payload.nonce;
+          efectuarPagoBT(".js-payment-form");
           //form.submit();
         });
       });
