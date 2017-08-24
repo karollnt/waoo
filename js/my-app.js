@@ -120,6 +120,8 @@ function cargaPagina(url,num,params){
           initBraintree();
           $('.js-id-solicitud').val(params.idpreciotrabajo);
           $('.js-checkout-total').val(params.valor);
+          $('.js-nickname').val(window.localStorage.getItem('nickname'));
+          $('.js-client-token').val(window.localStorage.getItem('bt_token'));
           /*if (params.tokens) {
             var ajax = $.ajax({
               type : 'post',

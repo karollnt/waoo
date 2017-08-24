@@ -1,4 +1,5 @@
 function initBraintree() {
+  window.localStorage.setItem('bt_token', null);
   var ajx = $.ajax({
     type: "post",
     url: waooserver+"/usuarios/initBrainTree",
@@ -6,6 +7,11 @@ function initBraintree() {
     data: {}
   });
   ajx.done(function(data) {
+    var token = window.localStorage.getItem('bt_token');
+    if (token == null) {
+      token = data.msg;
+      window.localStorage.setItem('bt_token', data.msg);
+    }
     braintree.dropin.create({
       authorization: data.msg,
       container: '.js-dropin-container'

@@ -19,21 +19,11 @@
           <form method="post" class="js-payment-form" action="">
             <section class="contactform">
               <div class="form_row">
-                <label for="firstName" class="heading">Nombre(s)</label>
-                <input type="text" name="firstName" id="firstName" class="form_input" required>
-              </div>
-              <div class="form_row">
-                <label for="lastName" class="heading">Apellido(s)</label>
-                <input type="text" name="lastName" id="lastName" class="form_input" required>
-              </div>
-              <div class="form_row">
-                <label for="email" class="heading">Email</label>
-                <input type="text" name="email" id="email" class="form_input" required>
-              </div>
-              <div class="form_row">
                 <label for="amount" class="heading">Valor</label>
                 <input type="text" name="amount" id="amount" class="js-checkout-total form_input" readonly>
                 <input type="hidden" class="js-id-solicitud" value="0" name="idpreciotrabajo">
+                <input type="hidden" class="js-nickname" value="" name="nickname">
+                <input type="hidden" class="js-client-token" value="" name="clientauth">
               </div>
               <div class="bt-drop-in-wrapper">
                 <div class="js-dropin-container"></div>
