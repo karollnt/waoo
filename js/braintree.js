@@ -3,12 +3,13 @@ function initBraintree() {
     type: "post",
     url: waooserver+"/usuarios/initBrainTree",
     dataType: "json",
-    data: {}
+    data: {nickname: window.localStorage.getItem("nickname")}
   });
   ajx.done(function(data) {
     braintree.dropin.create({
       authorization: data.msg,
-      container: '.js-dropin-container'
+      container: '.js-dropin-container',
+      locale: 'es_ES'
     }, function (createErr, instance) {
       var form = document.querySelector('.js-payment-form');
       form.addEventListener('submit', function (ev) {
