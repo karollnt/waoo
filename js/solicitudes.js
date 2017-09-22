@@ -278,6 +278,7 @@ function verModalSolicitud(id,oferta){
 function alertDetail(txt){
 	$("#detalletext-cnt").html("");
 	$("#detalletext").show();
+	$("#detalletext").css({"position": "fixed", "z-index": "1", "width": "90%", "background-color": "white"});
 	$("#detalletext-cnt").html(txt);
 }
 
