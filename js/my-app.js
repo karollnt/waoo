@@ -57,6 +57,32 @@ function cargaPagina(url,num,params){
                     creasolicitud();
                     return false;
                   });
+			
+                 $("#lista_tareas").click(function () {	 
+                  
+			      var id = $('input:radio[name=idmateria]:checked').val();
+                  
+			      Buscar_nombre_seleccionado(id);
+			      $("#lista_tareas").hide('fast');
+			      
+			      }); 
+
+			
+
+                  $( "#lista").keyup(function() {
+                  dato = $("#lista").val().trim();
+
+                  if (dato.trim().length!=0) {
+                    Validar_existe(dato)
+                       return false;
+                 }else{
+                    $("#lista_tareas").html('');
+                    $("#lista_tareas").hide('fast');
+                       return false;
+                 }
+
+                 });
+				
                 },1000);
               }
             }
