@@ -470,3 +470,26 @@ function setToken(token) {
     });
   }
 }
+// LLAMADA AJAX DEL CONTROLADOR DE NIVELES
+
+function cargarNivelesSelect(id){
+	$("#"+id).html('');
+	$.ajax({
+		type: "post",
+		url: waooserver+"/usuarios/listaNivelEducativo",
+		dataType: "json",
+		data: "",
+		success: function(resp) {
+			
+			if(resp.error) $("#"+id).append("<option value='0'>"+resp.error+"</option>");
+			else{
+				$.each(resp.niveles,function(i,v){
+					$("#"+id).append("<option value='"+v.id+"'>"+v.nombre+"</option>");
+				});
+			}
+		},
+		error: function(e) {
+			alert('Error al conectar: ' + e.message);
+		}
+	});
+}
