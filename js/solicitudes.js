@@ -636,3 +636,59 @@ function procesaPagoEfectivo(ev) {
     alert('Error: ' + e.message);
   });
 }
+var mis_datos =  "";
+function obtener_datos(id) {
+
+	$("#"+id).html('');
+	$.ajax({
+		type: "post",
+		url: waooserver+"/materias/listarMaterias",
+		dataType: "json",
+		data: "",
+		success: function(data) {
+		
+		mis_datos = data.materias;
+
+		},
+		error: function(e) {
+			alert('Error: ' + e.message);
+		}
+	});
+}
+
+function Validar_existe(dato){
+
+     $("#lista_tareas").html('');
+     var existe=0;
+
+     for (var i = 0; i <= mis_datos.length-1; i++) {
+     var str = mis_datos[i].nombre.toLowerCase();
+     var n = str.indexOf(dato.toLowerCase());
+     if (n>-1) {
+     $("#lista_tareas").append('<label class="radio_tareas"><input type="radio" name="idmateria"  value="'+mis_datos[i].id+'">'+mis_datos[i].nombre+'</label>');
+       existe=1;
+     }
+     }
+     
+     if (existe==0) {
+     $("#lista_tareas").html('Si no encuentras tu materia por favor contactate con <a href="#" onclick="cargaPagina("data/soporte.html",7);">Nosotros</a>');
+     }
+     $("#lista_tareas").show('slow');
+
+}
+
+function Buscar_nombre_seleccionado(id){
+
+   
+     for (var i = 0; i <= mis_datos.length-1; i++) {
+    
+     if (mis_datos[i].id==id) {
+        $("#lista").val(mis_datos[i].nombre)
+
+     }
+
+     }
+     
+
+
+}
