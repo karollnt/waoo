@@ -10,7 +10,8 @@ var myApp = new Framework7({
 });
 
 //backend server address
-var waooserver = "http://localhost/waoobackend";
+var waooserver = "http://waoo.herokuapp.com";
+// var waooserver = "http://localhost/waoobackend";
 //para notificaciones
 var tareanotificaciones = null;
 
@@ -57,32 +58,23 @@ function cargaPagina(url,num,params){
                     creasolicitud();
                     return false;
                   });
-			
-                 $("#lista_tareas").click(function () {	 
-                  
-			      var id = $('input:radio[name=idmateria]:checked').val();
-                  
-			      Buscar_nombre_seleccionado(id);
-			      $("#lista_tareas").hide('fast');
-			      
-			      }); 
-
-			
-
-                  $( "#lista").keyup(function() {
-                  dato = $("#lista").val().trim();
-
-                  if (dato.trim().length!=0) {
-                    Validar_existe(dato)
-                       return false;
-                 }else{
-                    $("#lista_tareas").html('');
+                  $("#lista_tareas").click(function () {
+                    var id = $('input:radio[name=idmateria]:checked').val();
+                    buscar_nombre_seleccionado(id);
                     $("#lista_tareas").hide('fast');
-                       return false;
-                 }
-
-                 });
-				
+                  });
+                  $( "#lista").keyup(function() {
+                    dato = $("#lista").val().trim();
+                    if (dato.trim().length!=0) {
+                      validar_existe(dato);
+                      return false;
+                    }
+                    else{
+                      $("#lista_tareas").html('');
+                      $("#lista_tareas").hide('fast');
+                      return false;
+                    }
+                  });
                 },1000);
               }
             }
@@ -283,6 +275,7 @@ jQuery(document).ready(function() {
   $(document).off('submit','.js-pago-efectivo').on('submit','.js-pago-efectivo',procesaPagoEfectivo);
   //lib raty
   $.fn.raty.defaults.path = './images';
+  cargarNivelesSelect('nivel');
 
 	$(".logo").animate({'top': '20px'},'slow',"easeInOutCirc");
 	$(".cartitems").delay(1000).animate({'width': '30px', 'height': '30px', 'top':'10px', 'right':'10px', 'opacity':1},1000,"easeOutBounce");

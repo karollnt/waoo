@@ -70,12 +70,16 @@ function register(){
 }
 
 function register2(){
-	var datos = $("#RegisterForm2").serialize();
+  var formData = new FormData( $("#RegisterForm2")[0]);
 	$.ajax({
 		type: "post",
 		url: waooserver+"/usuarios/crearUsuario",
 		dataType: "json",
-		data: datos,
+    data: formData,
+    async: false,
+    cache: false,
+    contentType: false,
+    processData: false,
 		success: function(resp) {
 			alert(resp.msg);
 			$("#RegisterForm2")[0].reset();
@@ -470,17 +474,15 @@ function setToken(token) {
     });
   }
 }
-// LLAMADA AJAX DEL CONTROLADOR DE NIVELES
 
 function cargarNivelesSelect(id){
 	$("#"+id).html('');
 	$.ajax({
-		type: "post",
+		type: "get",
 		url: waooserver+"/usuarios/listaNivelEducativo",
 		dataType: "json",
 		data: "",
 		success: function(resp) {
-			
 			if(resp.error) $("#"+id).append("<option value='0'>"+resp.error+"</option>");
 			else{
 				$.each(resp.niveles,function(i,v){
