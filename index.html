@@ -60,7 +60,7 @@
 									  <li><a href="#" onclick="cargaPagina('data/notificaciones.html',5);"><img src="images/icons/blue/toggle.png" alt="" title="" /><span>Ofertas</span><div id="notifcounter" class="cartitems">0</div></a></li>
 										<!-- la siguiente es solo para la app de ios  -->
 										<!-- <li class="js-recharge"><a href="#" target="_blank" onclick="event.preventDefault(); window.open('http://www.waooapp.com/waoo/','_blank');"><img src="images/icons/blue/shop.png" alt="" title="" /><span>Waoo Tokens</span></a></li> -->
-									  <li class="js-recharge"><a href="#" onclick="cargaPagina('data/pasarela.html',10);"><img src="images/icons/blue/shop.png" alt="" title="" /><span>Waoo Tokens</span></a></li>
+									  <!-- <li class="js-recharge"><a href="#" onclick="cargaPagina('data/pasarela.html',9);"><img src="images/icons/blue/shop.png" alt="" title="" /><span>Waoo Tokens</span></a></li> -->
 									  <li><a href="#" onclick="cargaPagina('data/solicitudes.html',3);"><img src="images/icons/blue/form.png" alt="" title="" /><span>Mi Soluci&oacute;n</span></a></li>
 									  <li><a href="#" onclick="cargaPagina('data/soporte.html',7);" class="external"><img src="images/icons/blue/phone.png" alt="" title="" /><span>Soporte</span></a></li>
 									  <li><a href="#" onclick="cargaPagina('data/editaperfil.html',4);"><img src="images/icons/blue/settings.png" alt="" title="" /><span>Configuraci&oacute;n</span></a></li>
@@ -163,6 +163,22 @@
 							<div class="form_row_icon"><img src="images/icons/blue/mobile.png" alt="" title="" /></div>
 							<input type="text" name="celular" value="" class="form_input" placeholder="celular" />
 						</div>
+						<!-- NUEVOS DATOS -->
+						<div class="form_row">
+							<div class="form_row_icon"><img src="images/icons/blue/tabs.png" alt="" title="" /></div>
+							<textarea  name="descripcion" value="" class="form_textarea js-descripcion" placeholder="Descripcion" /></textarea>
+						</div>
+						<div class="form_row">
+							<div class="form_row_icon"><img src="images/icons/blue/toggle.png" alt="" title="" /></div>
+							<select id="nivel" name="idnivel_edu" class="form_select"><option value=""> Seleccione Nivel Educativo</option></select>
+						</div>
+				
+						<div class="form_row">
+							<div class="form_row_icon"><img src="images/icons/blue/form.png" alt="" title="" /></div>
+							<input type="text" name="institucion_edu" value="" class="form_input" placeholder="Institucion Educativa" />
+						</div>
+
+						<!-- FIN NUEVOS DATOS -->
 						<div class="form_row">
 							<div class="form_row_icon"><img src="images/icons/blue/shop.png" alt="" title="" /></div>
 							<select id="banco" name="idbanco" class="form_select"></select>
@@ -171,6 +187,22 @@
 							<div class="form_row_icon">&nbsp;</div>
 							<input type="text" name="numerocuenta" value="" class="form_input" placeholder="N&uacute;mero de cuenta (Donde recibiras tus pagos)" />
 						</div>
+
+						<div class="form_row">
+							<div class="form_row_icon"><img src="images/icons/blue/photos.png" alt="" title="" /></div>
+							<label class="fileinput-button" id="fileinput" >
+							<span id='despuesd'>Adjuntar Diploma o Certificado de Promedio de 4 y superior</span>
+							<small>(requerido)</small>
+							</label>
+							<div class="uploadfiles">
+							
+							<input type="file" name="certificado" class="js-upload-file">
+							</div>
+							<br>
+							Tipos permitidos: gif | jpg | png | jpeg | bmp | pdf | doc | docx | xls | xlsx | txt | zip | rar
+									
+						</div>
+						<br>
 						<div id="matsreg" class="form_row table-responsive"></div>
 						<input type="hidden" id="cantmatsreg" name="cantmatsreg" value="0">
 						<input type="hidden" id="tipou" name="tipo" value="2">
@@ -226,7 +258,7 @@
 		<script src="js/stars.js"></script>
 		<script src="js/jquery.raty.js"></script>
 		<script src="js/solicitudes.js"></script>
-		<script src="https://secure.mlstatic.com/sdk/javascript/v1/mercadopago.js"></script>
-		<script src="js/mercpago.js"></script>
+		<script src="https://js.braintreegateway.com/web/dropin/1.4.0/js/dropin.min.js"></script>
+		<script src="js/braintree.js"></script>
 	</body>
 </html>

@@ -8,7 +8,8 @@ var misendbird = (function () {
   var supportUrl = '444e4.soporte';
   var userAvatarSrc = '';
   var userId = '';
-  function init(chan,asid) {
+  function init(chan,asid,idpreciotrabajo) {
+    idpreciotrabajo = typeof idpreciotrabajo !== 'undefined' ? idpreciotrabajo : null;
     userId = window.localStorage.getItem("nickname");
     userId = userId.toLowerCase();
     channelChat = chan;
@@ -23,7 +24,7 @@ var misendbird = (function () {
           case 0:
             assistantId = asid;
             setTimeout(function () {
-              privChat();
+              privChat(idpreciotrabajo);
             },1000);
             break;
           case 1:
@@ -83,14 +84,14 @@ var misendbird = (function () {
   		}
   	});
   }
-  function privChat() {
+  function privChat(idpreciotrabajo) {
     var guestIds = [userId,assistantId];
-    if(privUrl!='') join1on1();
+    if(privUrl!='') join1on1(idpreciotrabajo);
     else{
       sendbird.startMessaging(guestIds,{
         "successFunc" : function(data) {
           privUrl = data.channel.channel_url;
-          console.log({idasistente:assistantId,idusuario:userId,canal:privUrl});
+          // console.log({idasistente:assistantId,idusuario:userId,canal:privUrl});
           $.ajax({
         		type : 'post',
         		url : waooserver+"/solicitudes/actualizarDireccionCanalChat",
@@ -105,7 +106,7 @@ var misendbird = (function () {
         	});
           sendbird.connect({
             "successFunc" : function(data) {
-              join1on1();
+              join1on1(idpreciotrabajo);
             },
             "errorFunc": function(status, error) {
               console.log(status, error);
@@ -121,13 +122,17 @@ var misendbird = (function () {
   function joinSupport() {
     joinChannel(supportUrl);
   }
-  function join1on1() {
+  function join1on1(idpreciotrabajo) {
+    idpreciotrabajo = typeof idpreciotrabajo !== 'undefined' ? idpreciotrabajo : null;
     sendbird.joinMessagingChannel(
       privUrl,{
         "successFunc" : function(data) {
           sendbird.connect({
             "successFunc" : function(data) {
               getMessages();
+              if (idpreciotrabajo) {
+                notificarAperturaChatOfertaAceptada(idpreciotrabajo,assistantId,privUrl);
+              }
             },
             "errorFunc": function(status, error) {
               console.log(status, error);

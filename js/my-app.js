@@ -11,6 +11,7 @@ var myApp = new Framework7({
 
 //backend server address
 var waooserver = "http://waoo.herokuapp.com";
+// var waooserver = "http://localhost/waoobackend";
 //para notificaciones
 var tareanotificaciones = null;
 
@@ -45,7 +46,8 @@ function cargaPagina(url,num,params){
               if(resp.tipo==2) listarSolicitudesSinAsignarDiv("dirpc");
               else if(resp.tipo==1){
                 setTimeout(function(){
-                  cargarMateriaSelect("materia");
+                 // cargarMateriaSelect("materia");
+                  obtener_datos("materia");
                   llenarSelectAnio('#anio');
                   llenarSelectMes2('#mes');
                   llenarSelectDias('#dia');
@@ -56,6 +58,32 @@ function cargaPagina(url,num,params){
                     creasolicitud();
                     return false;
                   });
+			
+                 $("#lista_tareas").click(function () {	 
+                  
+			      var id = $('input:radio[name=idmateria]:checked').val();
+                  
+			      Buscar_nombre_seleccionado(id);
+			      $("#lista_tareas").hide('fast');
+			      
+			      }); 
+
+			
+
+                  $( "#lista").keyup(function() {
+                  dato = $("#lista").val().trim();
+
+                  if (dato.trim().length!=0) {
+                    Validar_existe(dato)
+                       return false;
+                 }else{
+                    $("#lista_tareas").html('');
+                    $("#lista_tareas").hide('fast');
+                       return false;
+                 }
+
+                 });
+				
                 },1000);
               }
             }
@@ -66,7 +94,30 @@ function cargaPagina(url,num,params){
         });
         break;
       case 3:
-        setTimeout(function(){cargaSolicitudesUsuario(loggedin);},1000);
+        setTimeout(function(){
+          if (params.id) {
+            if (params.isAssistant) {
+              listarSolicitudesSinAsignarDiv('dirpc');
+            }
+            else {
+              cargaSolicitudesUsuario(loggedin);
+            }
+            setTimeout(function () {
+              if (params.isAssistant) {
+                verDetalleSolicitud(params.id,'detsols_'+params.id,1);
+              }
+              else if (params.viewSolution) {
+                verDetalleSolicitud(params.id,'detsols_'+params.id,1);
+              }
+              else {
+                verDetalleSolicitud(params.id,'detsols_'+params.id);
+              }
+            },1000);
+          }
+          else {
+            cargaSolicitudesUsuario(loggedin);
+          }
+        },1000);
         break;
       case 4:
         setTimeout(function(){cargarDatosUsuario();},1000);
@@ -84,19 +135,39 @@ function cargaPagina(url,num,params){
       case 8:
         setTimeout(function(){historialTrabajosAceptados();},1000);
         break;
+      case 9:
+        setTimeout(function(){consultarTokens();},1000);
+        break;
       case 10:
         setTimeout(function(){
-          mercpagoui.initEvents();
+          /*mercpagoui.initEvents();
           llenarSelectMes('.js-expirationMonth');
           llenarSelectAnio('.js-expirationYear');
-          mercpagoui.initEvents();
-          consultarTokens();
-          if (params.tokens) {
-            var totalValue = params.tokens * 1000;
-            $('.js-tokens-default').val(params.tokens).prop('readonly',true);
-            $('.js-checkout-total').html('$ '+totalValue);
-            $('.js-id-solicitud').val(params.idpreciotrabajo);
-          }
+          mercpagoui.initEvents();*/
+          //consultarTokens();
+          initBraintree();
+          $('.js-id-solicitud').val(params.idpreciotrabajo);
+          $('.js-checkout-total').val(params.valor);
+          $('.js-nickname').val(window.localStorage.getItem('nickname'));
+          $('.js-client-token').val(window.localStorage.getItem('bt_token'));
+          /*if (params.tokens) {
+            var ajax = $.ajax({
+              type : 'post',
+              url : waooserver+"/usuarios/cantidadTokens",
+              dataType: "json",
+              data : {nickname:window.localStorage.getItem("nickname")}
+            });
+            (function (extraParams) {
+              ajax.done(function (resp) {
+                var actual = resp.msg * 1;
+                var required = extraParams.tokens - actual;
+                var totalValue = required * 1000;
+                $('.js-tokens-default').val(required);
+                $('.js-checkout-total').html('$ '+totalValue);
+                $('.js-id-solicitud').val(extraParams.idpreciotrabajo);
+              });
+            })(params);
+          }*/
         },1000);
         break;
       default:
@@ -210,6 +281,7 @@ jQuery(document).ready(function() {
 
 	cargarBancoSelect("banco");
 	listaChecksMateria("matsreg");
+  $(document).off('submit','.js-pago-efectivo').on('submit','.js-pago-efectivo',procesaPagoEfectivo);
   //lib raty
   $.fn.raty.defaults.path = './images';
 

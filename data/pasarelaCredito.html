@@ -1,0 +1,39 @@
+<div class="pages">
+  <div data-page="success" class="page no-toolbar no-navbar">
+    <div class="page-content">
+      <div class="navbarpages">
+        <div class="navbar_left"><a href="#" onclick="cargaPagina('index.html',0);"><img src="images/icons/blue/menu.png" alt="" title="" /></a></div>
+        <div class="navbar_center"><h2><a href="#" onclick="cargaPagina('index.html',0);"><img class="header-logo" src="images/logo.png" alt="waoo" /></a></h2></div>
+        <div class="navbar_right"><a href="#" data-panel="right" class="open-panel"><img src="images/icons/blue/user.png" alt="" title="" /></a></div>
+      </div>
+      <div id="pages_maincontent">
+        <div class="page_content">
+          <h2 class="">Proceder a pago</h2>
+          <!--<div class="row center-block">
+            <ul class="responsive_table">
+              <li class="table_row">
+                <span class="soft">Actualmente cuentas con  <span class="js-cantidad-tokens">0</span> tokens.</span>
+              </li>
+            </ul>
+          </div>-->
+          <form method="post" class="js-payment-form" action="">
+            <section class="contactform">
+              <div class="form_row">
+                <label for="amount" class="heading">Valor</label>
+                <input type="text" name="amount" id="amount" class="js-checkout-total form_input" readonly>
+                <input type="hidden" class="js-id-solicitud" value="0" name="idpreciotrabajo">
+                <input type="hidden" class="js-nickname" value="" name="nickname">
+                <input type="hidden" class="js-client-token" value="" name="clientauth">
+              </div>
+              <div class="bt-drop-in-wrapper">
+                <div class="js-dropin-container"></div>
+              </div>
+            </section>
+            <input id="nonce" name="payment_method_nonce" type="hidden" />
+            <button class="button btn-lg btn-block" type="submit"><span>Enviar</span></button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+ </div>

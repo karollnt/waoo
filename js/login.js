@@ -447,12 +447,10 @@ function actualizarCuenta() {
 }
 
 function actualizarToken() {
-	var token = window.localStorage.getItem("devToken");
+  var token = window.localStorage.getItem("devToken");
   if (!token) {
-    window.plugins.OneSignal.registerForPushNotifications();
     window.plugins.OneSignal.getIds(function(ids) {
-      window.localStorage.setItem('devToken',ids.pushToken);
-      alert("userId = " + ids.userId + "\npushToken = " + ids.pushToken);
+      window.localStorage.setItem('devToken',ids.userId);
       setToken(window.localStorage.getItem("devToken"));
     });
   }
@@ -460,7 +458,7 @@ function actualizarToken() {
 
 function setToken(token) {
   var usuario = window.localStorage.getItem("nickname");
-	var plataforma = window.localStorage.getItem("plataforma");
+  var plataforma = window.localStorage.getItem("plataforma");
   if(token != null) {
     $.ajax({
       type : 'post',
@@ -471,4 +469,27 @@ function setToken(token) {
       error: function(e) {}
     });
   }
+}
+// LLAMADA AJAX DEL CONTROLADOR DE NIVELES
+
+function cargarNivelesSelect(id){
+	$("#"+id).html('');
+	$.ajax({
+		type: "post",
+		url: waooserver+"/usuarios/listaNivelEducativo",
+		dataType: "json",
+		data: "",
+		success: function(resp) {
+			
+			if(resp.error) $("#"+id).append("<option value='0'>"+resp.error+"</option>");
+			else{
+				$.each(resp.niveles,function(i,v){
+					$("#"+id).append("<option value='"+v.id+"'>"+v.nombre+"</option>");
+				});
+			}
+		},
+		error: function(e) {
+			alert('Error al conectar: ' + e.message);
+		}
+	});
 }

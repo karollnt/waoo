@@ -48,6 +48,12 @@ function cargarMateriaSelect(id){
 	});
 }
 
+
+
+
+
+
+
 function cargaSolicitudesUsuario(nickname){
 	$.ajax({
 		type: "post",
@@ -156,22 +162,25 @@ function listarSolicitudesCreadasMatDiv(id){
 			else{
 				if(resp.msg=="[No hay solicitudes]") $("#"+id).html("<div class='alert'>"+(resp.msg)+"</div>");
 				else{
-					$("#"+id).html("<div class='alert table-responsive'>"
-						+"<table id='tblmat_"+id+"' class='table table-condensed'>"
-							+"<tr><th>T&iacute;tulo</th><th>Asistente</th><th class='al-right'>Estado</th></tr>"
-						+"</table>"
-						+"<div id='detsols_"+id+"' class='alert'></div>"
-					+"</div>");
+					$("#"+id).html(
+            '<div id="detsols_'+id+'" class="alert"></div>'
+            +'<ul id="tblmat_'+id+'" class="features_list_detailed"></ul>'
+          );
 					var json = JSON.parse(resp.msg);
 					$.each(json,function(i2,v){
-						$("#tblmat_"+id).append("<tr>"
-							+"<td>"+((v.titulo).substring(0,10)+"...")+"</td>"
-							+"<td>"+(v.asistente)+"</td>"
-							+"<td class='al-right' style='vertical-align: bottom;'>"
-								+v.estado
-								+"<img style='margin:0;cursor:pointer;display:inline;' src='images/icons/blue/plus.png' onclick='verDetalleSolicitud("+v.id+",\"detsols_"+id+"\""+(v.asistente!='sinasistente'?',1':'')+");'>"
-							+"</td>"
-						+"</tr>");
+						$("#tblmat_"+id).append(
+              '<li style="cursor:pointer;" onclick="verDetalleSolicitud(\''+v.id+'\',\'detsols_'+id+'\''+(v.asistente!='sinasistente'?',1':'')+');">'
+                +'<div class="feat_small_icon"><img src="images/icons/blue/favorites.png" alt="" title="" /></div>'
+                +'<div class="feat_small_details">'
+                  +'<h4><a href="#">'+((v.titulo).length > 30 ? (v.titulo).substring(0,30)+'...' : v.titulo)+'</a></h4>'
+                  +'<span><b>Tutor</b>: '+v.asistente+'</span><br/>'
+                  +'<span><b>Estado</b>: '+v.estado+'</span>'
+                +'</div>'
+                +'<span class="plus_icon">'
+                  +'<img style="margin:0;cursor:pointer;display:inline;" src="images/icons/blue/plus.png" />'
+                +'</span>'
+              +'</li>'
+            );
 					});
 				}
 			}
@@ -221,7 +230,7 @@ function verDetalleSolicitud(id,iddiv,oferta){
 								+(oferta==0 ?
 									"<button type='button' class='btn btn-primary btn-lg btn-block' onclick='ventanaOfertas("+v.id+");'>Ver ofertas</button>"
 									:(v.idestado==1 ?
-										"<input id='voferta' type='number' class='form-control' placeholder='¿Cu&aacute;ntos tokens cobrar&iacute;as por hacer este trabajo? (solo n&uacute;meros, 1 token = $1000)'>"
+										"<input id='voferta' type='number' class='form-control' placeholder='¿Cu&aacute;nto cobrar&iacute;as por hacer este trabajo? (solo n&uacute;meros)'>"
 										+"<button type='button' class='btn btn-primary btn-lg btn-block' onclick='ofertar("+v.id+",this);'>Hacer oferta</button>"
 										:(v.idestado==2 && (v.asistente==window.localStorage.getItem("nickname"))
 											?"<button type='button' class='btn btn-primary btn-lg btn-block' onclick='abrirSolucion("+v.id+",this);'>Enviar soluci&oacute;n</button>"
@@ -230,7 +239,7 @@ function verDetalleSolicitud(id,iddiv,oferta){
 												:""
 											)
 										)
-										+(v.idestado>1 && (v.asistente==window.localStorage.getItem("nickname") || v.usuario==window.localStorage.getItem("nickname"))
+										+(v.idestado>1 && v.idestado<4 && (v.asistente==window.localStorage.getItem("nickname") || v.usuario==window.localStorage.getItem("nickname"))
 											? "<button type='button' class='btn btn-primary btn-lg btn-block' onclick='ventanaSustentacion("+v.id+");''>Sustentaci&oacute;n</button>" : "")
 									)
 								)
@@ -269,6 +278,7 @@ function verModalSolicitud(id,oferta){
 function alertDetail(txt){
 	$("#detalletext-cnt").html("");
 	$("#detalletext").show();
+	$("#detalletext").css({"position": "fixed", "z-index": "1", "width": "90%", "background-color": "white"});
 	$("#detalletext-cnt").html(txt);
 }
 
@@ -293,7 +303,7 @@ function listarArchivosSolicitud(id,iddiv){
 								"<tr>"
 									+"<td style='vertical-align:bottom !important;'>"
 										+"Archivo "+(i2+1)+" por "+v.usuario+" ("+v.tipoarchivo+") "
-										// +"<img style='display:inline !important; cursor:pointer;' src='images/icons/blue/plus.png' onclick='window.open(\""+filesUrl+v.nombrearchivo+"\");'>"
+										// +"<img style='display:inline !important; cursor:pointer;' src='images/icons/blue/plus.png' onclick='window.open(\""+filesUrl+v.nombrearchivo+"\",\"_system\");'>"
 										+"<img style='display:inline !important; cursor:pointer;' src='images/icons/blue/plus.png' onclick='verArchivoSolicitud("+v.id+");'>" //web y android
 									+"</td>"
 								+"</tr>");
@@ -365,7 +375,7 @@ function verOfertas(id,iddiv){
 									+"<a href='#'>"+v.asistente+"</a> <span class='stars' title='"+v.calificacion+"'>"+v.calificacion+"</span>"
                   +"<span>("+v.calificacion+")</span>"
 								+"</h4>"
-								+"<div class='shop_item_price'>"+v.valor+" Waoo Tokens</div>"
+								+"<div class='shop_item_price'>$ "+v.valor+"</div>"
 							+"</div>"
 							+"<a id='addtocart' style='cursor:pointer;' onclick='aceptarOferta("+v.id+","+v.valor+");'>ACEPTAR</a>"
 						+"</li>");
@@ -434,12 +444,13 @@ function verSolucion(id){
 }
 
 function aceptarSolucion(id){
-	var califica = $("#calificacion").val();
+  var califica = $("#calificacion").val();
+  var comentario = $("#comentario").val();
 	$.ajax({
 		type : 'post',
 		url : waooserver+"/solicitudes/aceptarSolucion",
 		dataType: "json",
-		data : {idtrabajo:id, calificacion:califica},
+		data : {idtrabajo:id, calificacion:califica, comentario:comentario},
 		success : function(resp) {
 			alert(resp.msg);
 		},
@@ -449,7 +460,7 @@ function aceptarSolucion(id){
 	});
 }
 
-function aceptarOferta(id,valor) {
+function aceptarOferta0(id,valor) {
 	$.ajax({
 		type : 'post',
 		url : waooserver+"/solicitudes/aceptarPrecio",
@@ -462,13 +473,13 @@ function aceptarOferta(id,valor) {
 			else{
 				alert(resp.msg);
 				if(resp.msg=='No tienes saldo suficiente'){
-          cargaPagina('data/pasarela.html',10, {idpreciotrabajo:id, tokens:valor});
+          cargaPagina('data/pasarelaCredito.html',10, {idpreciotrabajo:id, tokens:valor});
         }
         else {
 					cargaPagina('data/chats.html');
 					setTimeout(function () {
 						misendbird.setChannel('');
-						misendbird.init(0,resp.nickasistente);
+						misendbird.init(0,resp.nickasistente,id);
 					},200);
 				}
 			}
@@ -477,6 +488,44 @@ function aceptarOferta(id,valor) {
 			alert(e.message);
 		}
 	});
+}
+
+function aceptarOferta(id, valor) {
+  cargaPagina('data/pasarelaCredito.html', 10, { idpreciotrabajo: id, valor: valor });
+}
+
+function efectuarPagoBT(formSelector) {
+  var formData = $(formSelector).serialize();
+  var ajx = $.ajax({
+    type: 'post',
+    url: waooserver + '/solicitudes/procesarPagoBT',
+    dataType: 'json',
+    data: formData
+  });
+  ajx.done(function (resp) {
+    if (resp.msg.indexOf('Pago recibido satisfactoriamente') > -1) {
+      cargaPagina('data/chats.html');
+      setTimeout(function () {
+        misendbird.setChannel('');
+        misendbird.init(0, resp.nickasistente, resp.id);
+      }, 400);
+    }
+    else {
+      alert(resp.msg);
+    }
+  })
+  .fail(function (e) {
+    alert('Error: ' + e.message);
+  });
+}
+
+function notificarAperturaChatOfertaAceptada(idpreciotrabajo,nickasistente,urlChat) {
+  var ajax = $.ajax({
+    type: 'post',
+    url: waooserver+'/solicitudes/notificarAperturaChatOfertaAceptada',
+    dataType: 'json',
+    data: {nickasistente: nickasistente, urlChat: urlChat, idpreciotrabajo: idpreciotrabajo}
+  });
 }
 
 function agregarFilaArchivo(){
@@ -517,7 +566,7 @@ function ventanaSustentacion(idtrabajo) {
 				cargaPagina('data/chats.html');
 				setTimeout(function () {
 					misendbird.setChannel(resp.msg);
-					misendbird.init(0,resp.nickusr);
+					misendbird.init(0,resp.nickusr,-1);
 				},200);
 			}
 		},
@@ -563,4 +612,84 @@ function historialTrabajosAceptados() {
 	.fail(function(e) {
 		alert('Error: ' + e.message);
 	});
+}
+
+
+function procesaPagoEfectivo(ev) {
+  ev.preventDefault();
+  var form = ev.target;
+  form.querySelector('.js-user').value = window.localStorage.getItem("nickname");
+  var formData = new FormData(form);
+  var ajx = $.ajax({
+    type: 'post',
+    url: waooserver+'/solicitudes/ingresarSoporte',
+    dataType: 'json',
+    data: formData,
+    async : false,
+    cache : false,
+    contentType : false,
+    processData : false
+  });
+  ajx.done(function (resp) {
+    alert(resp.msg);
+  })
+  .fail(function (e) {
+    alert('Error: ' + e.message);
+  });
+}
+var mis_datos =  "";
+function obtener_datos(id) {
+
+	$("#"+id).html('');
+	$.ajax({
+		type: "post",
+		url: waooserver+"/materias/listarMaterias",
+		dataType: "json",
+		data: "",
+		success: function(data) {
+		
+		mis_datos = data.materias;
+
+		},
+		error: function(e) {
+			alert('Error: ' + e.message);
+		}
+	});
+}
+
+function Validar_existe(dato){
+
+     $("#lista_tareas").html('');
+     var existe=0;
+
+     for (var i = 0; i <= mis_datos.length-1; i++) {
+     var str = mis_datos[i].nombre.toLowerCase();
+     var n = str.indexOf(dato.toLowerCase());
+     if (n>-1) {
+     $("#lista_tareas").append('<label class="radio_tareas"><input type="radio" name="idmateria"  value="'+mis_datos[i].id+'">'+mis_datos[i].nombre+'</label>');
+       existe=1;
+     }
+     }
+     
+     if (existe==0) {
+     $("#lista_tareas").html('Si no encuentras tu materia por favor contactate con <a href="#" onclick="cargaPagina("data/soporte.html",7);">Nosotros</a>');
+     }
+     $("#lista_tareas").show('slow');
+
+}
+
+function Buscar_nombre_seleccionado(id){
+
+   
+     for (var i = 0; i <= mis_datos.length-1; i++) {
+    
+     if (mis_datos[i].id==id) {
+        $("#lista").val(mis_datos[i].nombre)
+
+     }
+
+     }
+     
+
+
 }
