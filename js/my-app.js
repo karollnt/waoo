@@ -10,7 +10,8 @@ var myApp = new Framework7({
 });
 
 //backend server address
-var waooserver = "http://localhost/waoobackend";
+var waooserver = "http://waoo.herokuapp.com";
+// var waooserver = "http://localhost/waoobackend";
 //para notificaciones
 var tareanotificaciones = null;
 

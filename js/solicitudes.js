@@ -444,12 +444,13 @@ function verSolucion(id){
 }
 
 function aceptarSolucion(id){
-	var califica = $("#calificacion").val();
+  var califica = $("#calificacion").val();
+  var comentario = $("#comentario").val();
 	$.ajax({
 		type : 'post',
 		url : waooserver+"/solicitudes/aceptarSolucion",
 		dataType: "json",
-		data : {idtrabajo:id, calificacion:califica},
+		data : {idtrabajo:id, calificacion:califica, comentario:comentario},
 		success : function(resp) {
 			alert(resp.msg);
 		},
