@@ -373,9 +373,13 @@ function verOfertas(id,iddiv){
 							+"<div class='shop_item_details'>"
 								+"<h4 style='position:initial !important;'>"
 									+"<a href='#'>"+v.asistente+"</a> <span class='stars' title='"+v.calificacion+"'>"+v.calificacion+"</span>"
-                  +"<span>("+v.calificacion+")</span>"
+                                                     +"<span>("+v.calificacion+")</span>"
 								+"</h4>"
+								//MOSTRANDO INFORMACION DE LA TABLA DE DATOS USUARIOS
+									  					+"<div class=''><h4 class='shop_item_price' style='position:initial !important;'>institucion: </h4>"+v.institucion+"</div>"
+								+"<div class=''><h4 class='shop_item_price' style='position:initial !important;'>Nivel Educativo: </h4>"+v.nivel+"</div>"
 								+"<div class='shop_item_price'>$ "+v.valor+"</div>"
+								+"<div class=''><h4 class='shop_item_price' style='position:initial !important;' >Experiencia : </h4><h4 style='font-size : 13px;position:initial !important; text-align: justify;''>"+v.descripcion+"</h4></div>"
 							+"</div>"
 							+"<a id='addtocart' style='cursor:pointer;' onclick='aceptarOferta("+v.id+","+v.valor+");'>ACEPTAR</a>"
 						+"</li>");
