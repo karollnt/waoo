@@ -74,14 +74,14 @@ function register2(){
 	$.ajax({
 		type: "post",
 		url: waooserver+"/usuarios/crearUsuario",
-		dataType: "json",
     data: formData,
     async: false,
     cache: false,
     contentType: false,
     processData: false,
 		success: function(resp) {
-			alert(resp.msg);
+      var json = JSON.parse(resp);
+			alert(json.msg);
 			$("#RegisterForm2")[0].reset();
 			misendbird.preInit($('.js-assistant-reg').val());
 			location.href = 'index.html';
