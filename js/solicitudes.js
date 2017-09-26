@@ -354,6 +354,7 @@ function ofertar(id,elem){
 }
 
 function verOfertas(id,iddiv){
+
 	$("#"+iddiv).html("");
 	$.ajax({
 		type : 'post',
@@ -369,21 +370,23 @@ function verOfertas(id,iddiv){
 					var json = JSON.parse('['+resp.msg+']');
 					$.each(json,function(i2,v){
 						$("#"+iddiv+" ul").append("<li>"
-							+"<div class='shop_thumb' style='position:initial !important;'><img class='js-shop-thumb-"+v.asistente+"' src=''></div>"
-							+"<div class='shop_item_details'>"
+							    +"<div class='shop_thumb' style='position:initial !important;'><img class='js-shop-thumb-"+v.asistente+"' src=''></div>"
+							    +"<div class='shop_item_details'>"
 								+"<h4 style='position:initial !important;'>"
-									+"<a href='#'>"+v.asistente+"</a> <span class='stars' title='"+v.calificacion+"'>"+v.calificacion+"</span>"
-                                                     +"<span>("+v.calificacion+")</span>"
+								+"<a href='#'>"+v.asistente+"</a> <span class='stars' title='"+v.calificacion+"'>"+v.calificacion+"</span>"
+                                +"<span>("+v.calificacion+")</span>"
 								+"</h4>"
-								//MOSTRANDO INFORMACION DE LA TABLA DE DATOS USUARIOS
-									  					+"<div class=''><h4 class='shop_item_price' style='position:initial !important;'>institucion: </h4>"+v.institucion+"</div>"
+								+"<div class=''><h4 class='shop_item_price' style='position:initial !important;'>institucion: </h4>"+v.institucion+"</div>"
 								+"<div class=''><h4 class='shop_item_price' style='position:initial !important;'>Nivel Educativo: </h4>"+v.nivel+"</div>"
-								+"<div class='shop_item_price'>$ "+v.valor+"</div>"
+								+"<div class=''><h4 class='shop_item_price' style='position:initial !important;'>Precio: </h4></div>"
+								+"<div class='shop_item_price'> $ "+v.valor+"</div>"
+								+"<div id='com"+i2+"'><h4 class='shop_item_price' style='position:initial !important;'>Comentarios:</h4></div>"
 								+"<div class=''><h4 class='shop_item_price' style='position:initial !important;' >Experiencia : </h4><h4 style='font-size : 13px;position:initial !important; text-align: justify;''>"+v.descripcion+"</h4></div>"
 							+"</div>"
 							+"<a id='addtocart' style='cursor:pointer;' onclick='aceptarOferta("+v.id+","+v.valor+");'>ACEPTAR</a>"
 						+"</li>");
 						colocarAvatarOf(".js-shop-thumb-"+v.asistente,v.asistente);
+						MostrarComentariosTutor(v.idasistente,i2);
 					});
 					$('.stars').stars();
 				}
@@ -682,4 +685,29 @@ function buscar_nombre_seleccionado(id){
       $("#lista").val(mis_datos[i].nombre)
     }
   }
+}
+
+//Mostrar comentarios tutor
+function MostrarComentariosTutor(id,capa){
+
+	$.ajax({
+		type: "post",
+		url: waooserver+"/usuarios/MostrarComentariosTutor",
+		dataType: "json",
+		 data: {
+            id: id,
+        },
+		success: function(data) {
+		
+		$("#com"+capa).append("<div><br><ul>");
+	    for (var i = 0; i <= data.comen.length-1; i++) {
+	    	
+         $("#com"+capa).append("<li>"+data.comen[i].comentario+"</li>")
+		}
+		$("#com"+capa).append("</ul></div> ")    
+		},
+		error: function(e) {
+			alert('Error: ' + e.message);
+		}
+	});
 }
