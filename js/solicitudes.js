@@ -702,7 +702,7 @@ function MostrarComentariosTutor(id,capa){
 		$("#com"+capa).append("<div><br><ul>");
 	    for (var i = 0; i <= data.comen.length-1; i++) {
 	    	
-         $("#com"+capa).append("<li>"+data.comen[i].comentario+"</li>")
+          $("#com"+capa).append("<li>"+data.comen[i].comentario+"<b class='shop_item_price' > Materia : </b>"+ data.comen[i].materia+"</li>")
 		}
 		$("#com"+capa).append("</ul></div> ")    
 		},
