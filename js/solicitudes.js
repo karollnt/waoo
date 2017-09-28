@@ -467,21 +467,24 @@ function aceptarSolucion(id){
 	});
 }
 
-function aceptarOferta0(id,valor) {
+function aceptarOferta(id,valor) {
+
 	$.ajax({
 		type : 'post',
 		url : waooserver+"/solicitudes/aceptarPrecio",
 		dataType: "json",
 		data : {idpreciotrabajo:id,valor:valor},
 		success : function(resp) {
+		
 			if(resp.error){
 				alert(resp.error);
 			}
 			else{
-				alert(resp.msg);
-				if(resp.msg=='No tienes saldo suficiente'){
-          cargaPagina('data/pasarelaCredito.html',10, {idpreciotrabajo:id, tokens:valor});
-        }
+		
+				if(valor>resp.msg){
+					valor = valor - resp.msg; 
+              cargaPagina('data/pasarelaCredito.html',10, {idpreciotrabajo:id, valor :valor});
+         }
         else {
 					cargaPagina('data/chats.html');
 					setTimeout(function () {
@@ -497,7 +500,8 @@ function aceptarOferta0(id,valor) {
 	});
 }
 
-function aceptarOferta(id, valor) {
+
+function aceptarOferta0(id, valor) {
   cargaPagina('data/pasarelaCredito.html', 10, { idpreciotrabajo: id, valor: valor });
 }
 
