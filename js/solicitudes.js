@@ -553,9 +553,16 @@ function consultarTokens() {
 		dataType: "json",
 		data : {nickname:window.localStorage.getItem("nickname")},
 		success : function(resp) {
+			
 			if(resp.error) alert(resp.error);
 			else{
+				if (resp.msg>0) {
 				$('.js-cantidad-tokens').html(resp.msg);
+				$('#cantidad-tokens').show("fast");	
+			}else{
+    
+			    $('#cantidad-tokens').hide("fast");	
+			}
 			}
 		},
 		error: function(e) {
