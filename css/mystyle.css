@@ -45,3 +45,7 @@ ul.features_list_detailed li .feat_small_details h4 {position: static;}
   max-height: 200px;
   overflow-y: auto;
 }
+
+.bt-drop-in-wrapper {
+  clear: both;
+}

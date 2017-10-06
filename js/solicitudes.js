@@ -368,6 +368,7 @@ function verOfertas(id,iddiv){
         else{
           var json = JSON.parse('['+resp.msg+']');
           $.each(json,function(i2,v){
+            var calificacion = formatRound(v.calificacion,2);
             $("#"+iddiv+" ul").append("<li>"
               +"<div class='shop_thumb' style='position:initial !important;'><img class='js-shop-thumb-"+v.asistente+"' src=''></div>"
               +"<div class='shop_item_details'>"
@@ -376,8 +377,8 @@ function verOfertas(id,iddiv){
                     +"<h4 style='position:initial !important;'>"
                       +"<a href='#'>"+v.asistente+"</a>"
                       +"<br>"
-                      +"<span class='stars' title='"+v.calificacion+"'>"+v.calificacion+"</span>"
-                      +"<span>("+v.calificacion+")</span>"
+                      +"<span class='stars' title='"+calificacion+"'>"+calificacion+"</span>"
+                      +"<span>("+calificacion+")</span>"
                     +"</h4>"
                     +"<h4 class='shop_item_price' style='position:initial !important;'>Precio: </h4>"
                     +"<div><b>$ "+v.valor+"</b></div>"
