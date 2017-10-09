@@ -718,7 +718,7 @@ function validar_existe(dato){
     }
   }
   if (existe==0) {
-    $("#lista_tareas").html('Si no encuentras tu materia por favor contactate con <a href="#" onclick="cargaPagina("data/soporte.html",7);">Nosotros</a>');
+    $("#lista_tareas").html('Si no encuentras tu materia por favor contactate con <a href="#" onclick="cargaPagina(\'data/soporte.html\',7);">Nosotros</a>');
   }
   $("#lista_tareas").show('slow');
 }
