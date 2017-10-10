@@ -58,6 +58,8 @@ function register(){
 		dataType: "json",
 		data: datos,
 		success: function(resp) {
+      window.localStorage.setItem("nickname", $(".js-user-reg").val());
+      actualizarToken();
 			alert(resp.msg);
 			$("#RegisterForm")[0].reset();
 			misendbird.preInit($('.js-user-reg').val());
@@ -81,6 +83,8 @@ function register2(){
     processData: false,
 		success: function(resp) {
       var json = JSON.parse(resp);
+      window.localStorage.setItem("nickname", $('.js-assistant-reg').val());
+      actualizarToken();
 			alert(json.msg);
 			$("#RegisterForm2")[0].reset();
 			misendbird.preInit($('.js-assistant-reg').val());
@@ -455,7 +459,7 @@ function actualizarToken() {
   if (!token) {
     window.plugins.OneSignal.getIds(function(ids) {
       window.localStorage.setItem('devToken',ids.userId);
-      setToken(window.localStorage.getItem("devToken"));
+      setToken(ids.userId);
     });
   }
 }

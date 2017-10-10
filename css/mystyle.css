@@ -34,3 +34,18 @@ ul.features_list_detailed li .feat_small_details h4 {position: static;}
   bottom: 0;
   right: 0;
 }
+
+.assistant-data {
+  max-height: 300px;
+  max-width: 100%;
+  overflow-y: auto;
+}
+
+.assistant-comments {
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.bt-drop-in-wrapper {
+  clear: both;
+}

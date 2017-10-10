@@ -135,7 +135,7 @@ function cargaPagina(url,num,params){
           llenarSelectMes('.js-expirationMonth');
           llenarSelectAnio('.js-expirationYear');
           mercpagoui.initEvents();*/
-          //consultarTokens();
+          consultarTokens();
           initBraintree();
           $('.js-id-solicitud').val(params.idpreciotrabajo);
           $('.js-checkout-total').val(params.valor);
